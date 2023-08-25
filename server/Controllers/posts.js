@@ -23,6 +23,7 @@ const createPost = async (req, res) => {
 const updatePost = async(req, res) => {
     const { id } = req.params;
     const post = await Post.findOneAndUpdate({_id:id}, req.body);
+    console.log(req.body)
     res.send(post);
 };
 
