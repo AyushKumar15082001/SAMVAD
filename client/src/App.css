@@ -39,6 +39,8 @@
 .container{
   margin: 10px 80px;
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .post{
   margin: 0 30px;

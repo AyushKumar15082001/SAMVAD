@@ -2,8 +2,10 @@ const express = require('express');
 const { getPosts, createPost, updatePost, deletePost } = require('./Controllers/posts');
 const app = express();
 const port = 3000;
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 //get posts
 app.get('/posts', getPosts);

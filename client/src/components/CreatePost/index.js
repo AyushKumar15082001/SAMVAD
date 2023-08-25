@@ -3,9 +3,11 @@ import {TbPhotoFilled} from 'react-icons/tb'
 import {AiFillPlayCircle} from 'react-icons/ai'
 import {FaUpload} from 'react-icons/fa'
 import {BsCalendarWeek} from 'react-icons/bs'
-// import { useState } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
 
-const CreatePost = () => {
+const CreatePost = (props) => {
+    const {firstName,lastName,userName} = props.user;
     // const [title, setTitle] = useState('')
     // const [content, setContent] = useState('')
     // const [image, setImage] = useState('')
@@ -34,25 +36,27 @@ const CreatePost = () => {
     //         console.log(err)
     //     }
     // }
+    const [text,setText] = useState('');
+    const submitHandler = (e)=>{
+        e.preventDefault();
+        // console.log(text);
+        //store the post in the database
+        axios.post('http://localhost:3000/posts',{text,firstName,lastName,userName}).then(res=>{
+            props.newTweetHandler(res.data);
+            // console.log(res.data);
+        }).catch(err=>{
+            console.log(err);
+        })
+        setText('');
+    }
 
     return (
         <div className={Styles.createPost}>
-            {/* <h1>Create Post</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <textarea placeholder="Content" value={content} onChange={(e) => setContent(e.target.value)} />
-                <input type="text" placeholder="Image URL" value={image} onChange={(e) => setImage(e.target.value)} />
-                <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="Technology">Technology</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Food">Food</option>
-                    <option value="Travel">Travel</option>
-                </select>
-                <button type="submit">Create</button>
-            </form> */}
             <div className={Styles.createPostContainer}>
-                <input type="text"  placeholder='Create New Post'/>
+                <form onSubmit={submitHandler}>
+                <input type="text" value={text} onChange={e=>setText(e.target.value)} placeholder='Create New Post'/>
                 <button type='submit'>Post</button>
+                </form>
             </div>
             <div className={Styles.buttons}>
                 <button>
