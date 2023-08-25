@@ -28,7 +28,11 @@
     border: none;
     padding: 0 20px;
     font-size: 1.2rem;
-    background-color: #2a3843;
+    background-color: #1b2730;
+    color: #8c9aa8;
+}
+input::placeholder{
+    color: #49545e;
 }
 .nav_right{
     flex: 0.7;
