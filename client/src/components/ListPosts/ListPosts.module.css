@@ -1,0 +1,112 @@
+.post{
+    background: #1b27309e;
+    margin-top: 20px;
+    border-radius: 15px;
+    display: flex;
+    max-width: 730px;
+    padding-bottom: 15px;
+}
+.postContent{
+    width: 100%;
+    margin-right: 30px;
+}
+.postHeader{
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+}
+.postHeaderLeft{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: baseline;
+    margin-right: 10px;
+}
+.post img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    margin: 25px 15px;
+    
+}
+.postHeaderInfo{
+    display: flex;
+    flex-direction: column;
+    /* height: 50px; */
+}
+.postHeaderInfo h2{
+    color: white;
+    /* line-height: 0.5; */
+}
+.postHeaderInfo h5{
+    color: #49545e;
+    /* margin: -10px; */
+    /* line-height: 0.5; */
+    margin-top: -20px;
+    font-size: 17px;
+    font-weight: 500;
+}
+.postUserName{
+    color: #49545e;
+    margin-left: 10px;
+    /* margin-top: 10px; */
+    /* padding-bottom: -10px; */
+    transform: translateY(-2px);
+    font-weight: 500;
+    font-size: 17px;
+}
+.postHeaderRight{
+    color: white;
+    font-size: 40px;
+    margin-right: 5px;
+}
+.postBody{
+    color: white;
+    /* margin: 0 15px; */
+    margin-top: -30px;
+    /* font-size: 20px; */
+}
+.postButtons{
+    display: flex;
+    justify-content: space-between;
+    /* margin: 0 15px; */
+    /* margin-top: 10px; */
+    /* margin-bottom: 10px; */
+    /* padding-bottom: 10px; */
+    /* border-bottom: 1px solid #2a3843; */
+    /* padding-bottom: 10px; */
+}
+.postButton{
+    background: #2a3843;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin: 0 15px; */
+    border-radius: 15px;
+    /* padding: 0px 60px; */
+    width: 170px;
+    height: 50px;
+    font-size: 16px;
+    /* font-weight: 500; */
+    cursor: pointer;
+}
+.postButton svg{
+    margin-right: 10px;
+    font-size: 20px;
+}
+.shareButton{
+    background: transparent;
+    border: 1px solid #8c9aa8;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}

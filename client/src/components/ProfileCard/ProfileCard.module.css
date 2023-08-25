@@ -1,50 +1,41 @@
 .banner{
     background-color: #1c628f;
-    /* width: 350px; */
     height: 120px;
 }
 .card{
     width: 390px;
-    /* height: 350px; */
-    /* margin-top: -100px;
-    margin-left: 20px; */
     border-radius: 20px;
     overflow: hidden;
-    /* background-color: #1b2730; */
     background-color: #1b27309e;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 .profile{
-    /* width: 100%;
-    height: 100%; */
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; */
     align-items: center;
     border-bottom: 1px solid #2a3843;
 }
 .profileImage{
-    /* width: 150px; */
-    /* height: 150px; */
     border-radius: 50%;
     border: 2px solid #fff;
     margin-top: -50px;
-    /* margin-left: 20px; */
-    /* box-shadow: 0 0 10px rgba(0,0,0,0.5); */
     display: flex;
     justify-content: center;
     align-items: center;
     width: fit-content;
+    background-color: #fff;
+    overflow: hidden;
 }
 .profileImage img{
     width: 100px;
     height: 100px;
     object-fit: cover;
+    /* background-color: #fff; */
 }
 .profileInfo{
     text-align: center;
     margin-top: 10px;
-    color: #fff;
+    /* color: #fff; */
     font-size: 20px;
 }
 .profileInfo h3{
@@ -56,12 +47,12 @@
     color: #49545e;
     margin-top: -10px;
     font-size: 20px;
+    font-weight: 500;
 }
 .profileStats{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* margin-top: 20px; */
     padding: 0 20px;
     border-bottom: 1px solid #2a3843;
 }
@@ -69,11 +60,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* line-height: 0.3; */
 }
 .followingCount h3, .followersCount h3{
     color: #fff;
-    /* font-size: 20px; */
 }
 .followingCount h4, .followersCount h4{
     color: #49545e;
@@ -82,4 +71,7 @@
 .FindPeople{
     text-align: center;
     color: #1c628f;
+}
+.FindPeople:hover{
+    cursor: pointer;
 }

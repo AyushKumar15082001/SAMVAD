@@ -1,0 +1,70 @@
+.createPost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #1b27309e;
+    border-radius: 10px;
+}
+.createPostContainer input{
+    width: 600px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    padding: 0 20px;
+    font-size: 1.2rem;
+    background-color: #2a3843;
+    color: #8c9aa8;
+}
+.createPostContainer input::placeholder{
+    color: #8c9aa8;
+}
+.createPostContainer input:focus{
+    outline: 1px solid #1c628f;
+}
+.createPostContainer button{
+    border-radius: 10px;
+    border: none;
+    padding: 0 15px;
+    font-size: 1.2rem;
+    background-color: transparent;
+    color: #8c9aa8;
+    cursor: pointer;
+    font-weight: bold;
+}
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.buttons button{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px solid #8c9aa8;
+    background-color: transparent;
+    color: #8c9aa8;
+    border-radius: 25px;
+    width: 125px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+}
+.photoIcon{
+    color: #1e9d73;
+    margin-right: 10px;
+    font-size: 20px;
+}
+button:nth-child(2) .photoIcon{
+    color: #3674d4;
+    
+}
+button:nth-child(3) .photoIcon{
+    color: #d15d5e;
+}
+button:nth-child(4) .photoIcon{
+    color: #daab4e;
+}

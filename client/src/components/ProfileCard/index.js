@@ -26,7 +26,7 @@ const ProfileCard = () => {
                 </div>
             </div>
             <div className={Styles.FindPeople}>
-                <h3>Find new People</h3>
+                <h4>Find new People</h4>
             </div>
         </div>
     )
