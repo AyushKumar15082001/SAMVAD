@@ -3,14 +3,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    username: {type: String, required: true, unique: true},
+    userName: {type: String, required: true, unique: true},
     firstName: {type: String, required: true},
     lastName: String,
-    password: {type: String, required: true},
+    password: {type: String, minLength:6, required: true},
     email: {type: String, required: true, unique: true},
     profilePic: String,
     bannerPic: String,
     date: { type: Date, default: Date.now },
+    token: String,
 
     // followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     // following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
@@ -23,3 +24,5 @@ const userSchema = new Schema({
     // likedReplies: [{ type: Schema.Types.ObjectId, ref: 'Reply' }],
     // retweetedReplies: [{ type: Schema.Types.ObjectId, ref: 'Reply' }],
 });
+const User = mongoose.model('User', userSchema);
+module.exports = {User};

@@ -11,7 +11,7 @@ import moment from 'moment';
 const ListPosts = ({newTweet}) => {
     const [tweets, setTweets] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3000/posts').then(res=>{
+        axios.get('http://localhost:8080/posts').then(res=>{
             // console.log(res.data);
             setTweets(res.data);
         }).catch(err=>{
@@ -19,11 +19,12 @@ const ListPosts = ({newTweet}) => {
         })
     },[])
     useEffect(() => {
-        if(newTweet){
-            setTweets([...tweets,newTweet]);
-        }
+        // if(newTweet){
+            setTweets(t=>[...t,newTweet]);
+        // }
         console.log(newTweet);
     },[newTweet]);
+    // if(newTweet)setTweets(t => [...t, newTweet]);
     return (
         <div className={Styles.container}>
             {/* <Post />

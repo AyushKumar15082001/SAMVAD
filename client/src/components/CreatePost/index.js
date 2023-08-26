@@ -41,7 +41,7 @@ const CreatePost = (props) => {
         e.preventDefault();
         // console.log(text);
         //store the post in the database
-        axios.post('http://localhost:3000/posts',{text,firstName,lastName,userName}).then(res=>{
+        axios.post('http://localhost:8080/posts',{text,firstName,lastName,userName}).then(res=>{
             props.newTweetHandler(res.data);
             // console.log(res.data);
         }).catch(err=>{
