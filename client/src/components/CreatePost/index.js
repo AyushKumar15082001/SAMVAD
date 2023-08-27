@@ -7,7 +7,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 const CreatePost = (props) => {
-    const {firstName,lastName,userName} = props.user;
+    const {name,userName} = props.user;
     // const [title, setTitle] = useState('')
     // const [content, setContent] = useState('')
     // const [image, setImage] = useState('')
@@ -41,7 +41,7 @@ const CreatePost = (props) => {
         e.preventDefault();
         // console.log(text);
         //store the post in the database
-        axios.post('http://localhost:8080/posts',{text,firstName,lastName,userName}).then(res=>{
+        axios.post('http://localhost:8080/posts',{text,name,userName}).then(res=>{
             props.newTweetHandler(res.data);
             // console.log(res.data);
         }).catch(err=>{

@@ -5,7 +5,7 @@ const { getUser, createUser, updateUser, deleteUser } = require('../Controllers/
 
 userRouter
 .get('/', getUser)
-.post('/', createUser)
+// .post('/', createUser)
 .patch('/:id', updateUser)
 .delete('/:id', deleteUser)
 

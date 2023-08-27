@@ -4,8 +4,8 @@ import {BiUserCircle} from 'react-icons/bi';
 import {CgMenuGridO} from 'react-icons/cg';
 import {IoMdArrowDropdown} from 'react-icons/io';
 import Styles from './Navbar.module.css';
-function Navbar(props) {
-  const {firstName,lastName} = props.userName;
+function Navbar({name}) {
+  // const {name} = props.userName; 
   // console.log("Navbar returns ",firstName,lastName);
   return (
     // <div className="navbar">
@@ -33,7 +33,7 @@ function Navbar(props) {
       <div className={Styles.nav_right}>
         <div className = {Styles.userName}>
           <BiUserCircle className={Styles.userIcon} />
-          <span>{firstName + " " + lastName}</span>
+          <span>{name}</span>
           <IoMdArrowDropdown className={Styles.arrowIcon} />
         </div>
         <div className={Styles.nav_menu}>

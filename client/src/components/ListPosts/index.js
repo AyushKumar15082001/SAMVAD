@@ -36,7 +36,7 @@ const ListPosts = ({newTweet}) => {
         </div>
     )
 }
-const Post = ({firstName, lastName, userName, text, likes, retweets, comments, date}) => {
+const Post = ({name, userName, text, likes, retweets, comments, date}) => {
     return (
         <div className={Styles.post}>
             <img src={Logo} alt="profile" />
@@ -44,7 +44,7 @@ const Post = ({firstName, lastName, userName, text, likes, retweets, comments, d
                 <div className={Styles.postHeader}>
                     <div className={Styles.postHeaderLeft}>
                         <div className={Styles.postHeaderInfo}>
-                            <h2>{firstName + " " + lastName}</h2>
+                            <h2>{name}</h2>
                             {/* <h5>3m ago</h5> */}
                             <h5>{moment(date).fromNow()}</h5>
                         </div>

@@ -1,32 +1,17 @@
-// import logo from './logo.svg';
-import './App.css';
-import Navbar from './components/Navbar';
-import ProfileCard from './components/ProfileCard';
-import CreatePost from './components/CreatePost';
-import ListPosts from './components/ListPosts';
-import { useState,useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
 
 function App() {
-  const [user,setUser] = useState({firstName:'',lastName:'',userName:'', followingCount:0, followersCount:0});
-  const [newTweet,setNewTweet] = useState('');
-  const newTweetHandler = (tweet)=>setNewTweet(tweet);
-  useEffect(() => {
-    setUser({firstName:'Ayush',lastName:'Kumar',userName:'coolAyush', followingCount:23, followersCount:25});
-  }, []);
-  // console.log("App returns ",user[firstName,lastName,userName]);
   return (
-    <div className="App">
-      {/* <div> */}
-        <Navbar userName = {{firstName:user.firstName, lastName:user.lastName}}/>
-      {/* </div> */}
-      <div className="container">
-        <ProfileCard {...user} />
-        <div className="post">
-          <CreatePost user = {{firstName:user.firstName, lastName:user.lastName, userName:user.userName}} newTweetHandler={newTweetHandler}/>
-          <ListPosts newTweet={newTweet} />
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
