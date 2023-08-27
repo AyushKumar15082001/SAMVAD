@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from './ProfileCard.module.css';
 import Logo from '../../logo.svg';
-const ProfileCard = ({name, userName, followersCount, followingCount}) => {
+const ProfileCard = ({name, username, followersCount, followingCount}) => {
     return (
         <div className={Styles.card}>
             <div className={Styles.banner}>
@@ -12,7 +12,7 @@ const ProfileCard = ({name, userName, followersCount, followingCount}) => {
                 </div>
                 <div className={Styles.profileInfo}>
                     <h3>{name}</h3>
-                    <h4>{"@"+userName}</h4>
+                    <h4>{"@"+username}</h4>
                 </div>
             </div>
             <div className={Styles.profileStats}>

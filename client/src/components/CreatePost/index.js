@@ -5,46 +5,25 @@ import {FaUpload} from 'react-icons/fa'
 import {BsCalendarWeek} from 'react-icons/bs'
 import { useState } from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom';
 
-const CreatePost = (props) => {
-    const {name,userName} = props.user;
-    // const [title, setTitle] = useState('')
-    // const [content, setContent] = useState('')
-    // const [image, setImage] = useState('')
-    // const [category, setCategory] = useState('')
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     const post = {
-    //         title,
-    //         content,
-    //         image,
-    //         category
-    //     }
-    //     console.log(post)
-    //     try {
-    //         const response = await fetch('http://localhost:5000/posts', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(post)
-    //         })
-    //         const data = await response.json()
-    //         console.log(data)
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+const CreatePost = ({name,username, newTweetHandler}) => {
     const [text,setText] = useState('');
+    const navigate = useNavigate();
     const submitHandler = (e)=>{
         e.preventDefault();
-        // console.log(text);
-        //store the post in the database
-        axios.post('http://localhost:8080/posts',{text,name,userName}).then(res=>{
-            props.newTweetHandler(res.data);
-            // console.log(res.data);
+        axios.post('http://localhost:8080/posts',{text,name,username}, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          }).then(res=>{
+            // console.log(res.status);
+            newTweetHandler(res.data);
         }).catch(err=>{
+            if(err.response.status === 401){
+                navigate('/');
+            }
             console.log(err);
         })
         setText('');

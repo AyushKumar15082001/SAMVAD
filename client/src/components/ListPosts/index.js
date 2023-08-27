@@ -7,17 +7,27 @@ import { FaRegCommentDots } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import {useNavigate} from 'react-router-dom';
 
 const ListPosts = ({newTweet}) => {
     const [tweets, setTweets] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:8080/posts').then(res=>{
+        axios.get('http://localhost:8080/posts', {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          }).then(res=>{
             // console.log(res.data);
             setTweets(res.data);
         }).catch(err=>{
+            if(err.response.status === 401){
+                navigate('/');
+            }
             console.log(err);
         })
-    },[])
+        // console.log("local storage",localStorage.getItem('token'));
+    },[navigate])
     useEffect(() => {
         // if(newTweet){
             setTweets(t=>[...t,newTweet]);
