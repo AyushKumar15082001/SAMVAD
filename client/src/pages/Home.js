@@ -3,27 +3,62 @@ import Navbar from '../components/Navbar';
 import ProfileCard from '../components/ProfileCard';
 import CreatePost from '../components/CreatePost';
 import ListPosts from '../components/ListPosts';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
-  // const [user, setUser] = useState({ name: '', userName: '', followingCount: 0, followersCount: 0 });
-  const [newTweet, setNewTweet] = useState('');
-  const newTweetHandler = (tweet) => setNewTweet(tweet);
-  const {name, username} = JSON.parse(localStorage.getItem('userData'));
-  const followingCount=0, followersCount=0;
-  // useEffect(() => {
-    // setUser({ name: 'Ayush Singh', userName: 'coolAyush', followingCount: 23, followersCount: 25 });
-  // }, []);
-  // console.log("App returns ",user[firstName,lastName,userName]);
+  const [tweets, setTweets] = useState([]);
+  const { name, username } = JSON.parse(localStorage.getItem('userData'));
+  const navigate = useNavigate();
+  const followingCount = 0, followersCount = 0;
+
+  const handleLogout = useCallback(()=>{
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    navigate('/');
+  },[navigate])
+
+  useEffect(() => {
+    console.log("get all posts api call");
+    axios.get('http://localhost:8080/posts', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(res => {
+      setTweets(res.data);
+    }).catch(err => {
+      if (err.response.status === 401) {
+        handleLogout()
+      }
+      console.log(err);
+    })
+  }, [handleLogout]);
+
+  const addPost = (text) => {
+    console.log("add to posts api call");
+    axios.post('http://localhost:8080/posts', { text, name, username }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(res => {
+      setTweets(t => [...t, res.data]);
+    }).catch(err => {
+      if (err.response.status === 401) {
+        handleLogout()
+      }
+      console.log(err);
+    })
+  }
+
   return (
     <div className="App">
-      {/* <div> */}
-      <Navbar {...{name}} />
-      {/* </div> */}
+      <Navbar {...{ name }} />
       <div className="container">
-        <ProfileCard {...{name, username, followingCount, followersCount}} />
+        <ProfileCard {...{ name, username, followingCount, followersCount }} />
         <div className="post">
-          <CreatePost {...{ name, username, newTweetHandler }} />
-          <ListPosts newTweet={newTweet} />
+          <CreatePost {...{ addPost }} />
+          <ListPosts {...{ tweets }} />
         </div>
       </div>
     </div>

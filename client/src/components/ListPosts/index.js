@@ -4,49 +4,18 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { FiShare2 } from 'react-icons/fi';
 import { FaRetweet } from 'react-icons/fa';
 import { FaRegCommentDots } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import moment from 'moment';
-import {useNavigate} from 'react-router-dom';
 
-const ListPosts = ({newTweet}) => {
-    const [tweets, setTweets] = useState([]);
-    const navigate = useNavigate();
-    useEffect(() => {
-        axios.get('http://localhost:8080/posts', {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          }).then(res=>{
-            // console.log(res.data);
-            setTweets(res.data);
-        }).catch(err=>{
-            if(err.response.status === 401){
-                navigate('/');
-            }
-            console.log(err);
-        })
-        // console.log("local storage",localStorage.getItem('token'));
-    },[navigate])
-    useEffect(() => {
-        // if(newTweet){
-            setTweets(t=>[...t,newTweet]);
-        // }
-        console.log(newTweet);
-    },[newTweet]);
-    // if(newTweet)setTweets(t => [...t, newTweet]);
+const ListPosts = ({ tweets }) => {
     return (
         <div className={Styles.container}>
-            {/* <Post />
-            <Post />
-            <Post /> */}
-            {tweets.map((item, index)=>{
+            {tweets.map((item, index) => {
                 return <Post key={index} {...item} />
             })}
         </div>
     )
 }
-const Post = ({name, userName, text, likes, retweets, comments, date}) => {
+const Post = ({ name, userName, text, likes, retweets, comments, date }) => {
     return (
         <div className={Styles.post}>
             <img src={Logo} alt="profile" />
@@ -55,7 +24,6 @@ const Post = ({name, userName, text, likes, retweets, comments, date}) => {
                     <div className={Styles.postHeaderLeft}>
                         <div className={Styles.postHeaderInfo}>
                             <h2>{name}</h2>
-                            {/* <h5>3m ago</h5> */}
                             <h5>{moment(date).fromNow()}</h5>
                         </div>
                         <h5 className={Styles.postUserName}>{"@" + userName}</h5>
@@ -81,9 +49,7 @@ const Post = ({name, userName, text, likes, retweets, comments, date}) => {
                     <button className={Styles.shareButton}>
                         <FiShare2 />
                     </button>
-
                 </div>
-
             </div>
         </div>
     )

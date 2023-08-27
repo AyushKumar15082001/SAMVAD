@@ -8,7 +8,7 @@ const Login = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        axios.get('http://localhost:8080/checkToken', {
+      localStorage.getItem('token') && axios.get('http://localhost:8080/checkToken', {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -17,9 +17,7 @@ const Login = () => {
             console.log("token is valid")
             navigate('/home');
           })
-          .catch(err=>{
-            console.log("token is not valid")
-          })
+          .catch(err=>{console.log("token is not valid")})
     }, [navigate]);
 
     const handleSubmit = async (e) => {
