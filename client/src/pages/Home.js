@@ -13,42 +13,44 @@ const Home = () => {
   const navigate = useNavigate();
   const followingCount = 0, followersCount = 0;
 
-  const handleLogout = useCallback(()=>{
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
     navigate('/');
-  },[navigate])
+  }, [navigate])
 
   useEffect(() => {
-    console.log("get all posts api call");
     axios.get('http://localhost:8080/posts', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
-    }).then(res => {
-      setTweets(res.data);
-    }).catch(err => {
-      if (err.response.status === 401) {
-        handleLogout()
-      }
-      console.log(err);
     })
+      .then(res => {
+        setTweets(res.data);
+      })
+      .catch(err => {
+        if (err.response.status === 401) {
+          handleLogout()
+        }
+        console.log(err);
+      })
   }, [handleLogout]);
 
   const addPost = (text) => {
-    console.log("add to posts api call");
     axios.post('http://localhost:8080/posts', { text }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
-    }).then(res => {
-      setTweets(t => [...t, res.data]);
-    }).catch(err => {
-      if (err.response.status === 401) {
-        handleLogout()
-      }
-      console.log(err);
     })
+      .then(res => {
+        setTweets(t => [...t, res.data]);
+      })
+      .catch(err => {
+        if (err.response.status === 401) {
+          handleLogout()
+        }
+        console.log(err);
+      })
   }
 
   return (
@@ -58,7 +60,7 @@ const Home = () => {
         <ProfileCard {...{ name, username, followingCount, followersCount }} />
         <div className="post">
           <CreatePost {...{ addPost }} />
-          <ListPosts {...{ tweets }} />
+          <ListPosts {...{ tweets, handleLogout , setTweets}} />
         </div>
       </div>
     </div>

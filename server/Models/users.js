@@ -10,7 +10,7 @@ const userSchema = new Schema({
     profilePic: String,
     bannerPic: String,
     date: { type: Date, default: Date.now },
-    token: String,
+    // token: String,
 
     // followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     // following: [{ type: Schema.Types.ObjectId, ref: 'User' }],

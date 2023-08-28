@@ -1,59 +1,56 @@
-import Styles from './ListPosts.module.css'
-import Logo from '../../logo.svg';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { FiShare2 } from 'react-icons/fi';
-import { FaRetweet } from 'react-icons/fa';
-import { FaRegCommentDots } from 'react-icons/fa';
-import moment from 'moment';
+import axios from 'axios';
+import Post from './Post';
 
-const ListPosts = ({ tweets }) => {
-    // console.log("tweets are : ", tweets);
+const ListPosts = ({ tweets, handleLogout, setTweets }) => {
+
+    const updateHandler = (id, text) => {
+        axios.patch('http://localhost:8080/posts', { id, text },
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then((res) => {
+                setTweets(tweets.map((tweet) => {
+                    if (tweet._id === id) {
+                        return res.data;
+                    }
+                    return tweet;
+                }));
+            }).catch((err) => {
+                if (err.response.status === 401) {
+                    handleLogout()
+                }
+                console.log(err);
+            })
+
+    }
+
+    const deleteHandler = (id) => {
+        axios.delete(`http://localhost:8080/posts/${id}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then((res) => {
+                setTweets(tweets.filter((tweet) => tweet._id !== id));
+            }).catch((err) => {
+                if (err.response.status === 401) {
+                    handleLogout()
+                }
+                console.log(err);
+            })
+    }
+
     return (
-        <div className={Styles.container}>
+        <div>
             {tweets.map((item, index) => {
-                return <Post key={index} {...item} />
+                return <Post key={index} {...{ ...item, updateHandler, deleteHandler }} />
             })}
         </div>
     )
 }
-const Post = ({ name, username, text, likes, retweets, comments, date }) => {
-    return (
-        <div className={Styles.post}>
-            <img src={Logo} alt="profile" />
-            <div className={Styles.postContent}>
-                <div className={Styles.postHeader}>
-                    <div className={Styles.postHeaderLeft}>
-                        <div className={Styles.postHeaderInfo}>
-                            <h2>{name}</h2>
-                            <h5>{moment(date).fromNow()}</h5>
-                        </div>
-                        <h5 className={Styles.postUserName}>{"@" + username}</h5>
-                    </div>
-                    <div className={Styles.postHeaderRight}>...</div>
-                </div>
-                <div className={Styles.postBody}>
-                    <p>{text}</p>
-                </div>
-                <div className={Styles.postButtons}>
-                    <button className={Styles.postButton}>
-                        <AiOutlineHeart />
-                        <h5>Like ({likes})</h5>
-                    </button>
-                    <button className={Styles.postButton}>
-                        <FaRetweet />
-                        <h5>Retweet ({retweets})</h5>
-                    </button>
-                    <button className={Styles.postButton}>
-                        <FaRegCommentDots />
-                        <h5>Comment ({comments})</h5>
-                    </button>
-                    <button className={Styles.shareButton}>
-                        <FiShare2 />
-                    </button>
-                </div>
-            </div>
-        </div>
-    )
-}
+
 
 export default ListPosts;
