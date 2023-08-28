@@ -6,7 +6,7 @@ const { getPosts, createPost, updatePost, deletePost } = require('../Controllers
 postRouter
 .get('/', getPosts)
 .post('/', createPost)
-.patch('/:id', updatePost)
+.patch('/', updatePost)
 .delete('/:id', deletePost)
 
 module.exports = {postRouter};

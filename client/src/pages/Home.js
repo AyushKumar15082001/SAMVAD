@@ -37,7 +37,7 @@ const Home = () => {
 
   const addPost = (text) => {
     console.log("add to posts api call");
-    axios.post('http://localhost:8080/posts', { text, name, username }, {
+    axios.post('http://localhost:8080/posts', { text }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

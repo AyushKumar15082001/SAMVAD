@@ -17,14 +17,18 @@ const Login = () => {
             console.log("token is valid")
             navigate('/home');
           })
-          .catch(err=>{console.log("token is not valid")})
+          .catch(err=>{
+            console.log("token is not valid")
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
+          })
     }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         axios.post('http://localhost:8080/auth/login',{email,password}).then(res=>{
             // props.newTweetHandler(res.data);
-            console.log(res.data);
+            // console.log(res.data);
             //setting the token in local storage
             localStorage.setItem('token',res.data.token);
             //setting the user data in local storage

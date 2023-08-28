@@ -7,6 +7,7 @@ import { FaRegCommentDots } from 'react-icons/fa';
 import moment from 'moment';
 
 const ListPosts = ({ tweets }) => {
+    // console.log("tweets are : ", tweets);
     return (
         <div className={Styles.container}>
             {tweets.map((item, index) => {
@@ -15,7 +16,7 @@ const ListPosts = ({ tweets }) => {
         </div>
     )
 }
-const Post = ({ name, userName, text, likes, retweets, comments, date }) => {
+const Post = ({ name, username, text, likes, retweets, comments, date }) => {
     return (
         <div className={Styles.post}>
             <img src={Logo} alt="profile" />
@@ -26,7 +27,7 @@ const Post = ({ name, userName, text, likes, retweets, comments, date }) => {
                             <h2>{name}</h2>
                             <h5>{moment(date).fromNow()}</h5>
                         </div>
-                        <h5 className={Styles.postUserName}>{"@" + userName}</h5>
+                        <h5 className={Styles.postUserName}>{"@" + username}</h5>
                     </div>
                     <div className={Styles.postHeaderRight}>...</div>
                 </div>

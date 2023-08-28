@@ -19,7 +19,8 @@ exports.login = (req, res) => {
     User.findOne({ email: req.body.email }).then(doc => {
         const isAuth = bcrypt.compareSync(req.body.password, doc.password);
         if (isAuth) {
-            var token = jwt.sign({ email: req.body.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            // console.log(req.body)
+            var token = jwt.sign({ email: doc.email, username: doc.username, name: doc.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
             const userData = { username: doc.username, name: doc.name };
             res.send({token, userData});
         }
