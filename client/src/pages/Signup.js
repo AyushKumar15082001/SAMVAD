@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Styles from "./Signup.module.css";
+import Styles from "../css/Auth.module.css";
 import axios from "axios";
-import blob from '../../images/home_blob.svg'
-import blob1 from '../../images/home_blob_1.svg'
-import Logo from '../../images/logo.png'
+import blob from '../images/home_blob.svg'
+import blob1 from '../images/home_blob_1.svg'
+import Logo from '../images/logo.png'
 import { HiUser } from 'react-icons/hi'
 import { MdEmail } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
