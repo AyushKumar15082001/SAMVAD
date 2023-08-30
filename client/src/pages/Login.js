@@ -57,7 +57,6 @@ const Login = () => {
         <div className={Styles.imgcontainer}>
           <img src={blob} alt="blob" className={Styles.blob} />
           <img src={blob1} alt="blob" className={Styles.blob1} />
-          {/* {blob} */}
         </div>
       </div>
       <nav>
