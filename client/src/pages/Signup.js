@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Styles from "../css/Auth.module.css";
 import axios from "axios";
-import blob from '../images/home_blob.svg'
-import blob1 from '../images/home_blob_1.svg'
 import Logo from '../images/logo.png'
 import { HiUser } from 'react-icons/hi'
 import { MdEmail } from 'react-icons/md'
@@ -27,23 +25,16 @@ const Signup = () => {
         // setUsername("");
         // setEmail("");
         // setPassword("");
-        console.log(name, username, email, password)
+        setDisabled(false);
     };
 
     return (
-        <div className={Styles.container}>
-            <div className={Styles.subcontainer}>
-                <div className={Styles.imgcontainer}>
-                    <img src={blob} alt="blob" className={Styles.blob} />
-                    <img src={blob1} alt="blob" className={Styles.blob1} />
-                    {/* {blob} */}
-                </div>
-            </div>
+        <>
             <nav>
-               <Link to="/">
-                <img src={Logo} alt="Logo" className={Styles.logo} />
-                <span>Samvad</span>
-               </Link>
+                <Link to="/">
+                    <img src={Logo} alt="Logo" className={Styles.logo} />
+                    <span>Samvad</span>
+                </Link>
             </nav>
             <div className={Styles.formContainer}>
                 <div className={Styles.branding}>
@@ -62,7 +53,6 @@ const Signup = () => {
                         />
                     </div>
                     <div className={Styles.inputContainer}>
-                        {/* <HiUser className={Styles.icon} /> */}
                         <span className={Styles.icon}>@</span>
                         <input
                             type="text"
@@ -93,7 +83,7 @@ const Signup = () => {
                     <p>Already have an account? <Link to="/">Login</Link></p>
                 </form>
             </div>
-        </div>
+        </>
     );
 };
 export default Signup;

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Styles from "../css/Auth.module.css";
-import blob from '../images/home_blob.svg'
-import blob1 from '../images/home_blob_1.svg'
 import Logo from '../images/logo.png'
 import { MdEmail } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
@@ -51,14 +49,7 @@ const Login = () => {
   };
 
   return (
-
-    <div className={Styles.container}>
-      <div className={Styles.subcontainer}>
-        <div className={Styles.imgcontainer}>
-          <img src={blob} alt="blob" className={Styles.blob} />
-          <img src={blob1} alt="blob" className={Styles.blob1} />
-        </div>
-      </div>
+    <>
       <nav>
         <Link to="/">
           <img src={Logo} alt="Logo" className={Styles.logo} />
@@ -94,7 +85,7 @@ const Login = () => {
           <p>Don't have an account? <Link to="/signup">Create one</Link></p>
         </form>
       </div>
-    </div>
+    </>
   );
 }
 export default Login;

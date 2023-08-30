@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(137deg, #012627, #000505, #000);
+    overflow: hidden;
+}
+
+.imgcontainer {
+    width: 100vw;
+    height: 100vh;
+}
+
+.imgcontainer img {
+    width: 60%;
+    position: absolute;
+    bottom: -47%;
+    left: -25%;
+    scale: 1.7 1.3;
+    animation: animate 10s ease-in-out infinite;
+}
+
+.imgcontainer img:nth-child(2) {
+    width: 60%;
+    position: absolute;
+    width: 60%;
+    left: 60%;
+    scale: 1.7 1.4;
+    transform: translateY(80px);
+    animation: animate 10s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.subcontainer {
+    /* backdrop-filter: blur(10px); */
+    filter: blur(60px);
+}
+
+@keyframes animate {
+
+    0%,
+    5%,
+    95%,
+    100% {
+        scale: 1.5 0.8;
+    }
+
+    45%,
+    50% {
+        scale: 2.3 1.5;
+    }
+}

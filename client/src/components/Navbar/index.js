@@ -4,26 +4,8 @@ import {BiUserCircle} from 'react-icons/bi';
 import {CgMenuGridO} from 'react-icons/cg';
 import {IoMdArrowDropdown} from 'react-icons/io';
 import Styles from './Navbar.module.css';
-function Navbar({name}) {
-  // const {name} = props.userName; 
-  // console.log("Navbar returns ",firstName,lastName);
+function Navbar({name, handleLogout}) {
   return (
-    // <div className="navbar">
-    //   {/* <Link href="/">
-    //     <a className="navbar__logo">
-    //       <img src="/images/logo.svg" alt="logo" />
-    //     </a>
-    //   </Link>
-    //   <div className="navbar__menu">
-    //     <Link href="/about">
-    //       <a className="navbar__menu__item">About</a>
-    //     </Link>
-    //     <Link href="/contact">
-    //       <a className="navbar__menu__item">Contact</a>
-    //     </Link> */}
-    //     Hi
-    //   {/* </div> */}
-    // </div>
     <nav className={Styles.navbar}>
       {/* <img src={logo} className="App-logo" alt="logo" /> */}
       <div className={Styles.nav_left}>
@@ -31,7 +13,7 @@ function Navbar({name}) {
         <input type="text" placeholder="# Explore" />
       </div>
       <div className={Styles.nav_right}>
-        <div className = {Styles.userName}>
+        <div className = {Styles.userName} onClick={handleLogout}>
           <BiUserCircle className={Styles.userIcon} />
           <span>{name}</span>
           <IoMdArrowDropdown className={Styles.arrowIcon} />

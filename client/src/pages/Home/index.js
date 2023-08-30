@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <div className={Styles.App}>
-      <Navbar {...{ name }} />
+      <Navbar {...{ name, handleLogout }} />
       <div className={Styles.container}>
         <ProfileCard {...{ name, username, followingCount, followersCount }} />
         <div className={Styles.post}>
