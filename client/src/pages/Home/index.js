@@ -1,11 +1,13 @@
-import '../App.css';
-import Navbar from '../components/Navbar';
-import ProfileCard from '../components/ProfileCard';
-import CreatePost from '../components/CreatePost';
-import ListPosts from '../components/ListPosts';
+// import '../App.css';
+import Navbar from '../../components/Navbar';
+import ProfileCard from '../../components/ProfileCard';
+import CreatePost from '../../components/CreatePost';
+import ListPosts from '../../components/ListPosts';
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Styles from './home.module.css';
+
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
@@ -54,11 +56,11 @@ const Home = () => {
   }
 
   return (
-    <div className="App">
+    <div className={Styles.App}>
       <Navbar {...{ name }} />
-      <div className="container">
+      <div className={Styles.container}>
         <ProfileCard {...{ name, username, followingCount, followersCount }} />
-        <div className="post">
+        <div className={Styles.post}>
           <CreatePost {...{ addPost }} />
           <ListPosts {...{ tweets, handleLogout , setTweets}} />
         </div>
