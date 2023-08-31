@@ -100,12 +100,12 @@ nav img {
     cursor: pointer;
 }
 
-.form button:disabled {
+/* .form button:disabled {
     background: rgb(22, 149, 166);
     color: black;
     cursor: pointer;
     cursor: not-allowed;
-}
+} */
 
 @keyframes btnanination {
 

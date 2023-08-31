@@ -3,7 +3,7 @@ const { Post } = require('../Models/posts');
 // const {User} = require('../Models/users');
 
 const getPosts = async (req, res) => {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({date:-1});
     res.send(posts)
 }
 

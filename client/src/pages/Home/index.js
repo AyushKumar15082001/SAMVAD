@@ -45,7 +45,7 @@ const Home = () => {
       }
     })
       .then(res => {
-        setTweets(t => [...t, res.data]);
+        setTweets(t => [res.data, ...t]);
       })
       .catch(err => {
         if (err.response.status === 401) {
