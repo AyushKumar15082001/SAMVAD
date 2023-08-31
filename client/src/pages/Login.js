@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,20 +33,22 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios.post('http://localhost:8080/auth/login', { email, password }).then(res => {
-      // props.newTweetHandler(res.data);
-      // console.log(res.data);
-      //setting the token in local storage
       localStorage.setItem('token', res.data.token);
-      //setting the user data in local storage
       localStorage.setItem('userData', JSON.stringify(res.data.userData));
       navigate('/home');
 
     }).catch(err => {
-      console.log(err);
+      setError(err.response.data);
+      // console.log(err);
     });
     // setEmail("");
     // setPassword("");
-    console.log(email, password)
+    // console.log(email, password)
+  };
+  const handleChange = (e) => {
+    if(e.target.name === "email") setEmail(e.target.value);
+    if(e.target.name === "password") setPassword(e.target.value);
+    setError("");
   };
 
   return (
@@ -61,15 +64,17 @@ const Login = () => {
 
           <h1>Welcome back!</h1>
         </div>
-        <form onSubmit={handleSubmit} className={Styles.form}>
+        <form onSubmit={handleSubmit} className={Styles.form} >
           <h1>Login</h1>
           <div className={Styles.inputContainer}>
             <MdEmail className={Styles.icon} />
             <input
               type="email"
               placeholder="email"
+              autoComplete="email"
+              name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
             />
           </div>
           <div className={Styles.inputContainer}>
@@ -77,11 +82,14 @@ const Login = () => {
             <input
               type="password"
               placeholder="password"
+              autoComplete="current-password"
+              name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
             />
           </div>
           <button type="submit">Login</button>
+          {error && <p className={Styles.error}>{error}</p>}
           <p>Don't have an account? <Link to="/signup">Create one</Link></p>
         </form>
       </div>

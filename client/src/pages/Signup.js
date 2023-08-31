@@ -6,28 +6,45 @@ import { HiUser } from 'react-icons/hi'
 import { MdEmail } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [disabled, setDisabled] = useState(true);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const [disabled, setDisabled] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+        setName(name =>name.trim());
+        setUsername(username =>username.trim());
+        setEmail(email=> email.trim());
         axios.post('http://localhost:8080/auth/signup', { name, username, email, password }).then(res => {
+            navigate('/');
             console.log(res.data);
         }).catch(err => {
-            console.log(err);
+            setError(err.response.data.message);
+            console.log(err.response.data);
         })
         // setName("");
         // setUsername("");
         // setEmail("");
         // setPassword("");
+        setError("");
+
         setDisabled(false);
     };
-
+    const handleChange = (e) => {
+        if (e.target.name === "name") setName(e.target.value);
+        if (e.target.name === "username") setUsername(e.target.value);
+        if (e.target.name === "email") setEmail(e.target.value);
+        if (e.target.name === "password") setPassword(e.target.value);
+        setError("");
+        // setDisabled(true);
+    };
     return (
         <>
             <nav>
@@ -48,8 +65,10 @@ const Signup = () => {
                         <input
                             type="text"
                             placeholder="Name"
+                            name="name"
+                            required
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className={Styles.inputContainer}>
@@ -57,8 +76,10 @@ const Signup = () => {
                         <input
                             type="text"
                             placeholder="username"
+                            name="username"
+                            required
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className={Styles.inputContainer}>
@@ -66,8 +87,10 @@ const Signup = () => {
                         <input
                             type="email"
                             placeholder="email"
+                            name="email"
+                            required
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className={Styles.inputContainer}>
@@ -75,11 +98,15 @@ const Signup = () => {
                         <input
                             type="password"
                             placeholder="password"
+                            name="password"
+                            title="Minimum six characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+                            required
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={handleChange}
                         />
                     </div>
                     <button type="submit" disabled={disabled}>Create my account</button>
+                    {error && <p className={Styles.error}>{error}</p>}
                     <p>Already have an account? <Link to="/">Login</Link></p>
                 </form>
             </div>

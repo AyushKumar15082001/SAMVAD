@@ -3,10 +3,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: {type: String, required: true},
-    username: {type: String, required: true, unique: true},
-    email: {type: String, required: true, unique: true},
-    password: {type: String, minLength:6, required: true},
+    name: {
+        type: String, required: [true, "Please provide name"], validate:
+        {
+            validator: function (value) {
+                return /^[a-zA-Z ]{3,20}$/.test(value);
+            }, message: props => `${props.value} is not a valid name!`
+        }
+    },
+    username: {
+        type: String, required: [true, "Please provide username"], unique: true, validate: {
+            validator: function (value) {
+                return /^[a-zA-Z0-9_-]{3,15}$/.test(value);
+            }, message: props => `${props.value} is not a valid username!`
+        }
+    },
+    email: {
+        type: String, required: [true, "Please provide your email"], unique: true, validate: {
+            validator: function (value) {
+                return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
+            }, message: props => `${props.value} is not a valid email!`
+        }
+    },
+    password: { type: String, required: [true, "Please provide password"] },
     profilePic: String,
     bannerPic: String,
     date: { type: Date, default: Date.now },
@@ -24,4 +43,4 @@ const userSchema = new Schema({
     // retweetedReplies: [{ type: Schema.Types.ObjectId, ref: 'Reply' }],
 });
 const User = mongoose.model('User', userSchema);
-module.exports = {User};
+module.exports = { User };

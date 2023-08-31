@@ -1,7 +1,7 @@
 {
-  "name": "twitter",
+  "name": "samvad",
   "version": "1.0.0",
-  "description": "This is a  twitter clone",
+  "description": "This is a social media app.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",

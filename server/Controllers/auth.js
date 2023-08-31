@@ -7,9 +7,14 @@ exports.signup = (req, res) => {
         const user = new User(req.body);
         bcrypt.hash(req.body.password, 10, function (err, hash) {
             user.password = hash;
-            user.save();
+            user.save().then(doc => {
+                res.send(doc);
+            }).catch(err => {
+                res.status(401).send(err);
+            }
+            );
         });
-        res.send(user);
+        // res.send(user);
         // console.log(user);
     } catch (err) {
         res.status(401).send(err);
@@ -19,16 +24,15 @@ exports.login = (req, res) => {
     User.findOne({ email: req.body.email }).then(doc => {
         const isAuth = bcrypt.compareSync(req.body.password, doc.password);
         if (isAuth) {
-            // console.log(req.body)
             var token = jwt.sign({ email: doc.email, username: doc.username, name: doc.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
             const userData = { username: doc.username, name: doc.name };
             res.send({token, userData});
         }
         else {
-            res.status(401).send('Wrong Username or Password');
+            res.status(401).send('Wrong Password.');
         }
     }).catch(err => {
-        res.status(401).send('Wrong Username or Password');
-        console.log(err);
+        res.status(401).send('Sorry, We could not find your account.');
+        // console.log(err);
     })
 }
