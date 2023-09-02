@@ -7,8 +7,10 @@ exports.signup = (req, res) => {
         const user = new User(req.body);
         bcrypt.hash(req.body.password, 10, function (err, hash) {
             user.password = hash;
+            user.email = user.email.toLowerCase();
             user.save().then(doc => {
-                res.send(doc);
+                // res.send(doc);
+                res.send({ message: 'Account created successfully.' });
             }).catch(err => {
                 res.status(401).send(err);
             }
@@ -24,8 +26,8 @@ exports.login = (req, res) => {
     User.findOne({ email: req.body.email }).then(doc => {
         const isAuth = bcrypt.compareSync(req.body.password, doc.password);
         if (isAuth) {
-            var token = jwt.sign({ email: doc.email, username: doc.username, name: doc.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            const userData = { username: doc.username, name: doc.name };
+            var token = jwt.sign({ email: doc.email, username: doc.username, name: doc.name, profilePic: doc.profilePic }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const userData = { username: doc.username, name: doc.name, };
             res.send({token, userData});
         }
         else {

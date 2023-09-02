@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Styles from "../css/Auth.module.css";
 import axios from "axios";
-import Logo from '../images/logo.png'
+// import Logo from '../images/logo.png'
 import { HiUser } from 'react-icons/hi'
 import { MdEmail } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
@@ -18,10 +18,10 @@ const Signup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setName(name =>name.trim());
-        setUsername(username =>username.trim());
-        setEmail(email=> email.trim());
-        axios.post('http://localhost:8080/auth/signup', { name, username, email, password }).then(res => {
+        setName(name => name.trim());
+        setUsername(username => username.trim());
+        setEmail(email => email.trim());
+        axios.post('http://localhost:8080/api/auth/signup', { name, username, email, password }).then(res => {
             navigate('/');
             console.log(res.data);
         }).catch(err => {
@@ -43,71 +43,63 @@ const Signup = () => {
         // setDisabled(true);
     };
     return (
-        <>
-            <nav>
-                <Link to="/">
-                    <img src={Logo} alt="Logo" className={Styles.logo} />
-                    <span>Samvad</span>
-                </Link>
-            </nav>
-            <div className={Styles.formContainer}>
-                <div className={Styles.branding}>
+        <div className={Styles.formContainer}>
+            <div className={Styles.branding}>
 
-                    <h1>Join Samvad.</h1>
-                </div>
-                <form onSubmit={handleSubmit} className={Styles.form}>
-                    <h1>Create your account</h1>
-                    <div className={Styles.inputContainer}>
-                        <HiUser className={Styles.icon} />
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            name="name"
-                            required
-                            value={name}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className={Styles.inputContainer}>
-                        <span className={Styles.icon}>@</span>
-                        <input
-                            type="text"
-                            placeholder="username"
-                            name="username"
-                            required
-                            value={username}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className={Styles.inputContainer}>
-                        <MdEmail className={Styles.icon} />
-                        <input
-                            type="email"
-                            placeholder="email"
-                            name="email"
-                            required
-                            value={email}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className={Styles.inputContainer}>
-                        <BsFillKeyFill className={Styles.icon} />
-                        <input
-                            type="password"
-                            placeholder="password"
-                            name="password"
-                            title="Minimum six characters, at least one upper case English letter, one lower case English letter, one number and one special character"
-                            required
-                            value={password}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <button type="submit">Create my account</button>
-                    {error && <p className={Styles.error}>{error}</p>}
-                    <p>Already have an account? <Link to="/">Login</Link></p>
-                </form>
+                <h1>Join Samvad.</h1>
             </div>
-        </>
+            <form onSubmit={handleSubmit} className={Styles.form}>
+                <h1>Create your account</h1>
+                <div className={Styles.inputContainer}>
+                    <HiUser className={Styles.icon} />
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        name="name"
+                        required
+                        value={name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={Styles.inputContainer}>
+                    <span className={Styles.icon}>@</span>
+                    <input
+                        type="text"
+                        placeholder="username"
+                        name="username"
+                        required
+                        value={username}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={Styles.inputContainer}>
+                    <MdEmail className={Styles.icon} />
+                    <input
+                        type="email"
+                        placeholder="email"
+                        name="email"
+                        required
+                        value={email}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={Styles.inputContainer}>
+                    <BsFillKeyFill className={Styles.icon} />
+                    <input
+                        type="password"
+                        placeholder="password"
+                        name="password"
+                        title="Minimum six characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+                        required
+                        value={password}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button type="submit">Create my account</button>
+                {error && <p className={Styles.error}>{error}</p>}
+                <p>Already have an account? <Link to="/">Login</Link></p>
+            </form>
+        </div>
     );
 };
 export default Signup;

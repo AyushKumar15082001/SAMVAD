@@ -3,13 +3,13 @@ const { Post } = require('../Models/posts');
 // const {User} = require('../Models/users');
 
 const getPosts = async (req, res) => {
-    const posts = await Post.find().sort({date:-1});
+    const posts = await Post.find().sort({date:-1}).lean().exec();
     res.send(posts)
 }
 
 const createPost = async (req, res) => {
     try {
-        const post = new Post({ text: req.body.text, name: req.body.name, username: req.body.username });
+        const post = new Post({ text: req.body.text, name: req.body.name, username: req.body.username, profilePic: req.body.profilePic });
         await post.save();
         res.send(post)
     } catch (err) {

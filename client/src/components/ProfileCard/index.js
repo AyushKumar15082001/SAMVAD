@@ -1,14 +1,16 @@
 import React from 'react';
 import Styles from './ProfileCard.module.css';
-import Logo from '../../logo.svg';
-const ProfileCard = ({name, username, followersCount, followingCount}) => {
+// import Logo from '../../logo.svg';
+const ProfileCard = ({name, username, profilePic, bannerPic, followersCount, followingCount}) => {
+    console.log(profilePic)
     return (
         <div className={Styles.card}>
             <div className={Styles.banner}>
+                <img src = {bannerPic} alt="banner" />
             </div>
             <div className={Styles.profile}>
                 <div className={Styles.profileImage}>
-                    <img src={Logo} alt="profile" />
+                    <img src={profilePic} alt="profile" />
                 </div>
                 <div className={Styles.profileInfo}>
                     <h3>{name}</h3>

@@ -26,13 +26,14 @@ const userSchema = new Schema({
         }
     },
     password: { type: String, required: [true, "Please provide password"] },
-    profilePic: String,
-    bannerPic: String,
+    profilePic: {type: String, default: "https://res.cloudinary.com/dvrdekci0/image/upload/q_auto,f_auto/v1693592592/my-profile/lucvpgh0uhcmuwenxd1u.png",},
+    bannerPic: {type: String, default: "https://res.cloudinary.com/dvrdekci0/image/upload/q_auto,f_auto/v1693593046/my-profile/hpezdx2k3fc1pzc3pjj0.jpg", },
+    bio: { type: String, maxlength: 160, default: "This is my bio" },
     date: { type: Date, default: Date.now },
     // token: String,
 
-    // followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    // following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     // posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     // likedPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     // retweetedPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],

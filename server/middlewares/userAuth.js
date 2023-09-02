@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
-// const { User } = require('../Models/users');
 
-exports.auth = async(req, res, next) => {
+exports.userAuth = async(req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        // console.log('decodedToken', decodedToken);
-        req.body = {...req.body, ...decodedToken};
+        const {name, username, profilePic, bannerPic, bio} = req.body;
+        req.body = {name, username, profilePic, bannerPic, bio, email:decodedToken.email};
         // console.log('token', req.body);
+        // console.log(decodedToken)
         next();
     } catch(err) {
         // console.log('auth middleware error', err);

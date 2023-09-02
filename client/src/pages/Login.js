@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Styles from "../css/Auth.module.css";
-import Logo from '../images/logo.png'
+// import Logo from '../images/logo.png'
 import { MdEmail } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.getItem('token') && axios.get('http://localhost:8080/checkToken', {
+    localStorage.getItem('token') && axios.get('http://localhost:8080/api/checkToken', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -32,7 +32,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/auth/login', { email, password }).then(res => {
+    axios.post('http://localhost:8080/api/auth/login', { email: email.toLowerCase(), password }).then(res => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('userData', JSON.stringify(res.data.userData));
       navigate('/home');
@@ -46,54 +46,46 @@ const Login = () => {
     // console.log(email, password)
   };
   const handleChange = (e) => {
-    if(e.target.name === "email") setEmail(e.target.value);
-    if(e.target.name === "password") setPassword(e.target.value);
+    if (e.target.name === "email") setEmail(e.target.value);
+    if (e.target.name === "password") setPassword(e.target.value);
     setError("");
   };
 
   return (
-    <>
-      <nav>
-        <Link to="/">
-          <img src={Logo} alt="Logo" className={Styles.logo} />
-          <span>Samvad</span>
-        </Link>
-      </nav>
-      <div className={Styles.formContainer}>
-        <div className={Styles.branding}>
+    <div className={Styles.formContainer}>
+      <div className={Styles.branding}>
 
-          <h1>Welcome back!</h1>
-        </div>
-        <form onSubmit={handleSubmit} className={Styles.form} >
-          <h1>Login</h1>
-          <div className={Styles.inputContainer}>
-            <MdEmail className={Styles.icon} />
-            <input
-              type="email"
-              placeholder="email"
-              autoComplete="email"
-              name="email"
-              value={email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={Styles.inputContainer}>
-            <BsFillKeyFill className={Styles.icon} />
-            <input
-              type="password"
-              placeholder="password"
-              autoComplete="current-password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Login</button>
-          {error && <p className={Styles.error}>{error}</p>}
-          <p>Don't have an account? <Link to="/signup">Create one</Link></p>
-        </form>
+        <h1>Welcome back!</h1>
       </div>
-    </>
+      <form onSubmit={handleSubmit} className={Styles.form} >
+        <h1>Login</h1>
+        <div className={Styles.inputContainer}>
+          <MdEmail className={Styles.icon} />
+          <input
+            type="email"
+            placeholder="email"
+            autoComplete="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={Styles.inputContainer}>
+          <BsFillKeyFill className={Styles.icon} />
+          <input
+            type="password"
+            placeholder="password"
+            autoComplete="current-password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Login</button>
+        {error && <p className={Styles.error}>{error}</p>}
+        <p>Don't have an account? <Link to="/signup">Create one</Link></p>
+      </form>
+    </div>
   );
 }
 export default Login;

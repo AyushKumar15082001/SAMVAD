@@ -52,3 +52,30 @@
         scale: 2.3 1.5;
     }
 }
+
+.nav {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    color: aliceblue;
+    height: 80px;
+    width: 100%;
+    z-index: 1;
+}
+
+.nav a {
+    text-decoration: none;
+    color: aliceblue;
+    display: flex;
+    display: flex;
+    align-items: center;
+    margin: 0 50px;
+    font-size: 40px;
+    font-family: Sedgwick;
+}
+
+.nav img {
+    width: 55px;
+    margin: 0 10px;
+}

@@ -2,6 +2,11 @@
     background-color: #1c628f;
     height: 120px;
 }
+.banner img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .card{
     width: 390px;
     height: 445px;
@@ -21,13 +26,14 @@
 }
 .profileImage{
     border-radius: 50%;
-    border: 2px solid #fff;
+    /* border: 2px solid black; */
+    border: 0;
     margin-top: -50px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: fit-content;
-    background-color: #fff;
+    /* background-color: black; */
     overflow: hidden;
 }
 .profileImage img{

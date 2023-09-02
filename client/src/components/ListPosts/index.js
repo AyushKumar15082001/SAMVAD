@@ -4,7 +4,7 @@ import Post from './Post';
 const ListPosts = ({ tweets, handleLogout, setTweets }) => {
 
     const updateHandler = (id, text) => {
-        axios.patch('http://localhost:8080/posts', { id, text },
+        axios.patch('http://localhost:8080/api/posts', { id, text },
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -27,7 +27,7 @@ const ListPosts = ({ tweets, handleLogout, setTweets }) => {
     }
 
     const deleteHandler = (id) => {
-        axios.delete(`http://localhost:8080/posts/${id}`,
+        axios.delete(`http://localhost:8080/api/posts/${id}`,
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`

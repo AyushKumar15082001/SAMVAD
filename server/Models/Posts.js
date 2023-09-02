@@ -5,6 +5,7 @@ const postSchema = new Schema({
     name: {type: String, required: true},
     username: {type: String, required: true},
     text: {type: String, required: true},
+    profilePic: {type: String, required: true},
     image: String,
     date: { type: Date, default: Date.now },
     likes: {type: Number, default: 0},

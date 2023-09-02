@@ -11,7 +11,10 @@ import Styles from './home.module.css';
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
-  const { name, username } = JSON.parse(localStorage.getItem('userData'));
+  // const { name, username } = JSON.parse(localStorage.getItem('userData'));
+  const [user, setUser] = useState({});
+  const { name, username, profilePic, bannerPic } = user;
+  console.log(user);
   const navigate = useNavigate();
   const followingCount = 0, followersCount = 0;
 
@@ -22,24 +25,37 @@ const Home = () => {
   }, [navigate])
 
   useEffect(() => {
-    axios.get('http://localhost:8080/posts', {
+    axios.get('http://localhost:8080/api/posts', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     })
       .then(res => {
         setTweets(res.data);
+        // console.log(res);
       })
       .catch(err => {
         if (err.response.status === 401) {
           handleLogout()
         }
+      })
+
+    //get user data
+    axios.get('http://localhost:8080/api/user', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then(res => {
+        setUser(res.data);
+      }
+      ).catch(err => {
         console.log(err);
       })
   }, [handleLogout]);
 
   const addPost = (text) => {
-    axios.post('http://localhost:8080/posts', { text }, {
+    axios.post('http://localhost:8080/api/posts', { text }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -57,12 +73,12 @@ const Home = () => {
 
   return (
     <div className={Styles.App}>
-      <Navbar {...{ name, handleLogout }} />
+      <Navbar {...{ name, profilePic, handleLogout }} />
       <div className={Styles.container}>
-        <ProfileCard {...{ name, username, followingCount, followersCount }} />
+        <ProfileCard {...{ name, username, profilePic, bannerPic, followingCount, followersCount }} />
         <div className={Styles.post}>
           <CreatePost {...{ addPost }} />
-          <ListPosts {...{ tweets, handleLogout , setTweets}} />
+          <ListPosts {...{ tweets, handleLogout, setTweets }} />
         </div>
       </div>
     </div>

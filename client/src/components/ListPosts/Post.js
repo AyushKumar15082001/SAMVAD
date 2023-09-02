@@ -1,18 +1,18 @@
 import Styles from './Post.module.css';
 import { useState } from 'react';
-import Logo from '../../logo.svg';
+// import Logo from '../../logo.svg';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FiShare2 } from 'react-icons/fi';
 import { FaRetweet } from 'react-icons/fa';
 import { FaRegCommentDots } from 'react-icons/fa';
 import moment from 'moment';
 
-const Post = ({ _id, name, username, text, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
+const Post = ({ _id, name, username, text, profilePic, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
         <div className={Styles.post}>
-            <img src={Logo} alt="profile" />
+            <img src={profilePic} alt="profile" />
             <div className={Styles.postContent}>
                 <div className={Styles.postHeader}>
                     <div className={Styles.postHeaderLeft}>

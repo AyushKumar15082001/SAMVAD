@@ -1,6 +1,5 @@
 const { User } = require('../Models/users');
 exports.signauth = (req, res, next) => {
-    console.log('signauth middleware');
     //validate password with regex
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/
     const isPasswordValid = passwordRegex.test(req.body.password);
