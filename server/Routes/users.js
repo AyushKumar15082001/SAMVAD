@@ -7,6 +7,6 @@ userRouter
 .get('/', getUser)
 // .post('/', createUser)
 .patch('/', updateUser)
-.delete('/:id', deleteUser)
+.delete('/', deleteUser)
 
 module.exports = {userRouter};

@@ -16,4 +16,15 @@ const uploadToCloudinary = async (path, folder = "my-profile") => {
         throw err;
     }
 };
-module.exports = { uploadToCloudinary }
+
+const deleteFromCloudinary = async (publicId) => {
+    try {
+        const data = await cloudinary.uploader.destroy(publicId);
+        return data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+};
+
+module.exports = { uploadToCloudinary,deleteFromCloudinary }

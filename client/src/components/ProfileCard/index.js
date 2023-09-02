@@ -2,7 +2,6 @@ import React from 'react';
 import Styles from './ProfileCard.module.css';
 // import Logo from '../../logo.svg';
 const ProfileCard = ({name, username, profilePic, bannerPic, followersCount, followingCount}) => {
-    console.log(profilePic)
     return (
         <div className={Styles.card}>
             <div className={Styles.banner}>

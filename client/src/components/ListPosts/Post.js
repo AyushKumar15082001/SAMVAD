@@ -7,7 +7,7 @@ import { FaRetweet } from 'react-icons/fa';
 import { FaRegCommentDots } from 'react-icons/fa';
 import moment from 'moment';
 
-const Post = ({ _id, name, username, text, profilePic, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
+const Post = ({ _id, name, username, postOwner, text, profilePic, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
@@ -22,7 +22,7 @@ const Post = ({ _id, name, username, text, profilePic, likes, retweets, comments
                         </div>
                         <h5 className={Styles.postUserName}>{"@" + username}</h5>
                     </div>
-                    {JSON.parse(localStorage.getItem('userData')).username === username && <div className={Styles.postHeaderRight}>
+                    {postOwner === username && <div className={Styles.postHeaderRight}>
                         <span onClick={() => setShowMenu(!showMenu)}>...</span>
                         {showMenu && <Menu updateHandler={() => updateHandler(_id, "domething")} deleteHandler={() => deleteHandler(_id)} />}
                     </div>}

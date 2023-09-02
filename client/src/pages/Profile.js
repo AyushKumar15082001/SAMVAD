@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const {useNavigate} = require('react-router-dom');
 
 const Profile = () => {
     const [bannerBase64, setBannerBase64] = useState("");
@@ -8,6 +9,7 @@ const Profile = () => {
     const [username, setUsername] = useState("");
     const [bio, setBio] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,7 +25,7 @@ const Profile = () => {
                 setError("uploaded");
             }).catch((err) => {
                 setError(err.response.data);
-                if (err.response.status === 401) window.location.href = '/login';
+                if (err.response.status === 401) navigate('/');
                 console.log(err);
             })
     }
@@ -43,26 +45,41 @@ const Profile = () => {
         else if (e.target.name === 'username') setUsername(e.target.value);
         else if (e.target.name === 'bio') setBio(e.target.value);
     }
-    return (
-        <div>
-            <h1>Profile</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="file" name="banner" id='banner' accept="image/*" onChange={handleChange} />
-                <label htmlFor="banner">Choose a file for banner</label>
-                <br />
-                <input type="file" name="profile" id='profile' accept="image/*" onChange={handleChange} />
-                <label htmlFor="profile">Choose a file for profile</label>
-                <br />
-                <input type='text' name='name' id='name' value={name} placeholder='Name' onChange={handleChange} />
-                <br />
-                <input type='text' name='username' id='username' value={username} placeholder='Username' onChange={handleChange} />
-                <br />
-                <input type='text' name='bio' id='bio' value={bio} placeholder='Bio' onChange={handleChange} />
-                <br />
-                <button type='submit' >Upload</button>
-            </form>
-            <h1>{error}</h1>
-        </div>
-    )
-}
-export default Profile;
+
+    const handleDelete = () => {
+        axios.delete('http://localhost:8080/api/user', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then((res) => {
+            console.log(res);
+            localStorage.removeItem('token');
+            navigate('/');
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+        return (
+            <div>
+                <h1>Profile</h1>
+                <form onSubmit={handleSubmit}>
+                    <input type="file" name="banner" id='banner' accept="image/*" onChange={handleChange} />
+                    <label htmlFor="banner">Choose a file for banner</label>
+                    <br />
+                    <input type="file" name="profile" id='profile' accept="image/*" onChange={handleChange} />
+                    <label htmlFor="profile">Choose a file for profile</label>
+                    <br />
+                    <input type='text' name='name' id='name' value={name} placeholder='Name' onChange={handleChange} />
+                    <br />
+                    <input type='text' name='username' id='username' value={username} placeholder='Username' onChange={handleChange} />
+                    <br />
+                    <input type='text' name='bio' id='bio' value={bio} placeholder='Bio' onChange={handleChange} />
+                    <br />
+                    <button type='submit' >Upload</button>
+                </form>
+                <h1>{error}</h1>
+                <button onClick={handleDelete}>delete profile</button>
+            </div>
+        )
+    }
+    export default Profile;

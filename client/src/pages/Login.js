@@ -26,15 +26,13 @@ const Login = () => {
       .catch(err => {
         console.log("token is not valid")
         localStorage.removeItem('token');
-        localStorage.removeItem('userData');
       })
   }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios.post('http://localhost:8080/api/auth/login', { email: email.toLowerCase(), password }).then(res => {
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('userData', JSON.stringify(res.data.userData));
+      localStorage.setItem('token', res.data);
       navigate('/home');
 
     }).catch(err => {
@@ -66,6 +64,7 @@ const Login = () => {
             placeholder="email"
             autoComplete="email"
             name="email"
+            required
             value={email}
             onChange={handleChange}
           />
@@ -77,6 +76,7 @@ const Login = () => {
             placeholder="password"
             autoComplete="current-password"
             name="password"
+            required
             value={password}
             onChange={handleChange}
           />

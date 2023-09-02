@@ -26,7 +26,7 @@
     border-radius: 50%;
     background-color: white;
     margin: 25px 15px;
-    
+    object-fit: cover;
 }
 .postHeaderInfo{
     display: flex;

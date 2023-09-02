@@ -11,7 +11,6 @@ import Styles from './home.module.css';
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
-  // const { name, username } = JSON.parse(localStorage.getItem('userData'));
   const [user, setUser] = useState({});
   const { name, username, profilePic, bannerPic } = user;
   console.log(user);
@@ -20,7 +19,6 @@ const Home = () => {
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userData');
     navigate('/');
   }, [navigate])
 
@@ -61,7 +59,7 @@ const Home = () => {
       }
     })
       .then(res => {
-        setTweets(t => [res.data, ...t]);
+        setTweets(t => [{...res.data, name, username, profilePic}, ...t]);
       })
       .catch(err => {
         if (err.response.status === 401) {
@@ -78,7 +76,7 @@ const Home = () => {
         <ProfileCard {...{ name, username, profilePic, bannerPic, followingCount, followersCount }} />
         <div className={Styles.post}>
           <CreatePost {...{ addPost }} />
-          <ListPosts {...{ tweets, handleLogout, setTweets }} />
+          <ListPosts {...{ tweets, handleLogout, setTweets, postOwner: username }} />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Post from './Post';
 
-const ListPosts = ({ tweets, handleLogout, setTweets }) => {
+const ListPosts = ({ tweets, handleLogout, setTweets, postOwner }) => {
 
     const updateHandler = (id, text) => {
         axios.patch('http://localhost:8080/api/posts', { id, text },
@@ -13,7 +13,9 @@ const ListPosts = ({ tweets, handleLogout, setTweets }) => {
             .then((res) => {
                 setTweets(tweets.map((tweet) => {
                     if (tweet._id === id) {
-                        return res.data;
+                        tweet.text = text;
+                        tweet.date = Date.now();
+                        return tweet;
                     }
                     return tweet;
                 }));
@@ -46,7 +48,7 @@ const ListPosts = ({ tweets, handleLogout, setTweets }) => {
     return (
         <div>
             {tweets.map((item, index) => {
-                return <Post key={index} {...{ ...item, updateHandler, deleteHandler }} />
+                return <Post key={index} {...{ ...item, updateHandler, deleteHandler, postOwner }} />
             })}
         </div>
     )

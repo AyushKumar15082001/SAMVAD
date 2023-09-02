@@ -28,6 +28,8 @@ const userSchema = new Schema({
     password: { type: String, required: [true, "Please provide password"] },
     profilePic: {type: String, default: "https://res.cloudinary.com/dvrdekci0/image/upload/q_auto,f_auto/v1693592592/my-profile/lucvpgh0uhcmuwenxd1u.png",},
     bannerPic: {type: String, default: "https://res.cloudinary.com/dvrdekci0/image/upload/q_auto,f_auto/v1693593046/my-profile/hpezdx2k3fc1pzc3pjj0.jpg", },
+    profilePicPublicId: String,
+    bannerPicPublicId: String,
     bio: { type: String, maxlength: 160, default: "This is my bio" },
     date: { type: Date, default: Date.now },
     // token: String,
