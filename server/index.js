@@ -25,8 +25,12 @@ app.use('/api/auth', authRouter);
 
 
 //check if the token is valid
-app.get('/checkToken',auth,(req,res)=>{
-    res.send({message:"token is valid"});
+app.get('/api/checkToken', auth, (req, res) => {
+    try {
+        res.send({ message: "token is valid" });
+    } catch (err) {
+        res.sendStatus(401);
+    }
 });
 // app.use(express.static('client/build'));
 // app.use(express.static('public'));

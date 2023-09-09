@@ -13,7 +13,6 @@ const Home = () => {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState({});
   const { name, username, profilePic, bannerPic } = user;
-  console.log(user);
   const navigate = useNavigate();
   const followingCount = 0, followersCount = 0;
 
@@ -52,8 +51,8 @@ const Home = () => {
       })
   }, [handleLogout]);
 
-  const addPost = (text) => {
-    axios.post('http://localhost:8080/api/posts', { text }, {
+  const addPost = (text, file) => {
+    axios.post('http://localhost:8080/api/posts', { text, image: file }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

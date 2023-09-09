@@ -7,10 +7,38 @@ import { useState } from 'react';
 
 const CreatePost = ({ addPost }) => {
     const [text, setText] = useState('');
+    const [file, setFile] = useState(null);
+    const [base64, setBase64] = useState('');
     const submitHandler = (e) => {
         e.preventDefault();
-        addPost(text);
+        addPost(text, base64);
         setText('');
+        setFile(null);
+        setBase64('');
+    }
+    const handleChange = (e) => {
+        const file = e.target.files[0];
+        setFile(file);
+        try {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setBase64(reader.result);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const size = (size) => {
+        if (size < 1024) return size + 'B';
+        size /= 1024;
+        if (size < 1024) return size.toFixed(2) + 'KB';
+        size /= 1024;
+        if (size < 1024) return size.toFixed(2) + 'MB';
+        size /= 1024;
+        if (size < 1024) return size.toFixed(2) + 'GB';
+        size /= 1024;
+        return size.toFixed(2) + 'TB';
     }
 
     return (
@@ -22,10 +50,11 @@ const CreatePost = ({ addPost }) => {
                 </form>
             </div>
             <div className={Styles.buttons}>
-                <button>
+                <label htmlFor="profile">
                     <TbPhotoFilled className={Styles.photoIcon} />
                     <span>Photo</span>
-                </button>
+                </label>
+                <input type="file" name="profile" id='profile' accept="image/*" onChange={handleChange} className={Styles.buttonInput} />
                 <button>
                     <AiFillPlayCircle className={Styles.photoIcon} />
                     <span>Video</span>
@@ -39,6 +68,16 @@ const CreatePost = ({ addPost }) => {
                     <span>Schedule</span>
                 </button>
             </div>
+            {file && (
+                <div className={Styles.canvas}>
+                    <img src={base64} alt='preview' />
+                    <div className={Styles.imgDetail}>
+                        <span>{file.name.length > 20 ? file.name.slice(0, 20) + '...' : file.name}</span>
+                        <span>{size(file.size)}</span>
+                    </div>
+                </div>
+            )
+            }
         </div>
     )
 }

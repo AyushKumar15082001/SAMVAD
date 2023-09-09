@@ -5,7 +5,6 @@ exports.auth = async(req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('decodedToken', decodedToken);
         req.body = {...req.body, ...decodedToken};
         next();
     } catch(err) {

@@ -21,9 +21,9 @@ const updateUser = async (req, res) => {
             if (req.body.name) user.name = req.body.name;
             if (req.body.bio) user.bio = req.body.bio;
             if (req.body.profilePic) {
+                if(user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
                 const results = await uploadToCloudinary(req.body.profilePic, "my-profile")
                 user.profilePic = results.url.replace("upload/", "upload/q_auto,f_auto/")
-                if(user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
                 user.profilePicPublicId = results.publicId;
             }
             if (req.body.bannerPic) {
@@ -54,6 +54,8 @@ const deleteUser = async (req, res) => {
     const user = await User.findOneAndDelete({ email: req.body.email });
     if (user) {
         await Post.deleteMany({ user_id: user._id })
+        if(user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
+        if(user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
         res.send({ message: "User deleted" })
     }
     else res.status(400).send("User not found")

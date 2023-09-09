@@ -7,7 +7,7 @@ import { FaRetweet } from 'react-icons/fa';
 import { FaRegCommentDots } from 'react-icons/fa';
 import moment from 'moment';
 
-const Post = ({ _id, name, username, postOwner, text, profilePic, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
+const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
@@ -30,6 +30,9 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, likes, retweet
                 <div className={Styles.postBody}>
                     <p>{text}</p>
                 </div>
+                {image && <div className={Styles.postImages}>
+                    <img src={image} alt="post Image" />
+                </div>}
                 <div className={Styles.postButtons}>
                     <button className={Styles.postButton}>
                         <AiOutlineHeart />

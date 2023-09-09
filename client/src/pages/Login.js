@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Styles from "../css/Auth.module.css";
@@ -13,21 +13,21 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.getItem('token') && axios.get('http://localhost:8080/api/checkToken', {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    })
-      .then((res) => {
-        console.log("token is valid")
-        navigate('/home');
-      })
-      .catch(err => {
-        console.log("token is not valid")
-        localStorage.removeItem('token');
-      })
-  }, [navigate]);
+  // useEffect(() => {
+  //   localStorage.getItem('token') && axios.get('http://localhost:8080/api/checkToken', {
+  //     headers: {
+  //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+  //     }
+  //   })
+  //     .then((res) => {
+  //       console.log("token is valid")
+  //       navigate('/home');
+  //     })
+  //     .catch(err => {
+  //       console.log("token is not valid")
+  //       localStorage.removeItem('token');
+  //     })
+  // }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
