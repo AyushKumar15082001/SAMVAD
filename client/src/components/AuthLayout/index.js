@@ -34,7 +34,7 @@ const AuthLayout = () => {
                     <img src={blob1} alt="blob" className={Styles.blob1} />
                 </div>
             </div>
-            <nav className={Styles.nav}>
+            <nav>
                 <Link to="/">
                     <img src={Logo} alt="Logo" className={Styles.logo} />
                     <span>Samvad</span>

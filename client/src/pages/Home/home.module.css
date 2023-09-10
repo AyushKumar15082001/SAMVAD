@@ -1,7 +1,8 @@
 .container{
-    margin: 10px 80px;
+    /* margin: 10px 80px; */
+    margin: 10px 35px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-wrap: wrap;
 }
 .post{

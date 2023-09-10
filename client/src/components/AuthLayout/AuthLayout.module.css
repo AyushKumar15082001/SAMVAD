@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(137deg, #012627, #000505, #000);
+    /* background: linear-gradient(137deg, #012627, #000505, #000); */
     overflow: hidden;
 }
 
@@ -34,7 +34,6 @@
 }
 
 .subcontainer {
-    /* backdrop-filter: blur(10px); */
     filter: blur(60px);
 }
 
@@ -52,8 +51,8 @@
         scale: 2.3 1.5;
     }
 }
-
-.nav {
+/* 
+nav {
     display: flex;
     align-items: center;
     position: absolute;
@@ -62,9 +61,9 @@
     height: 80px;
     width: 100%;
     z-index: 1;
-}
+} */
 
-.nav a {
+/* nav a {
     text-decoration: none;
     color: aliceblue;
     display: flex;
@@ -75,7 +74,7 @@
     font-family: Sedgwick;
 }
 
-.nav img {
+nav img {
     width: 55px;
     margin: 0 10px;
-}
+} */

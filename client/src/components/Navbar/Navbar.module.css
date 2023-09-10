@@ -1,75 +1,102 @@
-.navbar{
-    height: 53px;
-    padding: 10px 10px;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    display: flex;
+.nav{
     position: sticky;
-    top: 0;
-    backdrop-filter: blur(6px);
 }
+
 .nav_left{
     flex: 0.3;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
 }
-.logo{
-    color: #1da1f2;
-    font-size: 3rem;
-    margin: 0 30px;
-}
+
 .nav_left input{
     width: 250px;
-    height: 40px;
+    height: 45px;
     border-radius: 15px;
     border: none;
     padding: 0 20px;
     font-size: 1.2rem;
-    background-color: #1b2730;
-    color: #8c9aa8;
+    background-color: #354f71a6;
+    color: #cadbec;
 }
 input::placeholder{
-    color: #49545e;
+    color: #60778f;
+}
+
+.nav_middle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav_middle svg{
+    font-size: 1.8rem;
+    margin: 0 20px;
+    color: #54cccd;
+    cursor: pointer;
 }
 .nav_right{
-    flex: 0.7;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-right: 20px;
+    flex-direction: column;
+    margin-right: 35px;
+    cursor: pointer;
 }
+
 .userName{
-    background-color: #2a3843;
-    border-radius: 25px;
+    background-color: #162c49a6;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     padding: 5px;
 }
 .userName span{
     font-size: 1.4rem;
-    margin: 0 10px;
-    color: #8c9aa8;
+    margin: 0 25px;
+    color: #cadbec;
 }
 .userIcon{
-    width: 40px;
-    border-radius: 20px;
+    border-radius: 15px;
     object-fit: cover;
     height: 40px;
+    width: auto;
+    margin: 0;
 }
-.menuIcon{
-    font-size: 2.5rem;
-    margin: 0 3px;
-    color: white;
-}
+
 .arrowIcon{
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin: 0 5px;
     color: #8c9aa8;
 }
-.nav_menu{
-    margin: 0 30px;
+.menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    border-radius: 15px;
+    position: absolute;
+    top: 80px;
+    right: 40px;
+    overflow: hidden;
+    box-shadow: 0px 6px 11px 0px #c2d5d554;
+    border: 1px solid #c2d5d58c;
+}
+.menu_item{
+    font-size: 1.3rem;
+    font-family: OpenSans;
+    color: #cadbec;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+    width: 250px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.menu_item:hover{
+    background-color: #1d252fa6;
+    color: #65ffff;
 }

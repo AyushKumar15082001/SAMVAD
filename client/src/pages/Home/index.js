@@ -12,8 +12,16 @@ import Styles from './home.module.css';
 const Home = () => {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState({});
-  const { name, username, profilePic, bannerPic } = user;
   const navigate = useNavigate();
+  const { name, username , bannerPic } = user;
+  const defaultPic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
+  let profilePic;
+  if(user.profilePic){
+    profilePic = user.profilePic;
+  }
+  else{
+    profilePic = defaultPic;
+  }
   const followingCount = 0, followersCount = 0;
 
   const handleLogout = useCallback(() => {

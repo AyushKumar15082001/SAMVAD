@@ -11,37 +11,21 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   localStorage.getItem('token') && axios.get('http://localhost:8080/api/checkToken', {
-  //     headers: {
-  //       'Authorization': `Bearer ${localStorage.getItem('token')}`
-  //     }
-  //   })
-  //     .then((res) => {
-  //       console.log("token is valid")
-  //       navigate('/home');
-  //     })
-  //     .catch(err => {
-  //       console.log("token is not valid")
-  //       localStorage.removeItem('token');
-  //     })
-  // }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     axios.post('http://localhost:8080/api/auth/login', { email: email.toLowerCase(), password }).then(res => {
       localStorage.setItem('token', res.data);
       navigate('/home');
-
     }).catch(err => {
       setError(err.response.data);
-      // console.log(err);
-    });
-    // setEmail("");
-    // setPassword("");
-    // console.log(email, password)
+    }).finally(() => {
+      setLoading(false);
+    })
   };
   const handleChange = (e) => {
     if (e.target.name === "email") setEmail(e.target.value);
@@ -81,7 +65,9 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Login</button>
+        <div className={Styles.button} style={loading ? {zIndex:1}:{}}>
+          <button type="submit">Login</button>
+        </div>
         {error && <p className={Styles.error}>{error}</p>}
         <p>Don't have an account? <Link to="/signup">Create one</Link></p>
       </form>

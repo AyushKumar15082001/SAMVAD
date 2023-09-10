@@ -14,10 +14,12 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         setName(name => name.trim());
         setUsername(username => username.trim());
         setEmail(email => email.trim());
@@ -27,11 +29,9 @@ const Signup = () => {
         }).catch(err => {
             setError(err.response.data.message.replace('User validation failed: ', ''));
             console.log(err.response.data);
-        })
-        // setName("");
-        // setUsername("");
-        // setEmail("");
-        // setPassword("");
+        }).finally(() => {
+            setLoading(false);
+          })
         setError("");
     };
     const handleChange = (e) => {
@@ -95,7 +95,9 @@ const Signup = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit">Create my account</button>
+                <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
+                    <button type="submit">Create my account</button>
+                </div>
                 {error && <p className={Styles.error}>{error}</p>}
                 <p>Already have an account? <Link to="/">Login</Link></p>
             </form>

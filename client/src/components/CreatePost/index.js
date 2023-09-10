@@ -71,6 +71,7 @@ const CreatePost = ({ addPost }) => {
             {file && (
                 <div className={Styles.canvas}>
                     <img src={base64} alt='preview' />
+                    <button onClick={()=>{setFile(null);setBase64('');}}>Remove</button>
                     <div className={Styles.imgDetail}>
                         <span>{file.name.length > 20 ? file.name.slice(0, 20) + '...' : file.name}</span>
                         <span>{size(file.size)}</span>

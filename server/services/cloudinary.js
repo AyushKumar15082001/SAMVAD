@@ -27,4 +27,14 @@ const deleteFromCloudinary = async (publicId) => {
     }
 };
 
-module.exports = { uploadToCloudinary,deleteFromCloudinary }
+const deleteMultipleFromCloudinary = async (publicIds) => {
+    try {
+        const data = await cloudinary.api.delete_resources(publicIds);
+        return data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+module.exports = { uploadToCloudinary,deleteFromCloudinary, deleteMultipleFromCloudinary }

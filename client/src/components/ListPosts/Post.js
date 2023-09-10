@@ -9,6 +9,7 @@ import moment from 'moment';
 
 const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
     const [showMenu, setShowMenu] = useState(false);
+    if(!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
 
     return (
         <div className={Styles.post}>
@@ -31,7 +32,7 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
                     <p>{text}</p>
                 </div>
                 {image && <div className={Styles.postImages}>
-                    <img src={image} alt="post Image" />
+                    <img src={image} alt="post" />
                 </div>}
                 <div className={Styles.postButtons}>
                     <button className={Styles.postButton}>

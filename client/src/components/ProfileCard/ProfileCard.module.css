@@ -16,7 +16,7 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     /* position: ; */
     position: sticky;
-    top: 80px;
+    top: 110px;
 }
 .profile{
     display: flex;
@@ -25,7 +25,8 @@
     border-bottom: 1px solid #2a3843;
 }
 .profileImage{
-    border-radius: 50%;
+    border-radius: 35%;
+    /* border-radius: 15px; */
     /* border: 2px solid black; */
     border: 0;
     margin-top: -50px;
@@ -35,6 +36,8 @@
     width: fit-content;
     /* background-color: black; */
     overflow: hidden;
+    /* background-color: #fff; */
+    backdrop-filter: blur(10px);
 }
 .profileImage img{
     width: 100px;

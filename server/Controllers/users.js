@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { User } = require('../Models/users');
 const { Post } = require('../Models/posts')
-const { uploadToCloudinary, deleteFromCloudinary } = require('../services/cloudinary')
+const { uploadToCloudinary, deleteFromCloudinary, deleteMultipleFromCloudinary } = require('../services/cloudinary')
 
 const getUser = async (req, res) => {
     try {
@@ -53,7 +53,13 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const user = await User.findOneAndDelete({ email: req.body.email });
     if (user) {
+        //delete all posts of the user
+        const posts = await Post.find({ user_id: user._id }).lean().exec();
+        const mediaPublicId = posts.map(post => post.mediaPublicId).filter(mediaPublicId => mediaPublicId)
+        if(mediaPublicId.length > 0 ) deleteMultipleFromCloudinary(mediaPublicId);
         await Post.deleteMany({ user_id: user._id })
+
+        //delete the profile and banner pic of the user
         if(user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
         if(user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
         res.send({ message: "User deleted" })
