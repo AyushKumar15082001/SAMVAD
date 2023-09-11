@@ -167,7 +167,7 @@
     border: 1px solid #c2d5d58c;
 }
 .menu button{
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-family: OpenSans;
     color: #cadbec;
     display: flex;
@@ -186,7 +186,7 @@
     color: red;
 }
 .menu button:hover{
-    background-color: #1d252fba;
+    /* background-color: #1d252fba; */
     /* color: #65ffff; */
     scale: 1.1;
 }

@@ -96,7 +96,7 @@ const Signup = () => {
                     />
                 </div>
                 <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
-                    <button type="submit">Create my account</button>
+                    <button disabled={loading} type="submit">Create my account</button>
                 </div>
                 {error && <p className={Styles.error}>{error}</p>}
                 <p>Already have an account? <Link to="/">Login</Link></p>

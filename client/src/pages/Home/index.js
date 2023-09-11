@@ -4,6 +4,7 @@ import ProfileCard from '../../components/ProfileCard';
 import CreatePost from '../../components/CreatePost';
 import ListPosts from '../../components/ListPosts';
 import FollowPeople from '../../components/FollowPeople';
+import Credits from '../../components/Credits';
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -74,7 +75,10 @@ const Home = () => {
     <div className={Styles.App}>
       <Navbar {...{ name, profilePic, handleLogout }} />
       <div className={Styles.container}>
+        <div>
         <ProfileCard {...{ name, username, profilePic, bannerPic, followingCount, followersCount, bio }} />
+        <Credits />
+        </div>
         <div className={Styles.post}>
           <CreatePost {...{ addPost }} />
           <ListPosts {...{ tweets, handleLogout, setTweets, postOwner: username }} />

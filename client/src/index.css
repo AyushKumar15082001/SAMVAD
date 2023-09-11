@@ -3,13 +3,45 @@ body {
   font-family: OpenSans;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(137deg, #012627, #000505, #000);
+  /* background: linear-gradient(137deg, #012627, #000505, #000); */
+  background: #000;
 }
 
-code {
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+::selection {
+  background: #11979750;
+  /* WebKit/Blink Browsers*/
 }
+
+::-moz-selection {
+  background: #11979750;
+  /* Gecko Browsers */
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(0, 0, 0);
+  /* z-index: 10; */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 107, 131);
+  border-radius: 10px;
+  outline: none;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 53, 65);
+}
+
 @font-face {
   font-family: 'Sedgwick';
   src: local('Sedgwick'), url(./fonts/Sedgwick.ttf) format('woff');
@@ -17,4 +49,8 @@ code {
 @font-face {
   font-family: 'OpenSans';
   src: local('OpenSans'), url(./fonts/OpenSans.ttf) format('woff');
+}
+@font-face {
+  font-family: 'IndieFlower';
+  src: local('IndieFlower'), url(./fonts/IndieFlower.ttf) format('woff');
 }

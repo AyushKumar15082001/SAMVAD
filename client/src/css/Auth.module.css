@@ -81,12 +81,20 @@
     color: black;
     cursor: pointer;
     width: 100%;
-}
-
-.button:hover button, .button:hover {
-    background: rgb(0, 241, 221);
     transition: all 0.5s ease;
 }
+
+.button:hover button:not(:disabled), .button:not(:has(button:disabled)):hover {
+    background: rgb(0, 241, 221);
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.button button:disabled, .button:has(button:disabled){
+    cursor:not-allowed;
+}
+/* .button:has(button:disabled) {
+    cursor:not-allowed;
+} */
 
 .button {
     position: relative;
@@ -98,6 +106,7 @@
     margin: 15px 0;
     padding: 5px;
     background: rgb(0, 225, 255);
+    transition: all 0.5s ease;
 }
 
 .button::after {

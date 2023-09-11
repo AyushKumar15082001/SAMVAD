@@ -60,7 +60,7 @@ input::placeholder{
     border-radius: 15px;
     object-fit: cover;
     height: 40px;
-    width: auto;
+    width: 40px;
     margin: 0;
 }
 
@@ -84,7 +84,7 @@ input::placeholder{
     border: 1px solid #c2d5d58c;
 }
 .menu_item{
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-family: OpenSans;
     color: #cadbec;
     display: flex;
@@ -98,7 +98,12 @@ input::placeholder{
     transition: 0.3s;
 }
 .menu_item:hover{
-    background-color: #1d252fa6;
+    /* background-color: #1d252fa6; */
     color: #65ffff;
+    scale: 1.1;
+}
+.menu_item:nth-child(2):hover{
+    /* background-color: #1d252fa6; */
+    color: red;
     scale: 1.1;
 }

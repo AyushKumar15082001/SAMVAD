@@ -66,7 +66,7 @@ const Login = () => {
           />
         </div>
         <div className={Styles.button} style={loading ? {zIndex:1}:{}}>
-          <button type="submit">Login</button>
+          <button disabled={loading} type="submit">Login</button>
         </div>
         {error && <p className={Styles.error}>{error}</p>}
         <p>Don't have an account? <Link to="/signup">Create one</Link></p>

@@ -1,5 +1,5 @@
 import Styles from './Post.module.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // import Logo from '../../logo.svg';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FiShare2 } from 'react-icons/fi';
@@ -10,16 +10,6 @@ import moment from 'moment';
 const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, retweets, comments, date, updateHandler, deleteHandler }) => {
     const [showMenu, setShowMenu] = useState(false);
     if (!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
-
-    const handleClickOutside = (event) => {
-        if (event.target.closest('#cardList')) {
-            return;
-        }
-        setShowMenu(false);
-    }
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-    }, []);
 
     return (
         <div className={Styles.post}>
@@ -35,9 +25,9 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
                     </div>
                 </div>
                 {postOwner === username &&
-                    <div className={Styles.postHeaderRight} id='cardList' style={showMenu ? { transform: 'translate(109px, 49.5px)' } : {}} >
-                        <span onClick={() => setShowMenu(!showMenu)}>•••</span>
-                        {showMenu && <Menu updateHandler={() => updateHandler(_id, "updated")} deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu }} />}
+                    <div className={Styles.postHeaderRight} style={showMenu ? { transform: 'translate(108.4px, 42.8px)' } : {}} >
+                        <span onClick={() => setShowMenu(!showMenu)} >•••</span>
+                        {showMenu && <Menu updateHandler={() => updateHandler(_id, "updated")} deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id }} />}
                     </div>}
             </div>
             <div className={Styles.postBody}>
@@ -67,11 +57,21 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
     )
 }
 
-const Menu = ({ updateHandler, deleteHandler, setShowMenu }) => {
+const Menu = ({ updateHandler, deleteHandler, setShowMenu, _id }) => {
+    const handleClickOutside = useCallback((event) => {
+        if (event.target.className === `${_id}_cardList`) return
+        setShowMenu(false)
+        document.removeEventListener("mousedown", handleClickOutside);
+    }, [setShowMenu, _id])
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+    }, [handleClickOutside]);
+
     return (
         <div className={Styles.menu} onClick={() => setShowMenu(false)}>
-            <button onClick={updateHandler}>Update</button>
-            <button onClick={deleteHandler}>Delete</button>
+            <button onClick={updateHandler} className={`${_id}_cardList`}>Update</button>
+            <button onClick={deleteHandler} className={`${_id}_cardList`}>Delete</button>
         </div>
     )
 }

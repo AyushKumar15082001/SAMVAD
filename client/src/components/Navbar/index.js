@@ -17,7 +17,6 @@ function Navbar({ name, profilePic, handleLogout }) {
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
   }, []);
-
   return (
     <nav className={Styles.nav}>
       <div className={Styles.nav_left}>
