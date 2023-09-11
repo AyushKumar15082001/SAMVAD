@@ -21,7 +21,7 @@ const updateUser = async (req, res) => {
             if (req.body.name) user.name = req.body.name;
             if (req.body.bio) user.bio = req.body.bio;
             if (req.body.profilePic) {
-                if(user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
+                if (user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
                 const results = await uploadToCloudinary(req.body.profilePic, "my-profile")
                 user.profilePic = results.url.replace("upload/", "upload/q_auto,f_auto/")
                 user.profilePicPublicId = results.publicId;
@@ -29,7 +29,7 @@ const updateUser = async (req, res) => {
             if (req.body.bannerPic) {
                 const results = await uploadToCloudinary(req.body.bannerPic, "my-profile")
                 user.bannerPic = results.url.replace("upload/", "upload/q_auto,f_auto/")
-                if(user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
+                if (user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
                 user.bannerPicPublicId = results.publicId;
             }
             if (req.body.username) {
@@ -51,20 +51,24 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    const user = await User.findOneAndDelete({ email: req.body.email });
-    if (user) {
-        //delete all posts of the user
-        const posts = await Post.find({ user_id: user._id }).lean().exec();
-        const mediaPublicId = posts.map(post => post.mediaPublicId).filter(mediaPublicId => mediaPublicId)
-        if(mediaPublicId.length > 0 ) deleteMultipleFromCloudinary(mediaPublicId);
-        await Post.deleteMany({ user_id: user._id })
+    try {
+        const user = await User.findOneAndDelete({ email: req.body.email });
+        if (user) {
+            //delete all posts of the user
+            const posts = await Post.find({ user_id: user._id }).lean().exec();
+            const mediaPublicId = posts.map(post => post.mediaPublicId).filter(mediaPublicId => mediaPublicId)
+            if (mediaPublicId.length > 0) deleteMultipleFromCloudinary(mediaPublicId);
+            await Post.deleteMany({ user_id: user._id })
 
-        //delete the profile and banner pic of the user
-        if(user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
-        if(user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
-        res.send({ message: "User deleted" })
+            //delete the profile and banner pic of the user
+            if (user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
+            if (user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
+            res.send({ message: "User deleted" })
+        }
+        else res.status(400).send("User not found")
+    } catch (err) {
+        console.log(err)
     }
-    else res.status(400).send("User not found")
 }
 
 module.exports = {

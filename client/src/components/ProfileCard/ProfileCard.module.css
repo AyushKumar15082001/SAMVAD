@@ -8,8 +8,9 @@
     object-fit: cover;
 }
 .card{
-    width: 390px;
-    height: 445px;
+    width: 360px;
+    /* height: 445px; */
+    height: fit-content;
     border-radius: 20px;
     overflow: hidden;
     background-color: #1b27309e;
@@ -20,34 +21,32 @@
 }
 .profile{
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
-    border-bottom: 1px solid #2a3843;
+    justify-content:space-evenly;
+    /* border-bottom: 1px solid #2a3843; */
 }
 .profileImage{
     border-radius: 35%;
-    /* border-radius: 15px; */
-    /* border: 2px solid black; */
     border: 0;
-    margin-top: -50px;
+    margin-top: -70px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: fit-content;
-    /* background-color: black; */
     overflow: hidden;
-    /* background-color: #fff; */
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    border: 2px solid #000;
 }
 .profileImage img{
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    /* height: 100px; */
     object-fit: cover;
     /* background-color: #fff; */
 }
 .profileInfo{
     text-align: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     /* color: #fff; */
     font-size: 20px;
 }
@@ -59,32 +58,53 @@
 .profileInfo h4{
     color: #49545e;
     margin-top: -10px;
+    margin-bottom: 0px;
     font-size: 20px;
     font-weight: 500;
 }
-.profileStats{
+/* .profileStats{
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 0 20px;
     border-bottom: 1px solid #2a3843;
-}
+} */
 .followingCount, .followersCount{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.followingCount h3, .followersCount h3{
     color: #fff;
 }
 .followingCount h4, .followersCount h4{
     color: #49545e;
-    margin-top: -10px;
+    margin-top: -15px;
 }
-.FindPeople{
+.bio{
+    padding: 30px 20px;
+    color: #648eb5;
+    font-size: 15spx;
     text-align: center;
-    color: #1c628f;
+    /* margin: 10px 5px; */
+    /* margin-bottom: 10px; */
+    border-bottom: 1px solid #2a3843;
 }
-.FindPeople:hover{
-    cursor: pointer;
+.myProfile{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 20px;
+}
+.myProfile a{
+    text-decoration: none;
+    color: #cadbec;
+    border-radius: 15px;
+    padding: 15px 0;
+    width: 100%;
+    height: 100%;
+    background:#162c49a6;
+    transition: all 0.3s ease;
+}
+.myProfile a:hover{
+    background: #0091ff9e;
+    scale: 1.1;
 }

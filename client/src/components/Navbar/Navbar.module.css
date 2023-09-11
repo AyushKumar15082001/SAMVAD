@@ -16,7 +16,8 @@
     border: none;
     padding: 0 20px;
     font-size: 1.2rem;
-    background-color: #354f71a6;
+    /* background-color: #354f71a6; */
+    background: #162c49a6;
     color: #cadbec;
 }
 input::placeholder{
@@ -99,4 +100,5 @@ input::placeholder{
 .menu_item:hover{
     background-color: #1d252fa6;
     color: #65ffff;
+    scale: 1.1;
 }

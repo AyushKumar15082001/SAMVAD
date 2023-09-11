@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar';
 import ProfileCard from '../../components/ProfileCard';
 import CreatePost from '../../components/CreatePost';
 import ListPosts from '../../components/ListPosts';
+import FollowPeople from '../../components/FollowPeople';
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -13,16 +14,9 @@ const Home = () => {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const { name, username , bannerPic } = user;
-  const defaultPic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
-  let profilePic;
-  if(user.profilePic){
-    profilePic = user.profilePic;
-  }
-  else{
-    profilePic = defaultPic;
-  }
-  const followingCount = 0, followersCount = 0;
+  const { name, username, bannerPic, bio } = user;
+  const profilePic = user.profilePic ? user.profilePic : `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
+  const followingCount = 1090, followersCount = 1307;
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem('token');
@@ -66,7 +60,7 @@ const Home = () => {
       }
     })
       .then(res => {
-        setTweets(t => [{...res.data, name, username, profilePic}, ...t]);
+        setTweets(t => [{ ...res.data, name, username, profilePic }, ...t]);
       })
       .catch(err => {
         if (err.response.status === 401) {
@@ -80,11 +74,12 @@ const Home = () => {
     <div className={Styles.App}>
       <Navbar {...{ name, profilePic, handleLogout }} />
       <div className={Styles.container}>
-        <ProfileCard {...{ name, username, profilePic, bannerPic, followingCount, followersCount }} />
+        <ProfileCard {...{ name, username, profilePic, bannerPic, followingCount, followersCount, bio }} />
         <div className={Styles.post}>
           <CreatePost {...{ addPost }} />
           <ListPosts {...{ tweets, handleLogout, setTweets, postOwner: username }} />
         </div>
+        <FollowPeople />
       </div>
     </div>
   );

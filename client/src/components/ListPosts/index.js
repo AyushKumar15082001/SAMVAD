@@ -46,11 +46,11 @@ const ListPosts = ({ tweets, handleLogout, setTweets, postOwner }) => {
     }
 
     return (
-        <div>
+        <>
             {tweets.map((item, index) => {
                 return <Post key={index} {...{ ...item, updateHandler, deleteHandler, postOwner }} />
             })}
-        </div>
+        </>
     )
 }
 

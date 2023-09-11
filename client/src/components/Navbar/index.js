@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { IoMdArrowDropdown, IoMdNotificationsOutline } from 'react-icons/io';
 import { AiFillHome, AiOutlineHeart } from 'react-icons/ai';
 import Logo from '../../images/logo.png';
@@ -7,6 +7,16 @@ import { Link } from 'react-router-dom';
 function Navbar({ name, profilePic, handleLogout }) {
 
   const [menu, setMenu] = useState(false);
+
+  const handleClickOutside = (event) => {
+    if (event.target.closest('#navMenu')) {
+      return;
+    }
+    setMenu(false);
+  }
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className={Styles.nav}>
@@ -22,7 +32,7 @@ function Navbar({ name, profilePic, handleLogout }) {
         <AiOutlineHeart />
         <IoMdNotificationsOutline />
       </div>
-      <div className={Styles.nav_right}  onClick={() => setMenu(t => !t)} >
+      <div className={Styles.nav_right} id="navMenu" onClick={() => setMenu(t => !t)} >
         <div className={Styles.userName}>
           <img src={profilePic} alt="user" className={Styles.userIcon} />
           <span>{name}</span>

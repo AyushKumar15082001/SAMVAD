@@ -1,0 +1,78 @@
+.follow{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    height:fit-content;
+    padding: 0 10px;
+    background: #1b27309e;
+    position: sticky;
+    top: 110px;
+}
+.follow_title{
+    color: #cadbec;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 20px 0;
+}
+.card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 300px;
+    height: 80px;
+}
+.card:hover{
+    background: #1b27309e;
+}
+.profileContainer{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.profile_pic img {
+    width: 50px;
+    height: 50px;
+    border-radius: 35%;
+    margin: 25px 10px;
+    margin-right: 5px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+.profile_pic img:hover{
+    scale: 1.1;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.info .name{
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+.info .username{
+    color: #49545e;
+    font-size: 14px;
+    font-weight: 500;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.btn button{
+    background-color: #54cccd;
+    color: #000;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}

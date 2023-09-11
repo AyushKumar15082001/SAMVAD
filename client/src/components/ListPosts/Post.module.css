@@ -1,114 +1,192 @@
-.post{
+.post {
     background: #1b27309e;
     margin-top: 20px;
     border-radius: 15px;
     display: flex;
-    max-width: 730px;
+    flex-direction: column;
     padding-bottom: 15px;
+    width: 610px;
+    padding: 0 20px;
 }
-.postContent{
-    width: 100%;
-    margin-right: 30px;
-}
-.postHeader{
+
+.postHeader {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    width: 100%;
 }
-.postHeaderLeft{
+
+.postHeaderLeft {
+    display: flex;
+}
+
+.userDetail {
     display: flex;
     justify-content: center;
     align-items: baseline;
-    margin-right: 10px;
+    flex-direction: column;
+    margin-left: 15px;
 }
-.post img{
+
+.post img {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    /* background-color: white; */
-    margin: 25px 15px;
+    border-radius: 35%;
     object-fit: cover;
 }
-.postHeaderInfo{
-    display: flex;
-    flex-direction: column;
-}
-.postHeaderInfo h2{
-    color: white;
-}
-.postHeaderInfo h5{
+
+.postUserName {
     color: #49545e;
-    margin-top: -20px;
-    font-size: 17px;
-    font-weight: 500;
-}
-.postUserName{
-    color: #49545e;
+    margin: 0;
     margin-left: 10px;
     transform: translateY(-2px);
     font-weight: 500;
     font-size: 17px;
 }
-.postHeaderRight{
-    color: white;
-    font-size: 40px;
-    margin-right: 5px;
+
+.postHeaderInfo {
+    display: flex;
+    align-items: baseline;
 }
-.postHeaderRight span{
+
+.postHeaderInfo h2 {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.postHeaderInfo h5 {
+    color: #54cccd;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.postHeaderRight {
+    color: white;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* transform: translate(110px, 50px); */
+}
+
+.postHeaderRight span {
     display: flex;
     justify-content: flex-end;
+    rotate: 90deg;
+    border-radius: 50%;
+    padding: 5px 7px;
+    cursor: pointer;
 }
-.postBody{
-    color: white;
-    margin-top: -30px;
-}
-.postButtons{
-    display: flex;
-    justify-content: space-between;
-}
-.postButton{
+
+.postHeaderRight span:hover {
     background: #2a3843;
+}
+
+.postBody p {
+    color: white;
+    margin: 0;
+
+}
+
+.postButtons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.postButton {
+    background: transparent;
     border: none;
     color: white;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    width: 170px;
-    height: 50px;
+    padding: 30px 0;
+    width: auto;
+    height: 30px;
+    cursor: pointer;
+}
+
+.postButton h5{
+    margin: 0;
+    margin-left: 10px;
     font-size: 16px;
-    cursor: pointer;
+    font-weight: 400;
 }
-.postButton svg{
+
+.postButton svg {
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 26px;
 }
-.shareButton{
-    background: transparent;
-    border: 1px solid #8c9aa8;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
+.postButton:nth-child(1):hover {
+    color: red;
 }
+.postButton:nth-child(2):hover {
+    color: #54cccd;
+}
+.postButton:nth-child(3):hover {
+    color: rgb(0, 162, 255);
+}
+.postButton:nth-child(4):hover {
+    color: rgb(169, 218, 22);
+}
+
 .postImages {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin-top: 20px;
 }
-.postImages img{
+
+.postImages img {
     width: auto;
     height: auto;
     max-height: 300px;
     max-width: 600px;
-    border-radius: 15px;
     margin: 0;
+    border-radius: 25px;
     object-fit: contain;
     background: none;
-    border-radius: 10px;
+}
+.menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    /* position: absolute; */
+    top: 80px;
+    right: 40px;
+    overflow: hidden;
+    transform: translateX(-100px);
+    box-shadow: 0px 6px 11px 0px #c2d5d554;
+    border: 1px solid #c2d5d58c;
+}
+.menu button{
+    font-size: 1.3rem;
+    font-family: OpenSans;
+    color: #cadbec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+    width: 250px;
+    cursor: pointer;
+    overflow: hidden;
+    background: #000;
+    border: none;
+    transition: 0.3s;
+}
+.menu button:nth-child(2){
+    color: red;
+}
+.menu button:hover{
+    background-color: #1d252fba;
+    /* color: #65ffff; */
+    scale: 1.1;
 }

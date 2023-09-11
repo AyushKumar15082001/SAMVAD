@@ -7,7 +7,7 @@
     border-radius: 10px;
 }
 .createPostContainer input{
-    width: 600px;
+    width: 520px;
     height: 50px;
     border-radius: 10px;
     border: none;
@@ -15,6 +15,8 @@
     font-size: 1.2rem;
     background-color: #2a3843;
     color: #8c9aa8;
+    margin-top: 10px;
+
 }
 .createPostContainer input::placeholder{
     color: #8c9aa8;
@@ -36,7 +38,7 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 .buttons button, .buttons label{
     display: flex;
