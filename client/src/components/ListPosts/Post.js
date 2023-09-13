@@ -1,6 +1,5 @@
 import Styles from './Post.module.css';
 import { useCallback, useEffect, useState } from 'react';
-// import Logo from '../../logo.svg';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FiShare2 } from 'react-icons/fi';
 import { FaRetweet } from 'react-icons/fa';

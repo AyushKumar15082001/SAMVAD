@@ -1,10 +1,9 @@
 import { React, useEffect, useState } from "react";
-import { IoMdArrowDropdown, IoMdNotificationsOutline } from 'react-icons/io';
-import { AiFillHome, AiOutlineHeart } from 'react-icons/ai';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import Logo from '../../images/logo.png';
 import Styles from './Navbar.module.css';
 import { Link } from 'react-router-dom';
-function Navbar({ name, profilePic, handleLogout }) {
+function Navbar({ user, handleLogout }) {
 
   const [menu, setMenu] = useState(false);
 
@@ -26,15 +25,10 @@ function Navbar({ name, profilePic, handleLogout }) {
         </Link>
         <input type="text" placeholder="# Explore" />
       </div>
-      <div className={Styles.nav_middle}>
-        <AiFillHome />
-        <AiOutlineHeart />
-        <IoMdNotificationsOutline />
-      </div>
       <div className={Styles.nav_right} id="navMenu" onClick={() => setMenu(t => !t)} >
         <div className={Styles.userName}>
-          <img src={profilePic} alt="user" className={Styles.userIcon} />
-          <span>{name}</span>
+          <img src={user.profilePic} alt="user" className={Styles.userIcon} />
+          <span>{user.name}</span>
           <IoMdArrowDropdown className={Styles.arrowIcon} />
         </div>
         {menu && (

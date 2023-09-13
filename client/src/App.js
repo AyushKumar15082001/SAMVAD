@@ -2,10 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
-import Profile from './pages/Profile';
+import Profile from "./pages/Profile";
 import NotFound from './pages/NotFound';
 import './App.css';
-import AuthLayout from "./components/AuthLayout";
+import AuthLayout from "./components/Layouts/AuthLayout";
+import PageLayout from "./components/Layouts/PageLayout";
 
 function App() {
   return (
@@ -15,11 +16,11 @@ function App() {
           <Route index element={<Login />} />
           <Route path="signup" element={<Signup />} />
         </Route>
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        {/* not found page */}
-        {/* <Route path="*" element={<h1>Not found</h1>} /> */}
-        <Route path="*" element={<NotFound/>} />
+        <Route path="/" element={<PageLayout />} >
+          <Route path="home" element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>

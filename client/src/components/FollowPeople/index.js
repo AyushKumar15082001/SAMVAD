@@ -47,16 +47,26 @@ const FollowPeople = () => {
                 name: "Rajesh Kumar",
                 username: "rajesh_kumar",
             },
-            {
-                _id: "7",
-                name: "Ramesh Kumar",
-                username: "ramesh_kumar",
-            },
-            {
-                _id: "8",
-                name: "Raj Kumar",
-                username: "raj_kumar",
-            }
+            // {
+            //     _id: "7",
+            //     name: "Ramesh Kumar",
+            //     username: "ramesh_kumar",
+            // },
+            // {
+            //     _id: "8",
+            //     name: "Raj Kumar",
+            //     username: "raj_kumar",
+            // },
+            // {
+            //     _id: "9",
+            //     name: "Ramesh Kumar",
+            //     username: "ramesh_kumar",
+            // },
+            // {
+            //     _id: "10",
+            //     name: "Raj Kumar",
+            //     username: "raj_kumar",
+            // }
         ]);
 
     }, []);

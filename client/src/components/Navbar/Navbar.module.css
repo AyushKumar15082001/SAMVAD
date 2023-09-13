@@ -16,7 +16,6 @@
     border: none;
     padding: 0 20px;
     font-size: 1.2rem;
-    /* background-color: #354f71a6; */
     background: #162c49a6;
     color: #cadbec;
 }
@@ -24,17 +23,6 @@ input::placeholder{
     color: #60778f;
 }
 
-.nav_middle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.nav_middle svg{
-    font-size: 1.8rem;
-    margin: 0 20px;
-    color: #54cccd;
-    cursor: pointer;
-}
 .nav_right{
     display: flex;
     align-items: center;
@@ -98,12 +86,10 @@ input::placeholder{
     transition: 0.3s;
 }
 .menu_item:hover{
-    /* background-color: #1d252fa6; */
     color: #65ffff;
     scale: 1.1;
 }
 .menu_item:nth-child(2):hover{
-    /* background-color: #1d252fa6; */
     color: red;
     scale: 1.1;
 }

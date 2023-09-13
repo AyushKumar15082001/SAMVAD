@@ -1,9 +1,9 @@
 import Styles from "./AuthLayout.module.css";
 import { Outlet, useNavigate } from "react-router-dom";
-import blob from '../../images/home_blob.svg'
-import blob1 from '../../images/home_blob_1.svg'
+import blob from '../../../images/home_blob.svg'
+import blob1 from '../../../images/home_blob_1.svg'
 import { Link } from "react-router-dom";
-import Logo from '../../images/logo.png';
+import Logo from '../../../images/logo.png';
 import axios from "axios";
 import React, { useEffect } from "react";
 

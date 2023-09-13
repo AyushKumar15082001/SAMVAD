@@ -1,6 +1,6 @@
 .credits {
     position: sticky;
-    top: 85vh;
+    top: 75vh;
     left: 0;
     width: 100%;
     background: #1b27309e;
@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #399cff;
     padding-top: 20px;
     padding-bottom: 10px;
