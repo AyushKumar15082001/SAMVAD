@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Styles from "../css/Auth.module.css";
-// import Logo from '../images/logo.png'
 import { MdEmail } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
 import { Link } from "react-router-dom";
