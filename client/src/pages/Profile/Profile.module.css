@@ -8,7 +8,11 @@
     overflow: hidden;
     background-color: #1b27309e;
 }
+.banner{
+    width: 100%;
+}
 .banner img{
+    max-height: 165px;
     width: 100%;
     object-fit: cover;
 }
@@ -63,4 +67,35 @@
     padding: 30px 20px;
     color: #648eb5;
     text-align: center;
+}
+.edit1, .edit2{
+    position: absolute;
+    transform: translate(-22px, -4px);
+    background: #fff;
+    padding: 0 2px;
+    border-radius: 19px;
+    cursor: pointer;
+}
+.edit1 svg, .edit2 svg{
+    font-size: 25px;
+    color: #000;
+}
+.edit2{
+    transform: translate(45px, -80px);
+}
+.removeImg1, .removeImg2{
+    position: absolute;
+    transform: translate(-655px, -5px);
+    background: #fff;
+    padding: 0;
+    color: #000;
+    border-radius: 21px;
+    cursor: pointer;
+    font-size: 29px;
+}
+.removeImg2{
+    transform: translate(-50px, -80px)
+}
+.imgInput{
+    display: none;
 }

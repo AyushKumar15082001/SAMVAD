@@ -42,7 +42,7 @@ const PageLayout = () => {
                     <Credits />
                 </div>
                 <div>
-                <Outlet context={[{handleLogout, user}]}/>
+                <Outlet context={[{handleLogout, user, setUser}]}/>
                 </div>
                 <FollowPeople />
             </div>
