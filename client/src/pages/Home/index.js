@@ -27,8 +27,8 @@ const Home = () => {
       })
   }, [handleLogout]);
 
-  const addPost = (text, file) => {
-    axios.post('http://localhost:8080/api/posts', { text, image: file }, {
+  const addPost = (text, image) => {
+    axios.post('http://localhost:8080/api/posts', { text, image }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

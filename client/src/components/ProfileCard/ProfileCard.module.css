@@ -165,8 +165,11 @@
     background: rgb(0, 225, 255);
     transition: all 0.5s ease;
 }
+.button:nth-child(1){
+    background: transparent;
+}
 
-.button::after {
+.button:nth-child(2):after {
     content: '';
     position: absolute;
     width: 100%;
@@ -200,20 +203,34 @@
     width: 100%;
     transition: all 0.5s ease;
 }
+.button:nth-child(1) button{
+    background: transparent;
+    color: rgb(0, 225, 255);
+}
+.buttons .button:nth-child(1):hover, .buttons .button:nth-child(1) button:hover{
+    color: rgb(0, 241, 221);
+    background: transparent;
+    scale: 1.2;
+}
 .form button{
     border: none;
     outline: none;
     border-radius: 10px;
     font-size: 20px;
     padding: 10px 10px;
-    background: rgb(0, 225, 255);
-    color: black;
+    /* background: rgb(0, 225, 255); */
+    background: transparent;
+    /* color: black; */
+    color: rgb(0, 225, 255);
     cursor: pointer;
-    width: 100%;
+    /* width: 100%; */
+    width: fit-content;
     transition: all 0.5s ease;
 }
 .form button:hover{
-    background: rgb(0, 241, 221);
+    /* background: rgb(0, 241, 221); */
+    color: rgb(0, 241, 221);
+    scale: 1.2;
     cursor: pointer;
     transition: all 0.5s ease;
 }

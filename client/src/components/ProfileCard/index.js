@@ -80,6 +80,7 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
                     <label htmlFor='banner' className={Styles.edit1}>
                         <BiPencil />
                     </label>
+                    <input type="file" name="banner" id='banner' className={Styles.imgInput} accept="image/*" onChange={handleChange} />
                     {userInputs.bannerPic && <AiOutlineClose className={Styles.removeImg1} onClick={() => handleReset('bannerPic')} />}
                 </div>
                 <div className={Styles.profile}>
@@ -97,6 +98,7 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
                     <label htmlFor='profile' className={Styles.edit2}>
                         <BiPencil />
                     </label>
+                    <input type="file" name="profile" id='profile' className={Styles.imgInput} accept="image/*" onChange={handleChange} />
                     {userInputs.profilePic && <AiOutlineClose className={Styles.removeImg2} onClick={() => handleReset('profilePic')} />}
                 </div>
                 <div className={Styles.profileInfo}>
@@ -107,11 +109,9 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
                 <div className={Styles.bio}>
                     {userInputs.bio ? userInputs.bio : user.bio}
                 </div>
-                <input type="file" name="banner" id='banner' className={Styles.imgInput} accept="image/*" onChange={handleChange} />
-                <input type="file" name="profile" id='profile' className={Styles.imgInput} accept="image/*" onChange={handleChange} />
                 {!isObjectEmpty(userInputs) && <div className={Styles.buttons}>
                     <div className={Styles.button} >
-                        <button disabled={loading} onClick={() => { setUserInputs(''); setError('') }}>Reset</button>
+                        <button onClick={() => { setUserInputs(''); setError('') }}>Reset</button>
                     </div>
                     <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
                         <button disabled={loading} onClick={handleSubmit}>Update</button>
@@ -123,7 +123,7 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
                 <input type='text' name='name' id='name' value={userInputs.name} placeholder='Name' onChange={handleChange} />
                 <input type='text' name='username' id='username' value={userInputs.username} placeholder='Username' onChange={handleChange} />
                 <input type='text' name='bio' id='bio' value={userInputs.bio} placeholder='Bio' onChange={handleChange} />
-                <button onClick={() => setTextForm(false)}>Save</button>
+                <button onClick={() => setTextForm(false)}>Done</button>
             </form>
             }
         </>

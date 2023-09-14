@@ -64,7 +64,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <div className={Styles.button} style={loading ? {zIndex:1}:{}}>
+        <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
           <button disabled={loading} type="submit">Login</button>
         </div>
         {error && <p className={Styles.error}>{error}</p>}
