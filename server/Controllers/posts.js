@@ -1,4 +1,4 @@
-const axios = require('axios');
+// const axios = require('axios');
 const { Post } = require('../Models/posts');
 const { uploadToCloudinary, deleteFromCloudinary } = require('../services/cloudinary')
 // const {User} = require('../Models/users');
@@ -25,6 +25,8 @@ const getPosts = async (req, res) => {
                 'user.email': 0,
                 'user.password': 0,
                 'user.bannerPic': 0,
+                'user.profilePicPublicId':0,
+                'user.bannerPicPublicId':0,
                 'user.bio': 0,
                 'user.followers': 0,
                 'user.following': 0,
@@ -38,7 +40,6 @@ const getPosts = async (req, res) => {
             $sort: { date: -1 }
         }
     ]);
-    // console.log(user)// Marked:need to look at
     const finalPosts = posts.map(post => {
         const { user, user_id, ...rest } = post;
         return { ...rest, ...user };
@@ -79,6 +80,7 @@ const updatePost = (req, res) => {
                 doc.image = results.url.replace("upload/", "upload/q_auto,f_auto/")
                 doc.mediaPublicId = results.publicId;
             }
+            doc.edited = true;
 
             await doc.save();
             const { user_id, ...rest } = doc._doc;

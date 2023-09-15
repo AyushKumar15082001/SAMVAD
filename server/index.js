@@ -4,6 +4,7 @@ const cors = require('cors');
 const { postRouter } = require('./Routes/posts');
 const { userRouter } = require('./Routes/users');
 const { authRouter } = require('./Routes/auth');
+const {actionRouter} = require('./Routes/actions');
 const { auth } = require('./middlewares/auth');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(cors());
 app.use('/api/posts', auth, postRouter);
 app.use('/api/user', auth, userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/actions', auth, actionRouter);
 
 
 //check if the token is valid

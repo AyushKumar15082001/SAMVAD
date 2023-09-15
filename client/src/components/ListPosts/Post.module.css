@@ -49,20 +49,33 @@
     display: flex;
     align-items: baseline;
 }
+.postTopHeaderInfo {
+    display: flex;
+    align-items: flex-start;
+}
+.postTopHeaderInfo svg{
+    font-size: 20px;
+    margin-left: 10px;
+    color: #00f1dd;
+}
 
 .postHeaderInfo h2 {
     color: white;
     font-size: 20px;
     font-weight: 500;
     margin: 0;
+    margin-left: 10px;
 }
 
-.postHeaderInfo h5 {
+.postHeaderInfo h5, .postHeaderInfo h4 {
     color: #54cccd;
     font-size: 15px;
     font-weight: 500;
     margin: 0;
     margin-left: 10px;
+}
+.postHeaderInfo h4 {
+    color: #cadbec;
 }
 
 .postHeaderRight {
@@ -72,6 +85,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
 }
 
 .postHeaderRight span {
@@ -160,9 +174,10 @@
     top: 80px;
     right: 40px;
     overflow: hidden;
-    transform: translateX(-100px);
     box-shadow: 0px 6px 11px 0px #c2d5d554;
     border: 1px solid #c2d5d58c;
+    position: absolute;
+    transform: translate(30px, -75px);
 }
 .menu button{
     font-size: 1rem;
@@ -180,7 +195,7 @@
     border: none;
     transition: 0.3s;
 }
-.menu button:nth-child(2){
+#menuWarn{
     color: red;
 }
 .menu button:hover{
@@ -284,7 +299,7 @@
     display: flex;
 }
 .updateForm textarea{
-    width: 300px;
+    width: 350px;
     height: 200px;
     padding: 10px;
     /* margin: 10px 0px; */

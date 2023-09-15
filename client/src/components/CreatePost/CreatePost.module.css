@@ -89,6 +89,24 @@ button:nth-child(4) .photoIcon{
     max-height: 300px;
     object-fit: contain;
 }
+.canvas button{
+    position: absolute;
+    transform: translate(260px, -160px);
+    background: rgba(0, 0, 0, 0.67);
+    border: none;
+    color: #fff;
+    padding: 0px 2px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.canvas button svg{
+    font-size: 25px;
+    transform: translateY(2px);
+}
+.canvas button:hover{
+    background: rgba(0, 0, 0, 0.87);
+    transition: 0.3s;
+}
 .imgDetail{
     display: flex;
     justify-content: space-around;

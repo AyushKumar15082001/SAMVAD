@@ -5,10 +5,11 @@ import { FiShare2 } from 'react-icons/fi';
 import { FaRetweet } from 'react-icons/fa';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
+import { MdVerified } from 'react-icons/md'
 import moment from 'moment';
 import axios from 'axios';
 
-const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, retweets, comments, date, deleteHandler, handleLogout, setTweets }) => {
+const Post = ({ _id, name, username, postOwner, text, profilePic, image, edited, verified, likes, retweets, comments, date, deleteHandler, handleLogout, setTweets }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -41,7 +42,8 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
                 setTweets(t => t.map((tweet) => {
                     if (tweet._id === id) {
                         tweet.text = text;
-                        if(image)tweet.image = image;
+                        if (image) tweet.image = image;
+                        tweet.edited = true;
                         tweet.date = Date.now();
                         return tweet;
                     }
@@ -56,7 +58,7 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
             }).finally(() => {
                 setLoading(false);
             }
-        )
+            )
     }
 
     return (
@@ -65,19 +67,23 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
                 <div className={Styles.postHeaderLeft}>
                     <img src={profilePic} alt="profile" />
                     <div className={Styles.userDetail}>
-                        <h5 className={Styles.postUserName}>{"@" + username}</h5>
+                        <div className={Styles.postTopHeaderInfo}>
+                            <h5 className={Styles.postUserName}>{"@" + username}</h5>
+                            {verified && <MdVerified />}
+                        </div>
                         <div className={Styles.postHeaderInfo}>
                             <h2>{name}</h2>
                             <h5>• {moment(date).fromNow()}</h5>
+                            {edited && <h4>(edited)</h4>}
                         </div>
                     </div>
                 </div>
-                {postOwner === username &&
-                    <div className={Styles.postHeaderRight} style={showMenu ? { transform: 'translate(108.4px, 42.8px)' } : {}} >
+                {/* {postOwner === username && */}
+                    <div className={Styles.postHeaderRight} >
                         <span onClick={() => setShowMenu(!showMenu)} >•••</span>
-                        {showMenu && <Menu deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id, handleShowUpdateForm }} />}
+                        {showMenu && <Menu deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id, handleShowUpdateForm }} isOwner={postOwner === username} />}
                     </div>
-                }
+                 {/* } */}
             </div>
             <div className={Styles.postBody}>
                 <p>{text}</p>
@@ -109,7 +115,7 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, likes, 
     )
 }
 
-const Menu = ({ deleteHandler, setShowMenu, _id, handleShowUpdateForm }) => {
+const Menu = ({ deleteHandler, setShowMenu, _id, handleShowUpdateForm, isOwner }) => {
     const handleClickOutside = useCallback((event) => {
         if (event.target.className === `${_id}_cardList`) return
         setShowMenu(false)
@@ -122,8 +128,17 @@ const Menu = ({ deleteHandler, setShowMenu, _id, handleShowUpdateForm }) => {
 
     return (
         <div className={Styles.menu} onClick={() => setShowMenu(false)}>
-            <button onClick={handleShowUpdateForm} className={`${_id}_cardList`}>Update</button>
-            <button onClick={deleteHandler} className={`${_id}_cardList`}>Delete</button>
+            {isOwner ?
+                <>
+                    <button onClick={handleShowUpdateForm} className={`${_id}_cardList`}>Update</button>
+                    <button onClick={deleteHandler} className={`${_id}_cardList`} id={Styles.menuWarn}>Delete</button>
+                </> :
+                <>
+                    <button className={`${_id}_cardList`}>Follow</button>
+                    <button className={`${_id}_cardList`}>Bookmark</button>
+                    <button className={`${_id}_cardList`} id={Styles.menuWarn}>Report</button>
+                </>
+            }
         </div>
     )
 }
@@ -160,12 +175,12 @@ const UpdatePost = ({ image, text, updateHandler, loading, setShowUpdateForm, er
         <div className={Styles.updateFormBack}>
             <div className={Styles.updateForm} id='updateForm'>
                 <div className={Styles.updateFormHeader}>
-                    <button onClick={()=>setShowUpdateForm(false)}>Cancel</button>
+                    <button onClick={() => setShowUpdateForm(false)}>Cancel</button>
 
                     <h2>Update Post</h2>
                     {/* <button type='submit' onClick={() => updateHandler(updateText)}>Update</button> */}
                     <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
-                        <button type='submit' disabled={loading} onClick={() => updateHandler(updateText,base64)}>Update</button>
+                        <button type='submit' disabled={loading} onClick={() => updateHandler(updateText, base64)}>Update</button>
                     </div>
                 </div>
                 <div className={Styles.updateFormBody}>

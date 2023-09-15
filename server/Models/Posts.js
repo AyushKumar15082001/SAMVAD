@@ -9,6 +9,7 @@ const postSchema = new Schema({
     image: String,
     mediaPublicId: String,
     date: { type: Date, default: Date.now },
+    edited: {type: Boolean, default: false},
     likes: {type: Number, default: 0},
     retweets: {type: Number, default: 0},
     comments: {type: Number, default: 0},

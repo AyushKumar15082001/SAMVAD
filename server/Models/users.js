@@ -32,6 +32,7 @@ const userSchema = new Schema({
     profilePicPublicId: String,
     bannerPicPublicId: String,
     bio: { type: String, maxlength: 160, default: "This is my bio" },
+    verified: {type: Boolean, default: false},
     date: { type: Date, default: Date.now },
     // token: String,
 
