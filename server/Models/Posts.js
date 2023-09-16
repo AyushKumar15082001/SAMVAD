@@ -10,9 +10,9 @@ const postSchema = new Schema({
     mediaPublicId: String,
     date: { type: Date, default: Date.now },
     edited: {type: Boolean, default: false},
-    likes: {type: Number, default: 0},
-    retweets: {type: Number, default: 0},
-    comments: {type: Number, default: 0},
+    // likes: {type: Number, default: 0},
+    // retweets: {type: Number, default: 0},
+    // comments: {type: Number, default: 0},
 });
 const Post = mongoose.model('Post', postSchema);
 module.exports = {Post};

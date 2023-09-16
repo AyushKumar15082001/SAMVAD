@@ -67,7 +67,8 @@
     margin-right: 10px;
 }
 .btn button{
-    background-color: #54cccd;
+    background: #3f9595;
+    /* background-color: #54cccd; */
     color: #000;
     border: none;
     border-radius: 15px;
@@ -75,4 +76,8 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+}
+.btn button:hover{
+    background: #54cccd;
+    color: #000;
 }

@@ -1,0 +1,180 @@
+.updateFormBack{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000000c4;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.updateForm{
+    background: #101b22dc;
+    border-radius: 20px;
+}
+.updateFormHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #0081818c;
+}
+.updateFormHeader h2{
+    color: #cadbec;
+    font-size: 1.3rem;
+    font-family: OpenSans;
+    margin: 0;
+}
+.updateFormHeader button{
+    background: transparent;
+    transition: all 0.5s ease;
+    color: rgb(0, 225, 255);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+.updateFormHeader > button:hover{
+    color: rgb(0, 241, 221);
+    scale: 1.2;
+}
+.button {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: 100%;
+    border-radius: 10px;
+    /* margin: 15px 90px; */
+    margin-right: 10px;
+    padding: 4px;
+    background: rgb(0, 225, 255);
+    /* color: black; */
+    transition: all 0.5s ease;
+}
+.button button{
+    color: black;
+    background: #00e1ff;
+}
+/* .button button:hover ,.button:hover{
+    scale: 1.1;
+
+} */
+.button:hover button:not(:disabled), .button:not(:has(button:disabled)):hover{
+    color: #000;
+    background: #00f1dd;
+}
+.button button:disabled, .button:has(button:disabled){
+    cursor:not-allowed;
+}
+.updateFormHeader .button:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    top: -35%;
+    left: 0%;
+    z-index: -1;
+    background: linear-gradient(#15ff00,#ff8000, transparent);
+    clip-path: polygon(50% 50%, 0% 0%, 0% 100%);
+    animation: rotateDiv 5s linear infinite;
+}
+@keyframes rotateDiv {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.updateFormBody{
+    padding: 20px;
+    display: flex;
+}
+.updateForm textarea{
+    width: 350px;
+    height: 200px;
+    padding: 10px;
+    /* margin: 10px 0px; */
+    margin: 0 20px;
+    background: transparent;
+    color: #cadbec;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+    font-family: OpenSans;
+}
+.updateForm label{
+    color: #cadbec;
+    font-size: 1rem;
+    font-family: OpenSans;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.updateForm label:hover{
+    color: #00f1dd
+}
+.updateFormBody .postImg{
+    width: 100%;
+    height: 100%;
+    /* max-height: 300px;
+    max-width: 600px; */
+    margin: 0;
+    border-radius: 25px;
+    object-fit: contain;
+    background: none;
+}
+.updateFormBody .postImg img{
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    max-width: 600px;
+    margin: 0;
+    border-radius: 25px;
+    object-fit: contain;
+    background: none;
+}
+.imgDetail{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #cadbec;
+    /* flex-direction: column; */
+    margin-left: 15px;
+}
+.postImg button{
+    position: absolute;
+    transform: translate(-25px, 0px);
+    background: rgba(0, 0, 0, 0.67);
+    border: none;
+    color: #fff;
+    padding: 0px 2px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.postImg button svg{
+    font-size: 25px;
+    transform: translateY(2px);
+}
+.postImg button:hover{
+    background: rgba(0, 0, 0, 0.87);
+    transition: 0.3s;
+}
+.postCont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.error {
+    color: rgb(212, 0, 0) !important;
+    font-size: 15px;
+    margin: 0;
+    /* margin-top: 5px; */
+    margin-bottom: 10px;
+    text-align: center;
+    /* padding: 10px 0; */
+}

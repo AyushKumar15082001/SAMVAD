@@ -1,17 +1,15 @@
 import Styles from './Post.module.css';
 import { useCallback, useEffect, useState } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { FiShare2 } from 'react-icons/fi';
-import { FaRetweet } from 'react-icons/fa';
-import { FaRegCommentDots } from 'react-icons/fa';
-import { AiOutlineClose } from 'react-icons/ai';
-import { MdVerified } from 'react-icons/md'
+import { MdVerified } from 'react-icons/md';
+import UpdatePost from '../UpdatePost';
+import ActionButtons from '../ActionButtons';
 import moment from 'moment';
 import axios from 'axios';
 
-const Post = ({ _id, name, username, postOwner, text, profilePic, image, edited, verified, likes, retweets, comments, date, deleteHandler, handleLogout, setTweets }) => {
+const Post = ({ _id, name, username, postOwner, text, profilePic, image, edited, verified, likeCount, userLiked, date, deleteHandler, handleLogout, setTweets }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [likes, setLikes] = useState(likeCount);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     if (!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
@@ -78,12 +76,10 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, edited,
                         </div>
                     </div>
                 </div>
-                {/* {postOwner === username && */}
-                    <div className={Styles.postHeaderRight} >
-                        <span onClick={() => setShowMenu(!showMenu)} >•••</span>
-                        {showMenu && <Menu deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id, handleShowUpdateForm }} isOwner={postOwner === username} />}
-                    </div>
-                 {/* } */}
+                <div className={Styles.postHeaderRight} >
+                    <span onClick={() => setShowMenu(!showMenu)} >•••</span>
+                    {showMenu && <Menu deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id, handleShowUpdateForm }} isOwner={postOwner === username} />}
+                </div>
             </div>
             <div className={Styles.postBody}>
                 <p>{text}</p>
@@ -93,21 +89,15 @@ const Post = ({ _id, name, username, postOwner, text, profilePic, image, edited,
                     <img src={image} alt="post" />
                 </div>
             }
-            <div className={Styles.postButtons}>
-                <div className={Styles.postButton}>
-                    <AiOutlineHeart />
-                    <h5>{likes}</h5>
+            <ActionButtons {...{_id, userLiked, setLikes, handleLogout}}/>
+            <div className={Styles.postStats} >
+                <div className={Styles.postStatsLeft} >
+                    <span>{likes}</span>
+                    <span>Likes</span>
                 </div>
-                <div className={Styles.postButton}>
-                    <FaRetweet />
-                    <h5>{retweets}</h5>
-                </div>
-                <div className={Styles.postButton}>
-                    <FaRegCommentDots />
-                    <h5>{comments}</h5>
-                </div>
-                <div className={Styles.postButton}>
-                    <FiShare2 />
+                <div className={Styles.postStatsRight} >
+                    <span>{0}</span>
+                    <span>Comments</span>
                 </div>
             </div>
             {showUpdateForm && <UpdatePost updateHandler={(text, image) => { updateHandler(_id, text, image) }} {...{ text, image, loading, setShowUpdateForm, error }} />}
@@ -139,73 +129,6 @@ const Menu = ({ deleteHandler, setShowMenu, _id, handleShowUpdateForm, isOwner }
                     <button className={`${_id}_cardList`} id={Styles.menuWarn}>Report</button>
                 </>
             }
-        </div>
-    )
-}
-
-const UpdatePost = ({ image, text, updateHandler, loading, setShowUpdateForm, error }) => {
-    const [updateText, setUpdateText] = useState(text);
-    const [file, setFile] = useState(null);
-    const [base64, setBase64] = useState('');
-
-    const size = (size) => {
-        if (size < 1024) return size + 'B';
-        size /= 1024;
-        if (size < 1024) return size.toFixed(2) + 'KB';
-        size /= 1024;
-        if (size < 1024) return size.toFixed(2) + 'MB';
-        size /= 1024;
-        if (size < 1024) return size.toFixed(2) + 'GB';
-        size /= 1024;
-        return size.toFixed(2) + 'TB';
-    }
-    const handleChange = (e) => {
-        const file = e.target.files[0];
-        setFile(file);
-        if (file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = () => {
-                setBase64(reader.result);
-            }
-        }
-    }
-
-    return (
-        <div className={Styles.updateFormBack}>
-            <div className={Styles.updateForm} id='updateForm'>
-                <div className={Styles.updateFormHeader}>
-                    <button onClick={() => setShowUpdateForm(false)}>Cancel</button>
-
-                    <h2>Update Post</h2>
-                    {/* <button type='submit' onClick={() => updateHandler(updateText)}>Update</button> */}
-                    <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
-                        <button type='submit' disabled={loading} onClick={() => updateHandler(updateText, base64)}>Update</button>
-                    </div>
-                </div>
-                <div className={Styles.updateFormBody}>
-                    <div className={Styles.postImg}>
-
-                        {
-                            base64 ? <div>
-                                <img src={base64} alt="post" />
-                                <button onClick={() => { setFile(null); setBase64(''); }}><AiOutlineClose /></button>
-                                <div className={Styles.imgDetail}>
-                                    <span>{file.name.length > 20 ? file.name.slice(0, 20) + '...' : file.name}</span>
-                                    <span>{size(file.size)}</span>
-                                </div>
-                            </div> : image && <img src={image} alt="post" />
-                        }
-
-                    </div>
-                    <div className={Styles.postCont}>
-                        <textarea placeholder="Update your post" value={updateText} onChange={(e) => setUpdateText(e.target.value)} />
-                        <label htmlFor="updateImg">Choose Image</label>
-                        <input type="file" name="updateImg" id='updateImg' accept="image/*" onChange={handleChange} style={{ display: 'none' }} />
-                    </div>
-                </div>
-                {error && <p className={Styles.error}>{error}</p>}
-            </div>
         </div>
     )
 }

@@ -1,12 +1,8 @@
-// const axios = require('axios');
 const { Post } = require('../Models/posts');
+const mongoose = require('mongoose');
 const { uploadToCloudinary, deleteFromCloudinary } = require('../services/cloudinary')
-// const {User} = require('../Models/users');
 
 const getPosts = async (req, res) => {
-    // const posts = await Post.find().sort({date:-1}).lean().exec();
-    // res.send(posts)
-    //aggreage posts with user info
     const posts = await Post.aggregate([
         {
             $lookup: {
@@ -14,10 +10,19 @@ const getPosts = async (req, res) => {
                 localField: 'user_id',
                 foreignField: '_id',
                 as: 'user'
-            }
+            },
+           
         },
         {
-            $unwind: '$user'
+            $lookup: {
+                from: 'likes',
+                localField: '_id',
+                foreignField: 'post_id',
+                as: 'likes'
+            },
+        },
+        {
+            $unwind: '$user',
         },
         {
             $project: {
@@ -25,22 +30,26 @@ const getPosts = async (req, res) => {
                 'user.email': 0,
                 'user.password': 0,
                 'user.bannerPic': 0,
-                'user.profilePicPublicId':0,
-                'user.bannerPicPublicId':0,
+                'user.profilePicPublicId': 0,
+                'user.bannerPicPublicId': 0,
                 'user.bio': 0,
                 'user.followers': 0,
                 'user.following': 0,
                 'user.date': 0,
                 'user.__v': 0,
-                // 'user.username': 0,
-                // 'user.profilePic': 0,
             }
+        },
+        {
+            $addFields: {
+                likeCount: { $size: '$likes' },
+                userLiked: { $in: [new mongoose.Types.ObjectId(req.body.user_id), '$likes.user_id'] },
+            },
         },
         {
             $sort: { date: -1 }
         }
     ]);
-    const finalPosts = posts.map(post => {
+    const finalPosts = posts.map((post) => {
         const { user, user_id, ...rest } = post;
         return { ...rest, ...user };
     })
@@ -70,7 +79,7 @@ const updatePost = (req, res) => {
             res.status(401).send('Unauthorized');
         }
         else {
-            if(!text) return res.status(400).send('Text is required');
+            if (!text) return res.status(400).send('Text is required');
             doc.text = text;
             doc.date = Date.now();
             // update image
