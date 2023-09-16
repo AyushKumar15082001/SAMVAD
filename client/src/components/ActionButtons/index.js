@@ -1,15 +1,17 @@
 import Styles from "./ActionButton.module.css";
 import { AiOutlineHeart } from 'react-icons/ai';
-// import { FiShare2 } from 'react-icons/fi';
-import { LiaRetweetSolid } from 'react-icons/lia';
+// import { LiaRetweetSolid } from 'react-icons/lia';
 import { BiSolidComment } from 'react-icons/bi';
 import { CiShare2 } from 'react-icons/ci';
+import CommentForm from "../CommentForm";
 import axios from "axios";
 import { useState } from "react";
 // import { FaRetweet, FaRegCommentDots } from 'react-icons/fa';
 
-const ActionButtons = ({ retweetHandler, commentHandler, userLiked, retweeted, handleLogout, _id, setLikes }) => {
+const ActionButtons = ({ userLiked, handleLogout, _id, setLikes }) => {
     const [liked, setLiked] = useState(userLiked);
+    const [showCommentForm, setShowCommentForm] = useState(false);
+
     const likeHandler = () => {
         axios.post('http://localhost:8080/api/actions/like', { post_id: _id }, {
             headers: {
@@ -28,19 +30,19 @@ const ActionButtons = ({ retweetHandler, commentHandler, userLiked, retweeted, h
 
     return (
         <div className={Styles.actionButtons}>
-            <div className={Styles.actionButton} id = {liked ? Styles.heart:''} onClick={likeHandler}>
-                {/* <AiOutlineHeart className={liked ? Styles.liked : null} /> */}
+            <div className={Styles.actionButton} id={liked ? Styles.heart : ''} onClick={likeHandler}>
                 {liked ? <span >❤️</span> : <span ><AiOutlineHeart /></span>}
             </div>
-            <div className={Styles.actionButton} onClick={commentHandler}>
+            <div className={Styles.actionButton} onClick={()=>setShowCommentForm(true)}>
                 <BiSolidComment />
             </div>
-            <div className={Styles.actionButton} onClick={retweetHandler}>
+            {/* <div className={Styles.actionButton} onClick={retweetHandler}>
                 <LiaRetweetSolid className={retweeted ? Styles.retweeted : null} />
-            </div>
+            </div> */}
             <div className={Styles.actionButton}>
                 <CiShare2 />
             </div>
+            {showCommentForm && <CommentForm setShowCommentForm={setShowCommentForm} {...{handleLogout, _id,}}/>}
         </div>
     )
 }
