@@ -5,14 +5,16 @@ import { BiSolidComment } from 'react-icons/bi';
 import { CiShare2 } from 'react-icons/ci';
 import CommentForm from "../CommentForm";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../Contexts/userContext";
 // import { FaRetweet, FaRegCommentDots } from 'react-icons/fa';
 
-const ActionButtons = ({ userLiked, handleLogout, _id, likes, setLikes, name, username, profilePic, verified}) => {
+const ActionButtons = ({ userLiked, _id, handleLike}) => {
     const [liked, setLiked] = useState(userLiked);
     const [retweeted, setRetweeted] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
-    // console.log('in the action buttons', userLiked);
+
+    const {handleLogout} = useContext(UserContext);
 
     const likeHandler = () => {
         axios.post('http://localhost:8080/api/actions/like', { post_id: _id }, {
@@ -21,7 +23,8 @@ const ActionButtons = ({ userLiked, handleLogout, _id, likes, setLikes, name, us
             }
         }).then((res) => {
             setLiked(!liked);
-            setLikes(likes + (liked ? -1 : 1));
+            handleLike(liked ? -1 : 1);
+            // setLikes(likes + (liked ? -1 : 1));
         }).catch((err) => {
             if (err.response.status === 401) {
                 handleLogout()
@@ -47,7 +50,7 @@ const ActionButtons = ({ userLiked, handleLogout, _id, likes, setLikes, name, us
             <div className={Styles.actionButton}>
                 <CiShare2 />
             </div>
-            {showCommentForm && <CommentForm setShowCommentForm={setShowCommentForm} {...{handleLogout, _id, name, username, profilePic, verified}}/>}
+            {showCommentForm && <CommentForm setShowCommentForm={setShowCommentForm} {...{_id}}/>}
         </div>
     )
 }

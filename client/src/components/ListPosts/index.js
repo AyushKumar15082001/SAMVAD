@@ -1,17 +1,25 @@
 import Styles from './Post.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { MdVerified } from 'react-icons/md';
 import UpdatePost from '../UpdatePost';
 import ActionButtons from '../ActionButtons';
+import { UserContext } from "../../Contexts/userContext";
 import moment from 'moment';
 import axios from 'axios';
 
-const ListPost = ({ _id, name, username, postOwner, text, profilePic, image, edited, verified, likeCount, userLiked, date, handleLogout, setTweets }) => {
+const ListPost = ({ _id, name, username, text, profilePic, image, edited, verified, likeCount, userLiked, date, setTweets }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [likes, setLikes] = useState(likeCount);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const user = useContext(UserContext);
+
+    const handleLike = (num) => {
+        setLikes(likes + num);
+    }
+
     if (!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
 
     const handleShowUpdateForm = () => {
@@ -49,7 +57,7 @@ const ListPost = ({ _id, name, username, postOwner, text, profilePic, image, edi
                 }));
             }).catch((err) => {
                 if (err.response.status === 401) {
-                    handleLogout()
+                    user.handleLogout()
                 }
                 setError(err.response.data.replace('User validation failed: ', ''));
                 console.log(err);
@@ -70,7 +78,7 @@ const ListPost = ({ _id, name, username, postOwner, text, profilePic, image, edi
                 setTweets(tweets => tweets.filter((tweet) => tweet._id !== id));
             }).catch((err) => {
                 if (err.response.status === 401) {
-                    handleLogout()
+                    user.handleLogout()
                 }
                 console.log(err);
             })
@@ -95,7 +103,7 @@ const ListPost = ({ _id, name, username, postOwner, text, profilePic, image, edi
                 </div>
                 <div className={Styles.postHeaderRight} >
                     <span onClick={() => setShowMenu(!showMenu)} >•••</span>
-                    {showMenu && <Menu deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id, handleShowUpdateForm }} isOwner={postOwner === username} />}
+                    {showMenu && <Menu deleteHandler={() => deleteHandler(_id)} {...{ setShowMenu, _id, handleShowUpdateForm }} isOwner={user.username === username} />}
                 </div>
             </div>
             <div className={Styles.postBody}>
@@ -106,7 +114,7 @@ const ListPost = ({ _id, name, username, postOwner, text, profilePic, image, edi
                     <img src={image} alt="post" />
                 </div>
             }
-            <ActionButtons {...{ _id, userLiked, likes, setLikes, name, username, profilePic, handleLogout, verified }} />
+            <ActionButtons {...{ _id, userLiked, handleLike }} />
             <div className={Styles.postStats} >
                 <div className={Styles.postStatsLeft} >
                     <span>{likes}</span>

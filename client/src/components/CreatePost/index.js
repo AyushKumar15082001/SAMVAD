@@ -4,18 +4,37 @@ import { AiFillPlayCircle } from 'react-icons/ai'
 import { FaUpload } from 'react-icons/fa'
 import { BsCalendarWeek } from 'react-icons/bs'
 import { AiOutlineClose } from 'react-icons/ai'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from "../../Contexts/userContext";
+import axios from 'axios';
 
-const CreatePost = ({ addPost }) => {
+const CreatePost = ({ setTweets }) => {
     const [text, setText] = useState('');
     const [file, setFile] = useState(null);
     const [base64, setBase64] = useState('');
+
+    const { name, username, profilePic, verified, handleLogout } = useContext(UserContext);
+
     const submitHandler = (e) => {
         e.preventDefault();
-        addPost(text, base64);
-        setText('');
-        setFile(null);
-        setBase64('');
+        axios.post('http://localhost:8080/api/posts', { text, image:base64 }, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => {
+                setTweets(t => [{ ...res.data, name, username, profilePic, verified }, ...t]);
+                setText('');
+                setFile(null);
+                setBase64('');
+            })
+            .catch(err => {
+                if (err.response.status === 401) {
+                    handleLogout()
+                }
+                console.log(err);
+            })
+
     }
     const handleChange = (e) => {
         const file = e.target.files[0];

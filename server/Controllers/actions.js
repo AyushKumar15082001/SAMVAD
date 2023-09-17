@@ -14,21 +14,9 @@ const postLike = (req, res) => {
 }
 
 const getComments = async(req, res)=>{
-    // Comment.find({post_id: req.body.post_id}).then(async(doc) =>await doc.aggregate([
-    //     {
-    //         $lookup: {
-    //             from: 'users',
-    //             localField: 'user_id',
-    //             foreignField: '_id',
-    //             as: 'user'
-    //         },
-           
-    //     },
-    // ]))
-    // .then(doc => res.send(doc));
     const comments = await Comment.aggregate([
         {
-            $match: {post_id: new mongoose.Types.ObjectId(req.body.post_id)}
+            $match: {post_id: new mongoose.Types.ObjectId(req.params.id)}
         },
         {
             $lookup: {
@@ -70,16 +58,40 @@ const getComments = async(req, res)=>{
 
 const postComment = (req, res) => {
     const comment = new Comment({ user_id: req.body.user_id, post_id: req.body.post_id, comment: req.body.comment });
-    comment.save().then(() => {
-        res.send("commented on your post");
+    comment.save().then((doc) => {
+        const { user_id, ...rest } = doc._doc;
+        res.send(rest);
     }).catch(err =>{
         res.send(err)
         console.log(err)
     })
 }
 
+const deleteComment = (req, res) => {
+    Comment.findOneAndDelete( { user_id: req.body.user_id, _id: req.params.id } ).then((comment) => {
+        if(comment){
+            res.send({ message: 'comment deleted successfully.' });
+        }
+        else {
+            res.status(401).send('Unauthorized');
+        }
+    }).catch(err => {
+        res.send(err);
+        console.log(err)
+    })
+
+
+    // Comment.findByIdAndDelete(req.params.id).then((comment) => {
+    //     res.send(comment);
+    // }).catch(err => {
+    //     res.send(err);
+    //     console.log(err)
+    // })
+}
+
 module.exports = {
     postLike,
     getComments,
-    postComment
+    postComment,
+    deleteComment
 };

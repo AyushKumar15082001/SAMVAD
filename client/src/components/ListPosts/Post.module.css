@@ -104,7 +104,7 @@
 .postBody p {
     color: #cadbec;
     margin: 0;
-
+    overflow-wrap: anywhere;
 }
 
 .postImages {

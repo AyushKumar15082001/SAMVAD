@@ -15,7 +15,9 @@
     border-radius: 20px;
     padding: 0 20px;
     width: 610px;
-    /* transform: translateX(-400px); */
+    padding-bottom: 30px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 .commentFormHeader{
     display: flex;
@@ -27,7 +29,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* padding-bottom: 30px; */
 }
 .commentFormBody textarea{
     width: 100%;
@@ -54,4 +55,134 @@
     font-weight: bold;
     padding: 0;
     padding-top: 15px;
+}
+.commentList{
+    margin-top: 20px;
+}
+
+.default{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #cadbec;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.commentCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+}
+
+.commentLeft {
+    display: flex;
+}
+
+.userDetail {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-direction: column;
+    margin-left: 15px;
+}
+.commentUserName {
+    color: #49545e;
+    margin: 0;
+    margin-left: 10px;
+    transform: translateY(-2px);
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.commentHeader {
+    display: flex;
+    align-items: flex-start;
+}
+.commentHeader svg{
+    font-size: 20px;
+    margin-left: 10px;
+    color: #00f1dd;
+}
+
+.commentHeader h6, .commentHeader h4 {
+    color: #54cccd;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    margin-left: 10px;
+}
+.commentHeader h4 {
+    color: #cadbec;
+}
+
+.commentRight {
+    color: white;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.commentRight span {
+    display: flex;
+    justify-content: flex-end;
+    rotate: 90deg;
+    border-radius: 50%;
+    padding: 5px 7px;
+    cursor: pointer;
+}
+
+.commentRight span:hover {
+    background: #2a3843;
+}
+
+.commentBody p {
+    color: #cadbec;
+    margin: 0;
+    overflow-wrap: anywhere;
+    margin-left: 10px;
+
+}
+.menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    top: 80px;
+    right: 40px;
+    overflow: hidden;
+    box-shadow: 0px 6px 11px 0px #c2d5d554;
+    border: 1px solid #c2d5d58c;
+    position: absolute;
+    transform: translate(30px, -75px);
+}
+.menu button{
+    font-size: 1rem;
+    font-family: OpenSans;
+    color: #cadbec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+    width: 250px;
+    cursor: pointer;
+    overflow: hidden;
+    background: #000;
+    border: none;
+    transition: 0.3s;
+}
+#menuWarn{
+    color: red;
+}
+.menu button:hover{
+    scale: 1.1;
 }

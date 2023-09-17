@@ -1,11 +1,15 @@
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { IoMdArrowDropdown } from 'react-icons/io';
 import Logo from '../../images/logo.png';
 import Styles from './Navbar.module.css';
 import { Link } from 'react-router-dom';
-function Navbar({ user, handleLogout }) {
+import { UserContext } from "../../Contexts/userContext";
+
+function Navbar() {
 
   const [menu, setMenu] = useState(false);
+
+  const {name, profilePic, handleLogout} = useContext(UserContext);
 
   const handleClickOutside = (event) => {
     if (event.target.closest('#navMenu')) {
@@ -27,8 +31,8 @@ function Navbar({ user, handleLogout }) {
       </div>
       <div className={Styles.nav_right} id="navMenu" onClick={() => setMenu(t => !t)} >
         <div className={Styles.userName}>
-          <img src={user.profilePic} alt="user" className={Styles.userIcon} />
-          <span>{user.name}</span>
+          <img src={profilePic} alt="user" className={Styles.userIcon} />
+          <span>{name}</span>
           <IoMdArrowDropdown className={Styles.arrowIcon} />
         </div>
         {menu && (
