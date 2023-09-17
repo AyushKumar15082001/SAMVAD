@@ -3,7 +3,7 @@ import { TbPhotoFilled } from 'react-icons/tb'
 import { AiFillPlayCircle } from 'react-icons/ai'
 import { FaUpload } from 'react-icons/fa'
 import { BsCalendarWeek } from 'react-icons/bs'
-import {AiOutlineClose} from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import { useState } from 'react';
 
 const CreatePost = ({ addPost }) => {
@@ -69,8 +69,10 @@ const CreatePost = ({ addPost }) => {
             </div>
             {file && (
                 <div className={Styles.canvas}>
-                    <img src={base64} alt='preview' />
-                    <button onClick={() => { setFile(null); setBase64(''); }}><AiOutlineClose/></button>
+                    <div>
+                        <img src={base64} alt='preview' />
+                        <button onClick={() => { setFile(null); setBase64(''); }}><AiOutlineClose /></button>
+                    </div>
                     <div className={Styles.imgDetail}>
                         <span>{file.name.length > 20 ? file.name.slice(0, 20) + '...' : file.name}</span>
                         <span>{size(file.size)}</span>

@@ -1,10 +1,11 @@
 const express = require('express');
 const actionRouter = express.Router();
 
-const { postLike, postComment } = require('../Controllers/actions');
+const { postLike, getComments, postComment } = require('../Controllers/actions');
 
 actionRouter
 .post('/like', postLike)
+.get('/comment', getComments)
 .post('/comment', postComment)
 
 module.exports = {actionRouter};

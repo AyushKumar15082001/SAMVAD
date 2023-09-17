@@ -1,7 +1,7 @@
 .cont {
     width: 320px;
     height: fit-content;
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
     background-color: #1b27309e;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

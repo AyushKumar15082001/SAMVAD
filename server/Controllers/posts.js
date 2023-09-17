@@ -66,7 +66,7 @@ const createPost = async (req, res) => {
         const post = new Post({ text: req.body.text, image: req.body.image, mediaPublicId: req.body.PublicId, user_id: req.body.user_id });
         await post.save();
         const { user_id, ...rest } = post._doc;
-        res.send(rest)
+        res.send({...rest, likeCount:0, userLiked:false})
     } catch (err) {
         res.status(400).send(err)
     }

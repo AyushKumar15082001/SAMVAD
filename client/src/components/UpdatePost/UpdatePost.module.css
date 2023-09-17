@@ -147,7 +147,7 @@
 }
 .postImg button{
     position: absolute;
-    transform: translate(-25px, 0px);
+    transform: translate(-20px, 0px);
     background: rgba(0, 0, 0, 0.67);
     border: none;
     color: #fff;

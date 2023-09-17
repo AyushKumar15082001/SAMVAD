@@ -4,7 +4,7 @@
     align-items: center;
     padding: 10px;
     background-color: #1b27309e;
-    border-radius: 10px;
+    border-radius: 25px;
 }
 .createPostContainer input{
     width: 520px;
@@ -63,14 +63,14 @@
     margin-right: 10px;
     font-size: 20px;
 }
-button:nth-child(2) .photoIcon{
+button:nth-child(3) .photoIcon{
     color: #3674d4;
     
 }
-button:nth-child(3) .photoIcon{
+button:nth-child(4) .photoIcon{
     color: #d15d5e;
 }
-button:nth-child(4) .photoIcon{
+button:nth-child(5) .photoIcon{
     color: #daab4e;
 }
 .canvas{
@@ -91,7 +91,8 @@ button:nth-child(4) .photoIcon{
 }
 .canvas button{
     position: absolute;
-    transform: translate(260px, -160px);
+    /* transform: translate(260px, -160px); */
+    transform: translateX(-15px);
     background: rgba(0, 0, 0, 0.67);
     border: none;
     color: #fff;

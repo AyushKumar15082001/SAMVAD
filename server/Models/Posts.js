@@ -5,7 +5,7 @@ const postSchema = new Schema({
     // username: {type: String, required: true},
     // profilePic: {type: String, required: true},
     user_id: {type: Schema.Types.ObjectId, ref: 'User'},
-    text: {type: String, required: true},
+    text: {type: String, required: true, maxlength: 350},
     image: String,
     mediaPublicId: String,
     date: { type: Date, default: Date.now },

@@ -8,7 +8,7 @@ import Styles from './home.module.css';
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
-  const [{user, handleLogout }] = useOutletContext();
+  const [{ user, handleLogout }] = useOutletContext();
 
   //get all posts
   useEffect(() => {
@@ -19,6 +19,7 @@ const Home = () => {
     })
       .then(res => {
         setTweets(res.data);
+        // console.log(res.data[0].userLiked)
       })
       .catch(err => {
         if (err.response.status === 401) {
@@ -34,7 +35,7 @@ const Home = () => {
       }
     })
       .then(res => {
-        setTweets(t => [{ ...res.data, name: user.name, username: user.username, profilePic:user.profilePic }, ...t]);
+        setTweets(t => [{ ...res.data, name: user.name, username: user.username, profilePic: user.profilePic, verified:user.verified }, ...t]);
       })
       .catch(err => {
         if (err.response.status === 401) {
@@ -47,7 +48,9 @@ const Home = () => {
   return (
     <div className={Styles.post}>
       <CreatePost {...{ addPost }} />
-      <ListPosts {...{ tweets, setTweets, handleLogout, postOwner: user.username }} />
+      {tweets && tweets.map((item, index) => {
+        return <ListPosts key={item._id} {...{ ...item, postOwner: user.username, handleLogout, setTweets }} />
+      })}
     </div>
   );
 }
