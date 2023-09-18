@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Styles from "./UpdatePost.module.css";
 import { AiOutlineClose } from 'react-icons/ai';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const UpdatePost = ({ image, text, updateHandler, loading, setShowUpdateForm, error }) => {
     const [updateText, setUpdateText] = useState(text);
@@ -37,7 +38,6 @@ const UpdatePost = ({ image, text, updateHandler, loading, setShowUpdateForm, er
                     <button onClick={() => setShowUpdateForm(false)}>Cancel</button>
 
                     <h2>Update Post</h2>
-                    {/* <button type='submit' onClick={() => updateHandler(updateText)}>Update</button> */}
                     <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
                         <button type='submit' disabled={loading} onClick={() => updateHandler(updateText, base64)}>Update</button>
                     </div>
@@ -58,7 +58,10 @@ const UpdatePost = ({ image, text, updateHandler, loading, setShowUpdateForm, er
 
                     </div>
                     <div className={Styles.postCont}>
-                        <textarea placeholder="Update your post" value={updateText} onChange={(e) => setUpdateText(e.target.value)} />
+                        <TextareaAutosize placeholder='Update your post...' value={updateText} onChange={(e) => setUpdateText(e.target.value.substring(0, 350))} autoFocus />
+                        <div className={Styles.lengthCont}>
+                            {updateText && <span>{updateText.length}/350</span>}
+                        </div>
                         <label htmlFor="updateImg">Choose Image</label>
                         <input type="file" name="updateImg" id='updateImg' accept="image/*" onChange={handleChange} style={{ display: 'none' }} />
                     </div>

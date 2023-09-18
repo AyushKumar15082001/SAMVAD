@@ -1,7 +1,7 @@
 const { Like, Comment } = require('../Models/actions');
 const mongoose = require('mongoose');
 const postLike = (req, res) => {
-    Like.findOneAndDelete( { user_id: req.body.user_id, post_id: req.body.post_id } ).then((like) => {
+    Like.findOneAndDelete({ user_id: req.body.user_id, post_id: req.body.post_id }).then((like) => {
         if (like) {
             res.send("unliked your post");
         } else {
@@ -13,10 +13,10 @@ const postLike = (req, res) => {
     })
 }
 
-const getComments = async(req, res)=>{
+const getComments = async (req, res) => {
     const comments = await Comment.aggregate([
         {
-            $match: {post_id: new mongoose.Types.ObjectId(req.params.id)}
+            $match: { post_id: new mongoose.Types.ObjectId(req.params.id) }
         },
         {
             $lookup: {
@@ -25,7 +25,7 @@ const getComments = async(req, res)=>{
                 foreignField: '_id',
                 as: 'user'
             },
-           
+
         },
         {
             $unwind: '$user',
@@ -57,19 +57,38 @@ const getComments = async(req, res)=>{
 }
 
 const postComment = (req, res) => {
+    if(!req.body.comment) return res.status(400).send('Comment is required');
     const comment = new Comment({ user_id: req.body.user_id, post_id: req.body.post_id, comment: req.body.comment });
     comment.save().then((doc) => {
         const { user_id, ...rest } = doc._doc;
         res.send(rest);
-    }).catch(err =>{
+    }).catch(err => {
         res.send(err)
         console.log(err)
     })
 }
 
+const updateComment = (req, res) => {
+    if(!req.body.comment) return res.status(400).send('Comment is required');
+    Comment.findOne({ user_id: req.body.user_id, _id: req.body.comment_id }).then((comment) => {
+        if (comment) {
+            comment.comment = req.body.comment;
+            comment.edited = true;
+            comment.date = Date.now();
+            comment.save().then((doc) => {
+                const { user_id, ...rest } = doc._doc;
+                res.send(rest);
+            })
+        }
+        else {
+            res.status(401).send('Unauthorized');
+        }
+    })
+}
+
 const deleteComment = (req, res) => {
-    Comment.findOneAndDelete( { user_id: req.body.user_id, _id: req.params.id } ).then((comment) => {
-        if(comment){
+    Comment.findOneAndDelete({ user_id: req.body.user_id, _id: req.params.id }).then((comment) => {
+        if (comment) {
             res.send({ message: 'comment deleted successfully.' });
         }
         else {
@@ -93,5 +112,6 @@ module.exports = {
     postLike,
     getComments,
     postComment,
+    updateComment,
     deleteComment
 };

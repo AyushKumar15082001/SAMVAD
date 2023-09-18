@@ -11,7 +11,7 @@ const getPosts = async (req, res) => {
                 foreignField: '_id',
                 as: 'user'
             },
-           
+
         },
         {
             $lookup: {
@@ -19,6 +19,14 @@ const getPosts = async (req, res) => {
                 localField: '_id',
                 foreignField: 'post_id',
                 as: 'likes'
+            },
+        },
+        {
+            $lookup: {
+                from: 'comments',
+                localField: '_id',
+                foreignField: 'post_id',
+                as: 'comments'
             },
         },
         {
@@ -37,13 +45,31 @@ const getPosts = async (req, res) => {
                 'user.following': 0,
                 'user.date': 0,
                 'user.__v': 0,
+                // 'likes.likes': 0,
             }
         },
         {
             $addFields: {
                 likeCount: { $size: '$likes' },
                 userLiked: { $in: [new mongoose.Types.ObjectId(req.body.user_id), '$likes.user_id'] },
+                commentCount: { $size: '$comments' },
             },
+        },
+        {
+            $project: {
+                'likes.post_id': 0,
+                'likes.user_id': 0,
+                'likes.__v': 0,
+                'likes.date': 0,
+                'likes._id': 0,
+                'comments.post_id': 0,
+                'comments.user_id': 0,
+                'comments.__v': 0,
+                'comments.date': 0,
+                'comments.edited': 0,
+                'comments.comment': 0,
+                'comments._id': 0,
+            }
         },
         {
             $sort: { date: -1 }
@@ -57,6 +83,7 @@ const getPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
+    if (!req.body.text) return res.status(400).send('Text is required');
     try {
         if (req.body.image) {
             const results = await uploadToCloudinary(req.body.image, "my-images")
@@ -66,7 +93,7 @@ const createPost = async (req, res) => {
         const post = new Post({ text: req.body.text, image: req.body.image, mediaPublicId: req.body.PublicId, user_id: req.body.user_id });
         await post.save();
         const { user_id, ...rest } = post._doc;
-        res.send({...rest, likeCount:0, userLiked:false})
+        res.send({ ...rest, likeCount: 0, userLiked: false })
     } catch (err) {
         res.status(400).send(err)
     }
@@ -74,11 +101,12 @@ const createPost = async (req, res) => {
 
 const updatePost = (req, res) => {
     const { id, text } = req.body;
-    Post.findOne({ _id: id }).then(async (doc) => {
-        if (doc.user_id.toHexString() !== req.body.user_id) {
-            res.status(401).send('Unauthorized');
-        }
-        else {
+    Post.findOne({ _id: id, user_id: req.body.user_id }).then(async (doc) => {
+        // if (doc.user_id.toHexString() !== req.body.user_id) {
+        //     res.status(401).send('Unauthorized');
+        // }
+        // else {
+        if (doc) {
             if (!text) return res.status(400).send('Text is required');
             doc.text = text;
             doc.date = Date.now();
@@ -95,6 +123,9 @@ const updatePost = (req, res) => {
             const { user_id, ...rest } = doc._doc;
             res.send(rest);
 
+        }
+        else {
+            res.status(401).send('Unauthorized');
         }
     }).catch(err => {
         res.status(404).send('Post not found');

@@ -15,7 +15,6 @@
     border-radius: 20px;
     padding: 0 20px;
     width: 610px;
-    padding-bottom: 30px;
     max-height: 80vh;
     overflow-y: auto;
 }
@@ -23,41 +22,126 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #0081818c;
+}
+.commentFormHeader h2{
     color: #cadbec;
+    font-size: 1.3rem;
+    font-family: OpenSans;
+    margin: 0;
 }
 .commentFormBody{
     display: flex;
-    justify-content: center;
     align-items: flex-start;
-}
-.commentFormBody textarea{
     width: 100%;
-    max-height: 150px;
-    border-radius: 10px;
+    margin-top: 40px;
+}
+.commentText{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.commentText textarea{
+    width: 95%;
     border: none;
-    margin: 0 10px;
-    padding: 10px;
-    background-color: #2a3843;
+    margin-left: 10px;
+    background: transparent;
+    border-bottom: 1px solid #00f1dd;
     color: #cadbec;
-    font-size: 1.1rem;
-    overflow-y: auto;
+    font-size: 1rem;
+    font-family: OpenSans;
+    overflow: hidden;
     resize: none;
 }
-.commentFormBody textarea:focus{
-    outline: 1px solid #1c628f;
+.commentText textarea:focus{
+    outline: 0;
 }
-.commentFormBody button{
+.commentBody textarea{
+    width: 500px;
+}
+.lengthCont{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.lengthCont span{
+    color: #cadbec;
+    font-size: 0.9rem;
+    font-family: OpenSans;
+    margin: 0;
+    margin-left: 25px;
+    font-weight: 500;
+}
+.buttons{
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding-top: 25px;
+}
+.buttons button{
+    background: transparent;
+    transition: all 0.5s ease;
+    color: rgb(0, 225, 255);
     border: none;
-    font-size: 1rem;
-    background-color: transparent;
-    color: rgba(1, 191, 112, 0.984);
     cursor: pointer;
-    font-weight: bold;
-    padding: 0;
-    padding-top: 15px;
+    font-size: 16px;
+}
+
+.buttons > button:hover{
+    color: rgb(0, 241, 221);
+    scale: 1.2;
+}
+.button {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: 100%;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 4px;
+    background: rgb(0, 225, 255);
+    transition: all 0.5s ease;
+    display: flex;
+    margin-left: 30px;
+}
+.button button{
+    color: black;
+    background: #00e1ff;
+}
+.button:hover button:not(:disabled), .button:not(:has(button:disabled)):hover{
+    color: #000;
+    background: #00f1dd;
+}
+.button button:disabled, .button:has(button:disabled){
+    cursor:not-allowed;
+}
+.button:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    top: -35%;
+    left: 0%;
+    z-index: -1;
+    background: linear-gradient(#15ff00,#ff8000, transparent);
+    clip-path: polygon(50% 50%, 0% 0%, 0% 100%);
+    animation: rotateDiv 5s linear infinite;
+}
+@keyframes rotateDiv {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 .commentList{
     margin-top: 20px;
+    padding-bottom: 20px;
 }
 
 .default{
@@ -74,9 +158,8 @@
 .commentCont {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    height: 90px;
-    width: 100%;
+    align-items: flex-start;
+    margin: 30px 0;
 }
 
 .commentLeft {
@@ -141,6 +224,10 @@
 
 .commentRight span:hover {
     background: #2a3843;
+}
+.commentBody{
+    display: flex;
+    width: 100%;
 }
 
 .commentBody p {

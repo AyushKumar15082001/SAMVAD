@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/userContext";
 // import { FaRetweet, FaRegCommentDots } from 'react-icons/fa';
 
-const ActionButtons = ({ userLiked, _id, handleLike}) => {
+const ActionButtons = ({ userLiked, _id, handleLike, setComments}) => {
     const [liked, setLiked] = useState(userLiked);
     const [retweeted, setRetweeted] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
@@ -50,7 +50,7 @@ const ActionButtons = ({ userLiked, _id, handleLike}) => {
             <div className={Styles.actionButton}>
                 <CiShare2 />
             </div>
-            {showCommentForm && <CommentForm setShowCommentForm={setShowCommentForm} {...{_id}}/>}
+            {showCommentForm && <CommentForm setShowCommentForm={setShowCommentForm} {...{_id, setComments}}/>}
         </div>
     )
 }

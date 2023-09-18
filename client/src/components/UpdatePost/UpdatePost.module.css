@@ -45,11 +45,9 @@
     width: auto;
     height: 100%;
     border-radius: 10px;
-    /* margin: 15px 90px; */
     margin-right: 10px;
     padding: 4px;
     background: rgb(0, 225, 255);
-    /* color: black; */
     transition: all 0.5s ease;
 }
 .button button{
@@ -101,8 +99,9 @@
     margin: 0 20px;
     background: transparent;
     color: #cadbec;
-    border: none;
-    border-radius: 5px;
+    border: 0;
+    border-bottom: 1px solid #00f1dd;
+    /* border-radius: 5px; */
     outline: none;
     font-size: 1rem;
     font-family: OpenSans;
@@ -112,7 +111,7 @@
     color: #cadbec;
     font-size: 1rem;
     font-family: OpenSans;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     cursor: pointer;
 }
 .updateForm label:hover{
@@ -168,7 +167,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start
+}
+.lengthCont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+.lengthCont span{
+    color: #cadbec;
+    font-size: 0.9rem;
+    font-family: OpenSans;
+    margin: 0;
+    margin-left: 25px;
+    font-weight: 500;
 }
 .error {
     color: rgb(212, 0, 0) !important;

@@ -7,10 +7,11 @@ import { UserContext } from "../../Contexts/userContext";
 import moment from 'moment';
 import axios from 'axios';
 
-const ListPost = ({ _id, name, username, text, profilePic, image, edited, verified, likeCount, userLiked, date, setTweets }) => {
+const ListPost = ({ _id, name, username, text, profilePic, image, edited, verified, likeCount,commentCount, userLiked, date, setTweets }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [likes, setLikes] = useState(likeCount);
+    const [comments, setComments] = useState(commentCount);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -51,7 +52,7 @@ const ListPost = ({ _id, name, username, text, profilePic, image, edited, verifi
                         if (image) tweet.image = image;
                         tweet.edited = true;
                         tweet.date = Date.now();
-                        return tweet;
+                        // return tweet;
                     }
                     return tweet;
                 }));
@@ -114,14 +115,14 @@ const ListPost = ({ _id, name, username, text, profilePic, image, edited, verifi
                     <img src={image} alt="post" />
                 </div>
             }
-            <ActionButtons {...{ _id, userLiked, handleLike }} />
+            <ActionButtons {...{ _id, userLiked, handleLike,setComments }} />
             <div className={Styles.postStats} >
                 <div className={Styles.postStatsLeft} >
                     <span>{likes}</span>
                     <span>Likes</span>
                 </div>
                 <div className={Styles.postStatsRight} >
-                    <span>{0}</span>
+                    <span>{comments}</span>
                     <span>Comments</span>
                 </div>
             </div>

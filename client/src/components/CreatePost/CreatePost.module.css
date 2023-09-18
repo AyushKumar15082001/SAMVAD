@@ -2,38 +2,128 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #1b27309e;
     border-radius: 25px;
 }
-.createPostContainer input{
-    width: 520px;
+.createPostContainer{
+    width: 100%;
+}
+.createPostContainer form{
+    display: flex;
+    align-items: flex-start;
+    width: 97%;
+    margin-top: 15px;
+}
+.createPostContainer form img{
+    width: 50px;
     height: 50px;
-    border-radius: 10px;
+    border-radius: 35%;
+    object-fit: cover;
+}
+.postText{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.postText textarea{
+    width: 95%;
     border: none;
-    padding: 0 20px;
+    margin-left: 10px;
+    background: transparent;
+    border-bottom: 1px solid #00f1dd;
+    color: #cadbec;
     font-size: 1.2rem;
-    background-color: #2a3843;
-    color: #8c9aa8;
+    font-family: OpenSans;
+    overflow: hidden;
+    resize: none;
     margin-top: 10px;
-
 }
-.createPostContainer input::placeholder{
-    color: #8c9aa8;
+.postText textarea:focus{
+    outline: 0;
 }
-.createPostContainer input:focus{
-    outline: 1px solid #1c628f;
+.lengthCont{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 }
-.createPostContainer button{
-    border-radius: 10px;
+.lengthCont span{
+    color: #cadbec;
+    font-size: 0.9rem;
+    font-family: OpenSans;
+    margin: 0;
+    margin-left: 25px;
+    font-weight: 500;
+}
+.submitButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    padding: 10px 0;
+}
+.submitButtons button{
+    background: transparent;
+    transition: all 0.5s ease;
+    color: rgb(0, 225, 255);
     border: none;
-    padding: 0 15px;
-    font-size: 1.2rem;
-    background-color: transparent;
-    color: #8c9aa8;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 16px;
 }
+.submitButtons > button:hover{
+    color: rgb(0, 241, 221);
+    scale: 1.2;
+}
+
+.submitButtons .button{
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: 100%;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 4px;
+    background: rgb(0, 225, 255);
+    transition: all 0.5s ease;
+    display: flex;
+    margin-left: 30px;
+}
+.submitButtons .button button{
+    color: #000;
+    background: #00e1ff;
+}
+
+.submitButtons .button:hover button:not(:disabled), .submitButtons .button:not(:has(button:disabled)):hover{
+    color: #000;
+    background: #00f1dd;
+}
+.submitButtons .button button:disabled, .submitButtons .button:has(button:disabled){
+    cursor:not-allowed;
+}
+.submitButtons .button:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    top: -35%;
+    left: 0%;
+    z-index: -1;
+    background: linear-gradient(#15ff00,#ff8000, transparent);
+    clip-path: polygon(50% 50%, 0% 0%, 0% 100%);
+    animation: rotateDiv 5s linear infinite;
+}
+@keyframes rotateDiv {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .buttons{
     display: flex;
     justify-content: space-around;
@@ -91,7 +181,6 @@ button:nth-child(5) .photoIcon{
 }
 .canvas button{
     position: absolute;
-    /* transform: translate(260px, -160px); */
     transform: translateX(-15px);
     background: rgba(0, 0, 0, 0.67);
     border: none;

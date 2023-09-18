@@ -6,18 +6,21 @@ import { BsCalendarWeek } from 'react-icons/bs'
 import { AiOutlineClose } from 'react-icons/ai'
 import { useState, useContext } from 'react';
 import { UserContext } from "../../Contexts/userContext";
+import TextareaAutosize from 'react-textarea-autosize';
 import axios from 'axios';
 
 const CreatePost = ({ setTweets }) => {
     const [text, setText] = useState('');
     const [file, setFile] = useState(null);
     const [base64, setBase64] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const { name, username, profilePic, verified, handleLogout } = useContext(UserContext);
 
     const submitHandler = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/api/posts', { text, image:base64 }, {
+        setLoading(true);
+        axios.post('http://localhost:8080/api/posts', { text, image: base64 }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -33,7 +36,7 @@ const CreatePost = ({ setTweets }) => {
                     handleLogout()
                 }
                 console.log(err);
-            })
+            }).finally(() => setLoading(false));
 
     }
     const handleChange = (e) => {
@@ -63,8 +66,10 @@ const CreatePost = ({ setTweets }) => {
         <div className={Styles.createPost}>
             <div className={Styles.createPostContainer}>
                 <form onSubmit={submitHandler}>
-                    <input type="text" value={text} onChange={e => setText(e.target.value)} placeholder='Create New Post' />
-                    <button type='submit'>Post</button>
+                    <img src={profilePic} alt="profile" />
+                    <div className={Styles.postText}>
+                        <TextareaAutosize placeholder='Create New Post...' value={text} onChange={(e) => setText(e.target.value.substring(0, 350))} autoFocus />
+                    </div>
                 </form>
             </div>
             <div className={Styles.buttons}>
@@ -99,7 +104,16 @@ const CreatePost = ({ setTweets }) => {
                 </div>
             )
             }
+            <div className={Styles.lengthCont}>
+                {text && <span>{text.length}/350</span>}
+                {text && <div className={Styles.submitButtons}>
+                    <button type="reset" onClick={() => setText('')}>Cancel</button>
+                    <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
+                        <button type='submit' disabled={loading} onClick={submitHandler}>Comment</button>
+                    </div>
+                </div>}
+            </div>
         </div>
     )
 }
-export default CreatePost
+export default CreatePost;

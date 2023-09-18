@@ -29,8 +29,8 @@
     left: 60%;
     scale: 1.7 1.4;
     transform: translateY(80px);
-    animation: animate 10s ease-in-out infinite;
-    animation-delay: 2s;
+    animation: animate 8s ease-in-out infinite;
+    /* animation-delay: 2s; */
 }
 
 .subcontainer {
