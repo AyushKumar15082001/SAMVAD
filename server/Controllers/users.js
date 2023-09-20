@@ -58,17 +58,24 @@ const deleteUser = async (req, res) => {
             const posts = await Post.find({ user_id: user._id }).lean().exec();
             const mediaPublicId = posts.map(post => post.mediaPublicId).filter(mediaPublicId => mediaPublicId)
             if (mediaPublicId.length > 0) deleteMultipleFromCloudinary(mediaPublicId);
-            await Post.deleteMany({ user_id: user._id })
-
+            
             //delete the profile and banner pic of the user
             if (user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
             if (user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
-
+            
             //delete all likes of the user
             await Like.deleteMany({ user_id: user._id })
-
+            
             //delete all comments of the user
             await Comment.deleteMany({ user_id: user._id })
+            
+            //delete all the likes and commnets on the users posts
+            await Like.deleteMany({ post_id: { $in: posts.map(post => post._id) } })
+            await Comment.deleteMany({ post_id: { $in: posts.map(post => post._id) } })
+            
+            //delete the user
+            await Post.deleteMany({ user_id: user._id })
+            
             console.log(user)
             res.send({ message: "User deleted" })
         }
