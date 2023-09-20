@@ -1,6 +1,6 @@
-const axios = require('axios');
 const { User } = require('../Models/users');
-const { Post } = require('../Models/posts')
+const { Post } = require('../Models/posts');
+const { Like, Comment } = require('../Models/actions');
 const { uploadToCloudinary, deleteFromCloudinary, deleteMultipleFromCloudinary } = require('../services/cloudinary')
 
 const getUser = async (req, res) => {
@@ -63,6 +63,13 @@ const deleteUser = async (req, res) => {
             //delete the profile and banner pic of the user
             if (user.profilePicPublicId) await deleteFromCloudinary(user.profilePicPublicId)
             if (user.bannerPicPublicId) await deleteFromCloudinary(user.bannerPicPublicId)
+
+            //delete all likes of the user
+            await Like.deleteMany({ user_id: user._id })
+
+            //delete all comments of the user
+            await Comment.deleteMany({ user_id: user._id })
+            console.log(user)
             res.send({ message: "User deleted" })
         }
         else res.status(400).send("User not found")

@@ -1,6 +1,8 @@
 const { Post } = require('../Models/posts');
+const { Like, Comment } = require('../Models/actions');
 const mongoose = require('mongoose');
-const { uploadToCloudinary, deleteFromCloudinary } = require('../services/cloudinary')
+const { uploadToCloudinary, deleteFromCloudinary } = require('../services/cloudinary');
+const { User } = require('../Models/users');
 
 const getPosts = async (req, res) => {
     const posts = await Post.aggregate([
@@ -83,20 +85,25 @@ const getPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-    if (!req.body.text) return res.status(400).send('Text is required');
-    try {
-        if (req.body.image) {
-            const results = await uploadToCloudinary(req.body.image, "my-images")
-            req.body.image = results.url.replace("upload/", "upload/q_auto,f_auto/")
-            req.body.PublicId = results.publicId;
+    User.findById(req.body.user_id).then(async (user) => {
+        if (!req.body.text) return res.status(400).send('Text is required');
+        if(user){
+            if (req.body.image) {
+                const results = await uploadToCloudinary(req.body.image, "my-images")
+                req.body.image = results.url.replace("upload/", "upload/q_auto,f_auto/")
+                req.body.PublicId = results.publicId;
+            }
+            const post = new Post({ text: req.body.text, image: req.body.image, mediaPublicId: req.body.PublicId, user_id: req.body.user_id });
+            await post.save();
+            const { user_id, ...rest } = post._doc;
+            res.send({ ...rest, likeCount: 0, userLiked: false, commentCount:0 })
         }
-        const post = new Post({ text: req.body.text, image: req.body.image, mediaPublicId: req.body.PublicId, user_id: req.body.user_id });
-        await post.save();
-        const { user_id, ...rest } = post._doc;
-        res.send({ ...rest, likeCount: 0, userLiked: false })
-    } catch (err) {
-        res.status(400).send(err)
-    }
+        else{
+            return res.status(401).send('User not found');
+        }
+    }).catch(err => {
+        res.status(400).send('User not found');
+    })
 }
 
 const updatePost = (req, res) => {
@@ -134,9 +141,11 @@ const updatePost = (req, res) => {
 
 const deletePost = (req, res) => {
     const { id } = req.params;
-    Post.findOneAndDelete({ _id: id, user_id: req.body.user_id }).then(doc => {
+    Post.findOneAndDelete({ _id: id, user_id: req.body.user_id }).then(async(doc) => {
         if (doc) {
             if (doc.mediaPublicId) deleteFromCloudinary(doc.mediaPublicId);
+            await Like.deleteMany({ post_id: id });
+            await Comment.deleteMany({ post_id: id });
             res.send({ message: 'Post deleted successfully.' });
         }
         else {

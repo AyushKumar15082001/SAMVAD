@@ -106,12 +106,14 @@ const CommentForm = ({ _id, setShowCommentForm, setComments }) => {
     )
 }
 
-const CommentCard = ({ _id, comment, edited, date, username, profilePic, verified, deleteComment, setCommentList }) => {
+const CommentCard = ({ _id, comment, edited, date, name, username, profilePic, verified, deleteComment, setCommentList }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [editedText, setEditedText] = useState(comment);
     const [loading, setLoading] = useState(false);
     const user = useContext(UserContext);
+
+    if (!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
 
     const handleCancel = () => {
         setShowEdit(false);
