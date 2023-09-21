@@ -10,97 +10,110 @@ const postLike = (req, res) => {
                 res.send("liked your post");
             })
         }
+    }).catch(err => {
+        res.send(err);
+        console.log(err)
     })
 }
 const getPostLikes = async (req, res) => {
-    const likes = await Like.aggregate([
-        {
-            $match: { post_id: new mongoose.Types.ObjectId(req.params.id) }
-        },
-        {
-            $lookup: {
-                from: 'users',
-                localField: 'user_id',
-                foreignField: '_id',
-                as: 'user'
+    try {
+        const likes = await Like.aggregate([
+            {
+                $match: { post_id: new mongoose.Types.ObjectId(req.params.id) }
             },
-        },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                },
+            },
 
-        {
-            $unwind: '$user',
-        },
-        {
-            $project: {
-                'user._id': 0,
-                'user.email': 0,
-                'user.password': 0,
-                'user.bannerPic': 0,
-                'user.profilePicPublicId': 0,
-                'user.bannerPicPublicId': 0,
-                'user.bio': 0,
-                'user.followers': 0,
-                'user.following': 0,
-                'user.date': 0,
-                'user.__v': 0,
+            {
+                $unwind: '$user',
+            },
+            {
+                $project: {
+                    'user._id': 0,
+                    'user.email': 0,
+                    'user.password': 0,
+                    'user.bannerPic': 0,
+                    'user.profilePicPublicId': 0,
+                    'user.bannerPicPublicId': 0,
+                    'user.bio': 0,
+                    'user.followers': 0,
+                    'user.following': 0,
+                    'user.date': 0,
+                    'user.__v': 0,
+                }
+            },
+            {
+                $sort: { date: -1 }
             }
-        },
-        {
-            $sort: { date: -1 }
+        ]);
+        const finalLikes = likes.map((like) => {
+            const { user, user_id, ...rest } = like;
+            return { ...rest, ...user };
         }
-    ]);
-    const finalLikes = likes.map((like) => {
-        const { user, user_id, ...rest } = like;
-        return { ...rest, ...user };
+        )
+        res.send(finalLikes);
+    } catch (err) {
+        res.send(err);
+        console.log(err)
     }
-    )
-    res.send(finalLikes);
 }
 
 const getComments = async (req, res) => {
-    const comments = await Comment.aggregate([
-        {
-            $match: { post_id: new mongoose.Types.ObjectId(req.params.id) }
-        },
-        {
-            $lookup: {
-                from: 'users',
-                localField: 'user_id',
-                foreignField: '_id',
-                as: 'user'
+    try {
+        const comments = await Comment.aggregate([
+            {
+                $match: { post_id: new mongoose.Types.ObjectId(req.params.id) }
             },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'user'
+                },
 
-        },
-        {
-            $unwind: '$user',
-        },
-        {
-            $project: {
-                'user._id': 0,
-                'user.email': 0,
-                'user.password': 0,
-                'user.bannerPic': 0,
-                'user.profilePicPublicId': 0,
-                'user.bannerPicPublicId': 0,
-                'user.bio': 0,
-                'user.followers': 0,
-                'user.following': 0,
-                'user.date': 0,
-                'user.__v': 0,
+            },
+            {
+                $unwind: '$user',
+            },
+            {
+                $project: {
+                    'user._id': 0,
+                    'user.email': 0,
+                    'user.password': 0,
+                    'user.bannerPic': 0,
+                    'user.profilePicPublicId': 0,
+                    'user.bannerPicPublicId': 0,
+                    'user.bio': 0,
+                    'user.followers': 0,
+                    'user.following': 0,
+                    'user.date': 0,
+                    'user.__v': 0,
+                }
+            },
+            {
+                $sort: { date: -1 }
             }
-        },
-        {
-            $sort: { date: -1 }
-        }
-    ]);
-    const finalComments = comments.map((comment) => {
-        const { user, user_id, ...rest } = comment;
-        return { ...rest, ...user };
-    })
-    res.send(finalComments);
+        ]);
+        const finalComments = comments.map((comment) => {
+            const { user, user_id, ...rest } = comment;
+            return { ...rest, ...user };
+        })
+        res.send(finalComments);
+    } catch (err) {
+        res.send(err);
+        console.log(err)
+    }
 }
 
 const postComment = (req, res) => {
-    if(!req.body.comment) return res.status(400).send('Comment is required');
+    if (!req.body.comment) return res.status(400).send('Comment is required');
     const comment = new Comment({ user_id: req.body.user_id, post_id: req.body.post_id, comment: req.body.comment });
     comment.save().then((doc) => {
         const { user_id, ...rest } = doc._doc;
@@ -112,7 +125,7 @@ const postComment = (req, res) => {
 }
 
 const updateComment = (req, res) => {
-    if(!req.body.comment) return res.status(400).send('Comment is required');
+    if (!req.body.comment) return res.status(400).send('Comment is required');
     Comment.findOne({ user_id: req.body.user_id, _id: req.body.comment_id }).then((comment) => {
         if (comment) {
             comment.comment = req.body.comment;
@@ -126,6 +139,9 @@ const updateComment = (req, res) => {
         else {
             res.status(401).send('Unauthorized');
         }
+    }).catch(err => {
+        res.send(err);
+        console.log(err)
     })
 }
 

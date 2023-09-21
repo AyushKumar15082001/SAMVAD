@@ -2,13 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 // const cors = require('cors');
-// const { postRouter } = require('./Routes/posts');
-// const { userRouter } = require('./Routes/users');
-// const { authRouter } = require('./Routes/auth');
-const { authRouter } = require(path.join(__dirname, 'Routes', 'auth'));
-// const {actionRouter} = require('./Routes/actions');
-// const { auth } = require('./middlewares/auth');
-const { auth } = require(path.join(__dirname, 'middlewares', 'auth'));
+const { postRouter } = require('./Routes/posts');
+const { userRouter } = require('./Routes/users');
+const { authRouter } = require('./Routes/auth');
+// const { authRouter } = require(path.join(__dirname, 'Routes', 'auth'));
+const {actionRouter} = require('./Routes/actions');
+const { auth } = require('./middlewares/auth');
+// const { auth } = require(path.join(__dirname, 'middlewares', 'auth'));
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -23,10 +23,10 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // app.use(cors());
-// app.use('/api/posts', auth, postRouter);
-// app.use('/api/user', auth, userRouter);
+app.use('/api/posts', auth, postRouter);
+app.use('/api/user', auth, userRouter);
 app.use('/api/auth', authRouter);
-// app.use('/api/actions', auth, actionRouter);
+app.use('/api/actions', auth, actionRouter);
 
 
 //check if the token is valid
