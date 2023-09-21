@@ -2,11 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 // const cors = require('cors');
-// const { postRouter } = require(path.resolve(__dirname, 'Routes', 'posts'));
-// const { userRouter } = require(path.resolve(__dirname, 'Routes', 'users'));
-// const { authRouter } = require(path.resolve(__dirname, 'Routes', 'auth'));
-// const {actionRouter} = require(path.resolve(__dirname, 'Routes', 'actions'));
-// const { auth } = require(path.resolve(__dirname, 'middlewares', 'auth'));
+const { postRouter } = require(path.resolve(__dirname, 'Routes', 'posts'));
+const { userRouter } = require(path.resolve(__dirname, 'Routes', 'users'));
+const { authRouter } = require(path.resolve(__dirname, 'Routes', 'auth'));
+const {actionRouter} = require(path.resolve(__dirname, 'Routes', 'actions'));
+const { auth } = require(path.resolve(__dirname, 'middlewares', 'auth'));
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -21,24 +21,22 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // app.use(cors());
-// app.use('/api/posts', auth, postRouter);
-// app.use('/api/user', auth, userRouter);
-// app.use('/api/auth', authRouter);
-// app.use('/api/actions', auth, actionRouter);
+app.use('/api/posts', auth, postRouter);
+app.use('/api/user', auth, userRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/actions', auth, actionRouter);
 
 
 //check if the token is valid
-// app.get('/api/checkToken', auth, (req, res) => {
-//     try {
-//         res.send({ message: "token is valid" });
-//     } catch (err) {
-//         res.sendStatus(401);
-//     }
-// });
-console.log(path.resolve(__dirname, 'build', 'index.html'))
+app.get('/api/checkToken', auth, (req, res) => {
+    try {
+        res.send({ message: "token is valid" });
+    } catch (err) {
+        res.sendStatus(401);
+    }
+});
 
 app.get('/*', function (req, res) {
-    // res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
