@@ -20,7 +20,7 @@ const CreatePost = ({ setTweets }) => {
     const submitHandler = (e) => {
         e.preventDefault();
         setLoading(true);
-        axios.post('http://localhost:8080/api/posts', { text, image: base64 }, {
+        axios.post('/api/posts', { text, image: base64 }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

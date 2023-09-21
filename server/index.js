@@ -8,6 +8,7 @@ const {actionRouter} = require('./Routes/actions');
 const { auth } = require('./middlewares/auth');
 const dotenv = require('dotenv');
 dotenv.config();
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -16,8 +17,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .then(() => { console.log("Database connected") })
     .catch((err) => { console.log(err) })
 
-// app.use(express.json());
 app.use(express.json({ limit: "50mb" }));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(cors());
 app.use('/api/posts', auth, postRouter);
@@ -34,8 +35,10 @@ app.get('/api/checkToken', auth, (req, res) => {
         res.sendStatus(401);
     }
 });
-// app.use(express.static('client/build'));
-// app.use(express.static('public'));
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);

@@ -12,6 +12,49 @@ const postLike = (req, res) => {
         }
     })
 }
+const getPostLikes = async (req, res) => {
+    const likes = await Like.aggregate([
+        {
+            $match: { post_id: new mongoose.Types.ObjectId(req.params.id) }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'user_id',
+                foreignField: '_id',
+                as: 'user'
+            },
+        },
+
+        {
+            $unwind: '$user',
+        },
+        {
+            $project: {
+                'user._id': 0,
+                'user.email': 0,
+                'user.password': 0,
+                'user.bannerPic': 0,
+                'user.profilePicPublicId': 0,
+                'user.bannerPicPublicId': 0,
+                'user.bio': 0,
+                'user.followers': 0,
+                'user.following': 0,
+                'user.date': 0,
+                'user.__v': 0,
+            }
+        },
+        {
+            $sort: { date: -1 }
+        }
+    ]);
+    const finalLikes = likes.map((like) => {
+        const { user, user_id, ...rest } = like;
+        return { ...rest, ...user };
+    }
+    )
+    res.send(finalLikes);
+}
 
 const getComments = async (req, res) => {
     const comments = await Comment.aggregate([
@@ -110,6 +153,7 @@ const deleteComment = (req, res) => {
 
 module.exports = {
     postLike,
+    getPostLikes,
     getComments,
     postComment,
     updateComment,

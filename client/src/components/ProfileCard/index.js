@@ -19,7 +19,7 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
         e.preventDefault();
         setLoading(true);
         setError("");
-        axios.patch('http://localhost:8080/api/user', { ...userInputs }, {
+        axios.patch('/api/user', { ...userInputs }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

@@ -13,7 +13,7 @@ const CommentForm = ({ _id, setShowCommentForm, setComments }) => {
 
     const { username, profilePic, verified, handleLogout } = useContext(UserContext);
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/actions/comment/${_id}`,
+        axios.get(`/api/actions/comment/${_id}`,
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -29,7 +29,7 @@ const CommentForm = ({ _id, setShowCommentForm, setComments }) => {
     }, [handleLogout, _id])
     const submitComment = () => {
         setLoading(true);
-        comment && axios.post('http://localhost:8080/api/actions/comment', { post_id: _id, comment },
+        comment && axios.post('/api/actions/comment', { post_id: _id, comment },
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -48,7 +48,7 @@ const CommentForm = ({ _id, setShowCommentForm, setComments }) => {
             })
     }
     const deleteComment = (id) => {
-        axios.delete(`http://localhost:8080/api/actions/comment/${id}`,
+        axios.delete(`/api/actions/comment/${id}`,
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -99,7 +99,7 @@ const CommentForm = ({ _id, setShowCommentForm, setComments }) => {
                         return (
                             <CommentCard key={comment._id} {...{ ...comment, deleteComment, setCommentList }} />
                         )
-                    }) : <h2 className={Styles.default}>No Comments...</h2>}
+                    }) : <h2 className={Styles.default}>No Comments yet...</h2>}
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@ const CommentCard = ({ _id, comment, edited, date, name, username, profilePic, v
 
     const updateComment = (id, comment) => {
         setLoading(true);
-        comment && axios.patch('http://localhost:8080/api/actions/comment', { comment_id: id, comment },
+        comment && axios.patch('/api/actions/comment', { comment_id: id, comment },
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`

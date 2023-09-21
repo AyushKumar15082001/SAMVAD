@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, useContext } from 'react';
 import { MdVerified } from 'react-icons/md';
 import UpdatePost from '../UpdatePost';
 import ActionButtons from '../ActionButtons';
+import PostLikeList from '../PostLikeList';
 import { UserContext } from "../../Contexts/userContext";
 import moment from 'moment';
 import axios from 'axios';
@@ -10,6 +11,7 @@ import axios from 'axios';
 const ListPost = ({ _id, name, username, text, profilePic, image, edited, verified, likeCount,commentCount, userLiked, date, setTweets }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [showLikeList, setShowLikeList] = useState(false);
     const [likes, setLikes] = useState(likeCount);
     const [comments, setComments] = useState(commentCount);
     const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ const ListPost = ({ _id, name, username, text, profilePic, image, edited, verifi
     const updateHandler = (id, text, image) => {
         setLoading(true);
         setError("");
-        axios.patch('http://localhost:8080/api/posts', { id, text, image },
+        axios.patch('/api/posts', { id, text, image },
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -69,7 +71,7 @@ const ListPost = ({ _id, name, username, text, profilePic, image, edited, verifi
     }
 
     const deleteHandler = (id) => {
-        axios.delete(`http://localhost:8080/api/posts/${id}`,
+        axios.delete(`/api/posts/${id}`,
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -117,7 +119,7 @@ const ListPost = ({ _id, name, username, text, profilePic, image, edited, verifi
             }
             <ActionButtons {...{ _id, userLiked, handleLike,setComments }} />
             <div className={Styles.postStats} >
-                <div className={Styles.postStatsLeft} >
+                <div className={Styles.postStatsLeft} onClick={()=>setShowLikeList(s=>!s)}>
                     <span>{likes}</span>
                     <span>Likes</span>
                 </div>
@@ -127,6 +129,7 @@ const ListPost = ({ _id, name, username, text, profilePic, image, edited, verifi
                 </div>
             </div>
             {showUpdateForm && <UpdatePost updateHandler={(text, image) => { updateHandler(_id, text, image) }} {...{ text, image, loading, setShowUpdateForm, error }} />}
+            {showLikeList && <PostLikeList {...{_id, setShowLikeList}}/> }
         </div>
     )
 }

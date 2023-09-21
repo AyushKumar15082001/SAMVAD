@@ -17,7 +17,7 @@ const ActionButtons = ({ userLiked, _id, handleLike, setComments}) => {
     const {handleLogout} = useContext(UserContext);
 
     const likeHandler = () => {
-        axios.post('http://localhost:8080/api/actions/like', { post_id: _id }, {
+        axios.post('/api/actions/like', { post_id: _id }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
