@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .catch((err) => { console.log(err) })
 
 app.use(express.json({ limit: "50mb" }));
-app.use(express.static(path.resolve(__dirname, '/build')));
+app.use(express.static(path.resolve(__dirname, '../build')));
 
 // app.use(cors());
 app.use('/api/posts', auth, postRouter);
@@ -37,8 +37,7 @@ app.get('/api/checkToken', auth, (req, res) => {
 });
 
 app.get('/*', (req, res)=> {
-    // res.sendFile(path.join(__dirname, process.env.PUBLIC_DIR, 'index.html'));
-    res.sendFile(path.resolve(__dirname, '/build/index.html'));
+    res.sendFile(path.join(__dirname, process.env.PUBLIC_DIR, 'index.html'));
 });
 
 app.listen(port, () => {
