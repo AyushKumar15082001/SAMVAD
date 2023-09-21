@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const postRouter = express.Router();
 
-const { getPosts, createPost, updatePost, deletePost } = require(path.join(__dirname, '..', 'Controllers', 'posts'));
+const { getPosts, createPost, updatePost, deletePost } = require(path.resolve(__dirname, '..', 'Controllers', 'posts'));
 
 postRouter
 .get('/', getPosts)

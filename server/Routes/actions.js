@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const actionRouter = express.Router();
 
-const { postLike, getPostLikes, getComments, postComment, updateComment, deleteComment } = require(path.join(__dirname, '..', 'Controllers', 'actions'));
+const { postLike, getPostLikes, getComments, postComment, updateComment, deleteComment } = require(path.resolve(__dirname, '..', 'Controllers', 'actions'));
 
 actionRouter
 .get('/like/:id', getPostLikes)

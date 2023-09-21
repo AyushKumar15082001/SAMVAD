@@ -1,5 +1,5 @@
 const path = require('path');
-const { Like, Comment } = require(path.join(__dirname, '..', 'Models', 'actions'));
+const { Like, Comment } = require(path.resolve(__dirname, '..', 'Models', 'actions'));
 
 const mongoose = require('mongoose');
 const postLike = (req, res) => {
