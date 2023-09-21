@@ -6,7 +6,7 @@ const { postRouter } = require(path.resolve(__dirname, 'Routes', 'posts'));
 const { userRouter } = require(path.resolve(__dirname, 'Routes', 'users'));
 const { authRouter } = require(path.resolve(__dirname, 'Routes', 'auth'));
 const {actionRouter} = require(path.resolve(__dirname, 'Routes', 'actions'));
-const { auth } = require(path.resolve(__dirname, 'middlewares', 'auth'));
+const { auth } = require(path.resolve(__dirname, 'Middlewares', 'auth'));
 const dotenv = require('dotenv');
 dotenv.config();
 
