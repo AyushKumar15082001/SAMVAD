@@ -38,8 +38,7 @@ app.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
 
 app.get('/*', function (req, res) {
     // res.sendFile(path.join(__dirname, process.env.PUBLIC_DIR, 'index.html'));
-    // res.sendFile(path.join(__dirname, process.env.PUBLIC_DIR, 'index.html'));
-    res.send('this is a test');
+    res.sendFile(path.join(__dirname, process.env.PUBLIC_DIR, 'index.html'));
 });
 
 app.listen(port, () => {
