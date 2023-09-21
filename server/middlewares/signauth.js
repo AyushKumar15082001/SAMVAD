@@ -1,4 +1,7 @@
-const { User } = require('../Models/users');
+const path = require("path");
+
+// const { User } = require('../Models/users');
+const { User } = require(path.join(__dirname, '..', 'Models', 'users'));
 exports.signauth = (req, res, next) => {
     //validate password with regex
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/
