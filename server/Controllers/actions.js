@@ -1,4 +1,6 @@
-const { Like, Comment } = require('../Models/actions');
+const path = require('path');
+const { Like, Comment } = require(path.join(__dirname, '..', 'Models', 'actions'));
+
 const mongoose = require('mongoose');
 const postLike = (req, res) => {
     Like.findOneAndDelete({ user_id: req.body.user_id, post_id: req.body.post_id }).then((like) => {

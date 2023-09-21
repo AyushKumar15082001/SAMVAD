@@ -1,8 +1,9 @@
-const { Post } = require('../Models/posts');
-const { Like, Comment } = require('../Models/actions');
+const path = require('path')
+const { Post } = require(path.join(__dirname, '..', 'Models', 'posts'));
+const { Like, Comment } = require(path.join(__dirname, '..', 'Models', 'actions'));
 const mongoose = require('mongoose');
-const { uploadToCloudinary, deleteFromCloudinary } = require('../services/cloudinary');
-const { User } = require('../Models/users');
+const { uploadToCloudinary, deleteFromCloudinary } = require(path.join(__dirname, '..', 'services', 'cloudinary'));
+const { User } = require(path.join(__dirname, '..', 'Models', 'users'));
 
 const getPosts = async (req, res) => {
     try {

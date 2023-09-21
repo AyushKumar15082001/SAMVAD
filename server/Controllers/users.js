@@ -1,7 +1,8 @@
-const { User } = require('../Models/users');
-const { Post } = require('../Models/posts');
-const { Like, Comment } = require('../Models/actions');
-const { uploadToCloudinary, deleteFromCloudinary, deleteMultipleFromCloudinary } = require('../services/cloudinary')
+const path = require('path');
+const { User } = require(path.join(__dirname, '..', 'Models', 'users'));
+const { Post } = require(path.join(__dirname, '..', 'Models', 'posts'));
+const { Like, Comment } = require(path.join(__dirname, '..', 'Models', 'actions'));
+const { uploadToCloudinary, deleteFromCloudinary, deleteMultipleFromCloudinary } = require(path.join(__dirname, '..', 'services', 'cloudinary'));
 
 const getUser = async (req, res) => {
     try {

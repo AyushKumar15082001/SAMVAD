@@ -2,13 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 // const cors = require('cors');
-const { postRouter } = require('./Routes/posts');
-const { userRouter } = require('./Routes/users');
-const { authRouter } = require('./Routes/auth');
-// const { authRouter } = require(path.join(__dirname, 'Routes', 'auth'));
-const {actionRouter} = require('./Routes/actions');
-const { auth } = require('./middlewares/auth');
-// const { auth } = require(path.join(__dirname, 'middlewares', 'auth'));
+const { postRouter } = require(path.join(__dirname, 'Routes', 'posts'));
+const { userRouter } = require(path.join(__dirname, 'Routes', 'users'));
+const { authRouter } = require(path.join(__dirname, 'Routes', 'auth'));
+const {actionRouter} = require(path.join(__dirname, 'Routes', 'actions'));
+const { auth } = require(path.join(__dirname, 'middlewares', 'auth'));
 const dotenv = require('dotenv');
 dotenv.config();
 
