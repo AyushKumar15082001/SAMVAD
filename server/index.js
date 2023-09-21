@@ -35,6 +35,7 @@ app.use(express.static(path.resolve(__dirname, 'build')));
 //         res.sendStatus(401);
 //     }
 // });
+console.log(path.resolve(__dirname, 'build', 'index.html'))
 
 app.get('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
