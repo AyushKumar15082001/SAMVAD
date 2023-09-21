@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
+// const cors = require('cors');
 const { postRouter } = require('./Routes/posts');
 const { userRouter } = require('./Routes/users');
 const { authRouter } = require('./Routes/auth');
@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use(cors());
+// app.use(cors());
 app.use('/api/posts', auth, postRouter);
 app.use('/api/user', auth, userRouter);
 app.use('/api/auth', authRouter);
