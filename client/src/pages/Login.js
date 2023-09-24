@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    axios.post('/api/auth/login', { email: email.toLowerCase(), password }).then(res => {
+    axios.post('http://localhost:8080/api/auth/login', { email: email.toLowerCase(), password }).then(res => {
       localStorage.setItem('token', res.data);
       navigate('/home');
     }).catch(err => {

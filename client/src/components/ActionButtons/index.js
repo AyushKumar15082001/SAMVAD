@@ -9,15 +9,15 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/userContext";
 // import { FaRetweet, FaRegCommentDots } from 'react-icons/fa';
 
-const ActionButtons = ({ userLiked, _id, handleLike, setComments}) => {
+const ActionButtons = ({ userLiked, _id, handleLike, setComments, showCommentForm, setShowCommentForm}) => {
     const [liked, setLiked] = useState(userLiked);
     const [retweeted, setRetweeted] = useState(false);
-    const [showCommentForm, setShowCommentForm] = useState(false);
+    // const [showCommentForm, setShowCommentForm] = useState(false);
 
     const {handleLogout} = useContext(UserContext);
 
     const likeHandler = () => {
-        axios.post('/api/actions/like', { post_id: _id }, {
+        axios.post('http://localhost:8080/api/actions/like', { post_id: _id }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

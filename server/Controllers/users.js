@@ -14,6 +14,20 @@ const getUser = async (req, res) => {
     }
 }
 
+const getUserByUsername = async (req, res) => {
+    User.findOne({username: req.params.username}).then(user => {
+        if(user) {
+            const { password, _id, ...rest } = user._doc;
+            res.send(rest);
+        }
+        else {
+            throw new Error("User not found")
+        }
+    }).catch(err => {
+        res.status(400).send(err.message)
+    })
+}
+
 const updateUser = async (req, res) => {
     // //finding the user and updating the user
     User.findOne({ email: req.body.email }).then(async (user) => {
@@ -88,6 +102,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
     getUser,
+    getUserByUsername,
     updateUser,
     deleteUser
 };

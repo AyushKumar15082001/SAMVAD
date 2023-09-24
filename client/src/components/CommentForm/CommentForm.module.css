@@ -1,4 +1,4 @@
-.commentFormBack{
+.commentFormBack {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,8 @@
     justify-content: center;
     align-items: center;
 }
-.commentForm{
+
+.commentForm {
     background: #101b22dc;
     border-radius: 20px;
     padding: 0 20px;
@@ -18,32 +19,37 @@
     max-height: 80vh;
     overflow-y: auto;
 }
-.commentFormHeader{
+
+.commentFormHeader {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
     border-bottom: 1px solid #0081818c;
 }
-.commentFormHeader h2{
+
+.commentFormHeader h2 {
     color: #cadbec;
     font-size: 1.5rem;
     font-family: OpenSans;
     margin: 0;
 }
-.commentFormBody{
+
+.commentFormBody {
     display: flex;
     align-items: flex-start;
     width: 100%;
     margin-top: 40px;
 }
-.commentText{
+
+.commentText {
     width: inherit;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
-.commentText textarea{
+
+.commentText textarea {
     width: 95%;
     border: none;
     margin-left: 10px;
@@ -55,19 +61,23 @@
     overflow: hidden;
     resize: none;
 }
-.commentText textarea:focus{
+
+.commentText textarea:focus {
     outline: 0;
 }
-.commentBody textarea{
+
+.commentBody textarea {
     width: 500px;
 }
-.lengthCont{
+
+.lengthCont {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: flex-end;
 }
-.lengthCont span{
+
+.lengthCont span {
     color: #cadbec;
     font-size: 0.9rem;
     font-family: OpenSans;
@@ -75,13 +85,15 @@
     margin-left: 25px;
     font-weight: 500;
 }
-.buttons{
+
+.buttons {
     display: flex;
     align-items: center;
     height: 25px;
     padding-top: 25px;
 }
-.buttons button{
+
+.buttons button {
     background: transparent;
     transition: all 0.5s ease;
     color: rgb(0, 225, 255);
@@ -90,10 +102,11 @@
     font-size: 16px;
 }
 
-.buttons > button:hover{
+.buttons>button:hover {
     color: rgb(0, 241, 221);
     scale: 1.2;
 }
+
 .button {
     position: relative;
     overflow: hidden;
@@ -107,17 +120,23 @@
     display: flex;
     margin-left: 30px;
 }
-.button button{
+
+.button button {
     color: black;
     background: #00e1ff;
 }
-.button:hover button:not(:disabled), .button:not(:has(button:disabled)):hover{
+
+.button:hover button:not(:disabled),
+.button:not(:has(button:disabled)):hover {
     color: #000;
     background: #00f1dd;
 }
-.button button:disabled, .button:has(button:disabled){
-    cursor:not-allowed;
+
+.button button:disabled,
+.button:has(button:disabled) {
+    cursor: not-allowed;
 }
+
 .button:after {
     content: '';
     position: absolute;
@@ -126,10 +145,11 @@
     top: -35%;
     left: 0%;
     z-index: -1;
-    background: linear-gradient(#15ff00,#ff8000, transparent);
+    background: linear-gradient(#15ff00, #ff8000, transparent);
     clip-path: polygon(50% 50%, 0% 0%, 0% 100%);
     animation: rotateDiv 5s linear infinite;
 }
+
 @keyframes rotateDiv {
     0% {
         transform: rotate(0deg);
@@ -139,18 +159,19 @@
         transform: rotate(360deg);
     }
 }
-.commentList{
+
+.commentList {
     margin-top: 20px;
     padding-bottom: 20px;
 }
 
-.default{
+.default {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     color: #cadbec;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-top: 20px;
 }
@@ -173,6 +194,7 @@
     flex-direction: column;
     margin-left: 15px;
 }
+
 .commentUserName {
     color: #49545e;
     margin: 0;
@@ -186,19 +208,26 @@
     display: flex;
     align-items: flex-start;
 }
-.commentHeader svg{
+
+.commentHeader a {
+    text-decoration: none;
+}
+
+.commentHeader svg {
     font-size: 20px;
     margin-left: 10px;
     color: #00f1dd;
 }
 
-.commentHeader h6, .commentHeader h4 {
+.commentHeader h6,
+.commentHeader h4 {
     color: #54cccd;
     font-size: 15px;
     font-weight: 500;
     margin: 0;
     margin-left: 10px;
 }
+
 .commentHeader h4 {
     color: #cadbec;
 }
@@ -225,7 +254,8 @@
 .commentRight span:hover {
     background: #2a3843;
 }
-.commentBody{
+
+.commentBody {
     display: flex;
     width: 100%;
 }
@@ -237,7 +267,8 @@
     margin-left: 10px;
 
 }
-.menu{
+
+.menu {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -251,7 +282,8 @@
     position: absolute;
     transform: translate(30px, -75px);
 }
-.menu button{
+
+.menu button {
     font-size: 1rem;
     font-family: OpenSans;
     color: #cadbec;
@@ -267,9 +299,11 @@
     border: none;
     transition: 0.3s;
 }
-#menuWarn{
+
+#menuWarn {
     color: red;
 }
-.menu button:hover{
+
+.menu button:hover {
     scale: 1.1;
 }

@@ -40,6 +40,12 @@
 }
 .postHeaderLeft {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.leftCont{
+    display: flex;
+    margin-right: 40px;
 }
 .userDetail {
     display: flex;
@@ -47,6 +53,9 @@
     align-items: baseline;
     flex-direction: column;
     margin-left: 15px;
+}
+.userDetail a{
+    text-decoration: none;
 }
 .postTopHeaderInfo {
     display: flex;
@@ -84,13 +93,37 @@
     margin: 0;
     margin-left: 10px;
 }
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.btn button{
+    background: #3f9595;
+    /* background-color: #54cccd; */
+    color: #000;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn button:hover{
+    background: #54cccd;
+    color: #000;
+}
+
 .default{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     color: #cadbec;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-top: 20px;
+    padding: 0 50px;
 }

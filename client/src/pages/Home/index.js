@@ -12,7 +12,7 @@ const Home = () => {
 
   //get all posts
   useEffect(() => {
-    axios.get('/api/posts', {
+    axios.get('http://localhost:8080/api/posts', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

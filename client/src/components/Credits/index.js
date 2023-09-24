@@ -5,7 +5,7 @@ const Credits = () => {
     return (
         <div className={Styles.credits}>
             <span>Designed  & Developed with <div className={Styles.heart}>❤️</div> by </span>
-            <a rel="noreferrer" target="blank" href="https://www.linkedin.com/in/ayushkumar1508/">{name}</a> 
+            <a rel="noreferrer" target="blank" href="https://ayush15.netlify.app">{name}</a> 
         </div>
     )
 }

@@ -3,7 +3,9 @@ import axios from 'axios';
 import Styles from './ProfileCard.module.css';
 import { BiPencil } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
-const ProfileCard = ({ user, handleLogout, setUser }) => {
+
+const ProfileCard = ({name, username, bio, profilePic, bannerPic, handleLogout, setUser, currentOwner}) => {
+    if (!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
     const [userInputs, setUserInputs] = useState({
         name: "",
         username: "",
@@ -19,7 +21,7 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
         e.preventDefault();
         setLoading(true);
         setError("");
-        axios.patch('/api/user', { ...userInputs }, {
+        axios.patch('http://localhost:8080/api/user', { ...userInputs }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -76,10 +78,10 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
         <>
             <div className={Styles.cont}>
                 <div className={Styles.banner}>
-                    <img src={userInputs.bannerPic ? userInputs.bannerPic : user.bannerPic} alt="banner" />
-                    <label htmlFor='banner' className={Styles.edit1}>
+                    <img src={userInputs.bannerPic ? userInputs.bannerPic : bannerPic} alt="banner" />
+                    {currentOwner && <label htmlFor='banner' className={Styles.edit1}>
                         <BiPencil />
-                    </label>
+                    </label>}
                     <input type="file" name="banner" id='banner' className={Styles.imgInput} accept="image/*" onChange={handleChange} />
                     {userInputs.bannerPic && <AiOutlineClose className={Styles.removeImg1} onClick={() => handleReset('bannerPic')} />}
                 </div>
@@ -89,25 +91,25 @@ const ProfileCard = ({ user, handleLogout, setUser }) => {
                         <h4>Followers</h4>
                     </div>
                     <div className={Styles.profileImage}>
-                        <img src={userInputs.profilePic ? userInputs.profilePic : user.profilePic} alt="profile" />
+                        <img src={userInputs.profilePic ? userInputs.profilePic : profilePic} alt="profile" />
                     </div>
                     <div className={Styles.followingCount}>
                         <h3>{0}</h3>
                         <h4>Following</h4>
                     </div>
-                    <label htmlFor='profile' className={Styles.edit2}>
+                    {currentOwner && <label htmlFor='profile' className={Styles.edit2}>
                         <BiPencil />
-                    </label>
+                    </label>}
                     <input type="file" name="profile" id='profile' className={Styles.imgInput} accept="image/*" onChange={handleChange} />
                     {userInputs.profilePic && <AiOutlineClose className={Styles.removeImg2} onClick={() => handleReset('profilePic')} />}
                 </div>
                 <div className={Styles.profileInfo}>
-                    <BiPencil className={Styles.edit3} onClick={() => setTextForm(t => !t)} />
-                    <h3>{userInputs.name ? userInputs.name : user.name}</h3>
-                    <h4>{`@${userInputs.username ? userInputs.username : user.username}`}</h4>
+                    {currentOwner && <BiPencil className={Styles.edit3} onClick={() => setTextForm(t => !t)} />}
+                    <h3>{userInputs.name ? userInputs.name : name}</h3>
+                    <h4>{`@${userInputs.username ? userInputs.username : username}`}</h4>
                 </div>
                 <div className={Styles.bio}>
-                    {userInputs.bio ? userInputs.bio : user.bio}
+                    {userInputs.bio ? userInputs.bio : bio}
                 </div>
                 {!isObjectEmpty(userInputs) && <div className={Styles.buttons}>
                     <div className={Styles.button} >

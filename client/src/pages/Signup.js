@@ -23,7 +23,7 @@ const Signup = () => {
         setName(name => name.trim());
         setUsername(username => username.trim());
         setEmail(email => email.trim());
-        axios.post('/api/auth/signup', { name, username, email, password }).then(res => {
+        axios.post('http://localhost:8080/api/auth/signup', { name, username, email, password }).then(res => {
             navigate('/');
             console.log(res.data);
         }).catch(err => {

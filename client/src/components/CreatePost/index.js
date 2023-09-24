@@ -20,7 +20,7 @@ const CreatePost = ({ setTweets }) => {
     const submitHandler = (e) => {
         e.preventDefault();
         setLoading(true);
-        axios.post('/api/posts', { text, image: base64 }, {
+        axios.post('http://localhost:8080/api/posts', { text, image: base64 }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -109,7 +109,7 @@ const CreatePost = ({ setTweets }) => {
                 {text && <div className={Styles.submitButtons}>
                     <button type="reset" onClick={() => setText('')}>Cancel</button>
                     <div className={Styles.button} style={loading ? { zIndex: 1 } : {}}>
-                        <button type='submit' disabled={loading} onClick={submitHandler}>Comment</button>
+                        <button type='submit' disabled={loading} onClick={submitHandler}>Post</button>
                     </div>
                 </div>}
             </div>

@@ -4,13 +4,14 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { MdVerified } from 'react-icons/md';
 import moment from 'moment';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const PostLikeList = ({ _id, setShowLikeList }) => {
     const [likeList, setLikeList] = useState([]);
     const { handleLogout } = useContext(UserContext);
 
     useEffect(() => {
-        axios.get(`/api/actions/like/${_id}`,
+        axios.get(`http://localhost:8080/api/actions/like/${_id}`,
             {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -52,32 +53,37 @@ const PostLikeList = ({ _id, setShowLikeList }) => {
                     <h2>Liked By</h2>
                 </div>
                 <div className={Styles.LikeList}>
-                    {likeList.length > 0 ? 
-                    likeList.map((like) =>{
-                        return <List key={like._id} {...{...like}}/>
-                    })
-                     : <h2 className={Styles.default}>No likes yet...</h2>}
+                    {likeList.length > 0 ?
+                        likeList.map((like) => {
+                            return <List key={like._id} {...{ ...like }} />
+                        })
+                        : <h2 className={Styles.default}>No likes yet...</h2>}
                 </div>
             </div>
         </div>
     )
 }
 
-const List = ({profilePic, username, verified, name, date}) => {
+const List = ({ profilePic, username, verified, name, date }) => {
     if (!profilePic) profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`;
     return (
         <div className={Styles.postHeader}>
             <div className={Styles.postHeaderLeft}>
-                <img src={profilePic} alt="profile" />
-                <div className={Styles.userDetail}>
-                    <div className={Styles.postTopHeaderInfo}>
-                        <h5 className={Styles.postUserName}>{"@" + username}</h5>
-                        {verified && <MdVerified />}
+                <div className={Styles.leftCont}>
+                    <Link to={`/profile/${username}`}><img src={profilePic} alt="profile" /></Link>
+                    <div className={Styles.userDetail}>
+                        <div className={Styles.postTopHeaderInfo}>
+                            <Link to={`/profile/${username}`}><h5 className={Styles.postUserName}>{"@" + username}</h5></Link>
+                            {verified && <MdVerified />}
+                        </div>
+                        <div className={Styles.postHeaderInfo}>
+                            <Link to={`/profile/${username}`}><h2>{name}</h2></Link>
+                            <h5>• {moment(date).fromNow()}</h5>
+                        </div>
                     </div>
-                    <div className={Styles.postHeaderInfo}>
-                        <h2>{name}</h2>
-                        <h5>• {moment(date).fromNow()}</h5>
-                    </div>
+                </div>
+                <div className={Styles.btn}>
+                    <button>Follow</button>
                 </div>
             </div>
         </div>

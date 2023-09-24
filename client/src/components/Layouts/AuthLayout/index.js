@@ -11,7 +11,7 @@ const AuthLayout = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        localStorage.getItem('token') && axios.get('/api/checkToken', {
+        localStorage.getItem('token') && axios.get('http://localhost:8080/api/checkToken', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

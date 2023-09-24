@@ -20,6 +20,9 @@
 .postHeaderLeft {
     display: flex;
 }
+.postHeaderLeft a{
+    text-decoration: none;
+}
 
 .userDetail {
     display: flex;
@@ -34,6 +37,10 @@
     height: 50px;
     border-radius: 35%;
     object-fit: cover;
+    transition: all 0.3s ease;
+}
+.postHeaderLeft img:hover{
+    scale: 1.1;
 }
 
 .postUserName {
@@ -170,6 +177,7 @@
 .postStatsLeft, .postStatsRight {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .postStatsLeft span, .postStatsRight span {
     display: flex;
